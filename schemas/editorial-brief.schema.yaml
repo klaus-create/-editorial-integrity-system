@@ -1,0 +1,39 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$title: Editorial Brief
+$type: object
+required: [objective, central_thesis, intended_reader_effect, output_requirements]
+properties:
+  objective: {type: string}
+  central_thesis: {type: string}
+  argument_sequence:
+    type: array
+    items: {type: string}
+  required_claims:
+    type: array
+    items: {type: string}
+  permitted_inferences:
+    type: array
+    items: {type: string}
+  evidence_requirements:
+    type: array
+    items: {type: string}
+  intended_reader_effect: {type: string}
+  voice_profile: {type: string}
+  register_profile: {type: string}
+  protected_characteristics:
+    type: array
+    items: {type: string}
+  protected_language:
+    type: array
+    items: {type: string}
+  prohibited_inventions:
+    type: array
+    items: {type: string}
+  unresolved_questions:
+    type: array
+    items: {type: string}
+  output_requirements:
+    type: object
+  review_requirements:
+    type: array
+    items: {type: string}
