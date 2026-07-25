@@ -1,0 +1,56 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$title: Voice Profile
+$type: object
+required: [profile_id, author, enduring_characteristics, rhetorical_behaviours, protected_characteristics]
+properties:
+  profile_id: {type: string}
+  author: {type: string}
+  profile_version: {type: string}
+  confidence: {type: number, minimum: 0, maximum: 1}
+  evidence_samples:
+    type: array
+    items: {type: string}
+  enduring_characteristics:
+    type: object
+    properties:
+      intellectual_posture: {type: string}
+      relationship_to_reader: {type: string}
+      directness: {type: string}
+      certainty: {type: string}
+      abstraction_level: {type: string}
+      humour: {type: string}
+      emotional_distance: {type: string}
+      treatment_of_complexity: {type: string}
+      treatment_of_uncertainty: {type: string}
+  rhetorical_behaviours:
+    type: object
+    properties:
+      sentence_length_distribution: {type: string}
+      clause_structure: {type: string}
+      paragraph_movement: {type: string}
+      transition_style: {type: string}
+      example_usage: {type: string}
+      metaphor_usage: {type: string}
+      qualification: {type: string}
+      repetition: {type: string}
+      rhetorical_questions: {type: string}
+      opening_behaviour: {type: string}
+      ending_behaviour: {type: string}
+  lexical_behaviours: {type: object}
+  punctuation_behaviours: {type: object}
+  protected_characteristics:
+    type: array
+    items:
+      type: object
+      required: [characteristic, preservation_strength]
+      properties:
+        characteristic: {type: string}
+        evidence: {type: string}
+        preservation_strength:
+          enum: [low, medium, high, absolute]
+  undesirable_habits:
+    type: array
+    items: {type: string}
+  uncertain_characteristics:
+    type: array
+    items: {type: string}
