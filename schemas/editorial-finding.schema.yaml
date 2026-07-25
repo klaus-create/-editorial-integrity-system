@@ -1,0 +1,20 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$title: Editorial Finding
+$type: object
+required: [finding_id, location, category, severity, confidence, observed_pattern, recommendation]
+properties:
+  finding_id: {type: string}
+  location: {type: string}
+  category:
+    enum: [linguistic, rhetorical, structural, epistemic, conversational_residue, formatting_residue, voice_erasure_risk]
+  severity:
+    enum: [P0, P1, P2, P3]
+  confidence: {type: number, minimum: 0, maximum: 1}
+  observed_pattern: {type: string}
+  contextual_assessment: {type: string}
+  consequence: {type: string}
+  protected_characteristics_considered:
+    type: array
+    items: {type: string}
+  recommendation: {type: string}
+  author_decision_required: {type: boolean}
