@@ -1,51 +1,80 @@
 #!/usr/bin/env python3
+"""Validate a project editorial manifest against the canonical JSON Schema."""
+
+from __future__ import annotations
+
 import sys
 from pathlib import Path
-import yaml
 
-REQUIRED = {
-    'project_name': str,
-    'editorial_system_version': (str, int, float),
-    'authorship_model': str,
-    'required_skills': list,
-    'factual_verification': str,
-}
-ALLOWED_AUTHORSHIP = {'personal','executive_assisted','institutional','collaborative','brand','literary'}
-ALLOWED_VERIFICATION = {'none','external_claims','high_risk_claims','all_material_claims'}
+import yaml
+from jsonschema import Draft202012Validator
+
+SCHEMA_PATH = (
+    Path(__file__).resolve().parents[1]
+    / "skills"
+    / "editorial-integrity-router"
+    / "references"
+    / "project-editorial-manifest.schema.yaml"
+)
 
 
 def fail(message: str) -> None:
-    print(f'INVALID: {message}', file=sys.stderr)
+    print(f"INVALID: {message}", file=sys.stderr)
     raise SystemExit(1)
+
+
+def load_yaml(path: Path) -> object:
+    try:
+        return yaml.safe_load(path.read_text(encoding="utf-8"))
+    except Exception as exc:
+        fail(f"cannot parse YAML in {path}: {exc}")
+
+
+def format_path(parts: list[object]) -> str:
+    if not parts:
+        return "<root>"
+    return ".".join(str(part) for part in parts)
 
 
 def main() -> None:
     if len(sys.argv) != 2:
-        fail('usage: validate_manifest.py <manifest.yaml>')
-    path = Path(sys.argv[1])
-    if not path.exists():
-        fail(f'file not found: {path}')
-    try:
-        data = yaml.safe_load(path.read_text(encoding='utf-8'))
-    except Exception as exc:
-        fail(f'cannot parse YAML: {exc}')
-    if not isinstance(data, dict):
-        fail('manifest root must be a mapping')
-    manifest = data.get('project_editorial_manifest', data)
-    if not isinstance(manifest, dict):
-        fail('project_editorial_manifest must be a mapping')
-    for key, expected in REQUIRED.items():
-        if key not in manifest:
-            fail(f'missing required field: {key}')
-        if not isinstance(manifest[key], expected):
-            fail(f'{key} has invalid type')
-    if manifest['authorship_model'] not in ALLOWED_AUTHORSHIP:
-        fail('authorship_model is not recognised')
-    if manifest['factual_verification'] not in ALLOWED_VERIFICATION:
-        fail('factual_verification is not recognised')
-    if not manifest['required_skills']:
-        fail('required_skills must not be empty')
-    print(f"VALID: {manifest['project_name']} ({manifest['editorial_system_version']})")
+        fail("usage: validate_manifest.py <manifest.yaml>")
 
-if __name__ == '__main__':
+    manifest_path = Path(sys.argv[1]).resolve()
+    if not manifest_path.is_file():
+        fail(f"file not found: {manifest_path}")
+    if not SCHEMA_PATH.is_file():
+        fail(f"canonical schema not found: {SCHEMA_PATH}")
+
+    manifest = load_yaml(manifest_path)
+    schema = load_yaml(SCHEMA_PATH)
+
+    if not isinstance(manifest, dict):
+        fail("manifest root must be a mapping")
+    if "project_editorial_manifest" in manifest:
+        fail(
+            "legacy project_editorial_manifest wrapper detected; migrate to the "
+            "canonical manifest_version/project/authorship/defaults/governance structure"
+        )
+    if not isinstance(schema, dict):
+        fail("canonical schema root must be a mapping")
+
+    validator = Draft202012Validator(schema)
+    errors = sorted(validator.iter_errors(manifest), key=lambda error: list(error.path))
+    if errors:
+        for error in errors:
+            print(
+                f"INVALID: {format_path(list(error.path))}: {error.message}",
+                file=sys.stderr,
+            )
+        raise SystemExit(1)
+
+    project = manifest.get("project", {})
+    print(
+        f"VALID: {project.get('name', 'Unnamed project')} "
+        f"(manifest {manifest.get('manifest_version')})"
+    )
+
+
+if __name__ == "__main__":
     main()
