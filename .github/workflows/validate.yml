@@ -12,13 +12,26 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: pip install pyyaml
+      - run: pip install pyyaml jsonschema
       - name: Check skill structure
         run: |
           set -e
           for skill in skills/*; do
             test -f "$skill/SKILL.md"
             test -f "$skill/agents/openai.yaml"
+          done
+      - name: Check Router references
+        run: |
+          set -e
+          for file in \
+            project-editorial-manifest.schema.yaml \
+            project-editorial-manifest.template.yaml \
+            manifest-guide.md \
+            default-manifest.md \
+            workflow-levels.md \
+            form-routing.md \
+            examples.md; do
+            test -f "skills/editorial-integrity-router/references/$file"
           done
       - name: Validate project manifests
         run: |
