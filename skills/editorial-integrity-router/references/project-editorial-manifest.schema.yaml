@@ -1,0 +1,166 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+title: Project Editorial Manifest
+version: "1.0"
+type: object
+required:
+  - manifest_version
+  - project
+  - authorship
+  - defaults
+  - governance
+properties:
+  manifest_version:
+    type: string
+  project:
+    type: object
+    required: [name, project_type]
+    properties:
+      name: {type: string}
+      project_id: {type: string}
+      project_type:
+        type: string
+        enum: [personal, brand, business, client, institutional, book, research, mixed]
+      description: {type: string}
+      status: {type: string}
+      owner: {type: string}
+  editorial_system:
+    type: object
+    properties:
+      required_version: {type: string}
+      compatibility: {type: string}
+      canonical_repository: {type: string}
+  authorship:
+    type: object
+    required: [model]
+    properties:
+      model:
+        type: string
+        enum: [personal, executive_assisted, institutional, collaborative, brand, literary, mixed]
+      accountable_author: {type: string}
+      accountable_editor: {type: string}
+      contributors:
+        type: array
+        items: {type: string}
+      disclosure_policy:
+        type: string
+        enum: [not_required, situational, required, regulated]
+  defaults:
+    type: object
+    required: [language, locale, voice_profile, consequence_level]
+    properties:
+      language: {type: string}
+      locale: {type: string}
+      spelling: {type: string}
+      voice_profile: {type: string}
+      register_profile: {type: string}
+      audience_profiles:
+        type: array
+        items: {type: string}
+      consequence_level:
+        type: string
+        enum: [low, moderate, high, very_high, extended]
+      workflow_level:
+        type: string
+        enum: [lightweight, standard, full, extended, auto]
+  voice:
+    type: object
+    properties:
+      desired_characteristics:
+        type: array
+        items: {type: string}
+      protected_characteristics:
+        type: array
+        items: {type: string}
+      discouraged_characteristics:
+        type: array
+        items: {type: string}
+      context_dependent_characteristics:
+        type: array
+        items: {type: string}
+      prohibited_imitation:
+        type: array
+        items: {type: string}
+  form_routing:
+    type: object
+    additionalProperties:
+      type: object
+      properties:
+        register_profile: {type: string}
+        workflow_level:
+          type: string
+          enum: [lightweight, standard, full, extended, auto]
+        required_modules:
+          type: array
+          items: {type: string}
+        output_requirements:
+          type: array
+          items: {type: string}
+  factual_integrity:
+    type: object
+    properties:
+      verification_default:
+        type: string
+        enum: [none, material_claims, all_external_claims, full]
+      current_claims_require_web: {type: boolean}
+      source_priority:
+        type: array
+        items: {type: string}
+      prohibited_claim_behaviours:
+        type: array
+        items: {type: string}
+      uncertainty_treatment:
+        type: string
+  terminology:
+    type: object
+    properties:
+      preferred:
+        type: array
+        items: {type: string}
+      prohibited:
+        type: array
+        items: {type: string}
+      definitions_file: {type: string}
+  required_skills:
+    type: array
+    items: {type: string}
+  optional_skills:
+    type: array
+    items: {type: string}
+  source_locations:
+    type: array
+    items:
+      type: object
+      required: [type, location]
+      properties:
+        type: {type: string}
+        location: {type: string}
+        purpose: {type: string}
+        authority: {type: string}
+  governance:
+    type: object
+    required: [final_approval, retention, privacy]
+    properties:
+      final_approval:
+        type: string
+        enum: [author, editor, project_owner, legal, named_approver, not_required]
+      named_approver: {type: string}
+      change_log_required: {type: boolean}
+      claim_traceability_required: {type: boolean}
+      retention: {type: string}
+      privacy: {type: string}
+      unresolved_issue_policy:
+        type: string
+        enum: [surface, block_release, human_decision, log_only]
+  project_exceptions:
+    type: array
+    items:
+      type: object
+      required: [rule, rationale]
+      properties:
+        rule: {type: string}
+        rationale: {type: string}
+        applies_to:
+          type: array
+          items: {type: string}
+        expires: {type: string}
+additionalProperties: true
