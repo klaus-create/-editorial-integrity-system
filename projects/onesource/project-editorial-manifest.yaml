@@ -1,0 +1,26 @@
+project_editorial_manifest:
+  project_name: OneSource
+  editorial_system_version: 0.1
+  authorship_model: collaborative
+  default_voice_profile: onesource-product-strategy
+  active_registers: [product, technical, investor, strategic]
+  default_audiences: [founders, product-team, investors, clients]
+  required_skills:
+    - editorial-integrity-router
+    - authorship-capture
+    - editorial-brief-compiler
+    - source-grounded-drafter
+    - argument-structure-reviewer
+    - anti-slop-auditor
+    - voice-preserving-editor
+    - factual-verifier
+    - final-editorial-gate
+  factual_verification: all_material_claims
+  protected_characteristics:
+    - deterministic clarity
+    - distinction between current capability and roadmap
+    - precise metric and scoring terminology
+    - no unsupported AI claims
+  project_exceptions:
+    - never present planned functionality as live
+    - preserve explicit uncertainty around scoring and forecasting
