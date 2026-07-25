@@ -1,0 +1,6 @@
+version: '1.0'
+verification_record:
+  assignment_id: string
+  claims: []
+  overall_release_risk: low|moderate|high|blocked
+  unresolved_risks: []

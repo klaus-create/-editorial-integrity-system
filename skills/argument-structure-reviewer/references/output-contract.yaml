@@ -1,0 +1,6 @@
+version: '1.0'
+argument_review:
+  governing_thesis: {}
+  argument_map: {}
+  findings: []
+  rewrite_authorised: false

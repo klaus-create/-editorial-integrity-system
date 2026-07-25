@@ -1,0 +1,8 @@
+version: '1.0'
+edit_output:
+  editing_mode: mechanical|light|substantive|transformative
+  revised_text: string_or_structured_content
+  material_changes: []
+  preserved_characteristics: []
+  unresolved_issues: []
+  semantic_drift_detected: false

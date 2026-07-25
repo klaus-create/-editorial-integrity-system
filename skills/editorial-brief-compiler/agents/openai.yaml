@@ -1,4 +1,6 @@
 interface:
-  display_name: "Editorial Brief Compiler"
-  short_description: "Turn project context and source material into a governed writing brief"
-  brand_color: "#1F2937"
+  display_name: Editorial Brief Compiler
+  short_description: 'Produce the smallest complete execution contract that states
+    what the piece must achieve, '
+  default_prompt: Use Editorial Brief Compiler and apply its specialist method and
+    quality gate.

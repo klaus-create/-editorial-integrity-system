@@ -1,4 +1,6 @@
 interface:
-  display_name: "Voice-Preserving Editor"
-  short_description: "Improve writing with minimal edits while preserving authorship"
-  brand_color: "#1F2937"
+  display_name: Voice Preserving Editor
+  short_description: Repair authorised problems with the smallest sufficient intervention
+    and make material cha
+  default_prompt: Use Voice Preserving Editor and apply its specialist method and
+    quality gate.

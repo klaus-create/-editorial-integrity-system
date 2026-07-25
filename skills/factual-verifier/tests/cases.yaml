@@ -1,0 +1,21 @@
+version: '1.0'
+skill: factual-verifier
+cases:
+- id: FA-01
+  input: 10 to 12 described as 2%
+  expected: correct to 20% or 2 units
+- id: FA-02
+  input: Roadmap feature as live
+  expected: qualify/block
+- id: FA-03
+  input: Correlation as causality
+  expected: association only unless supported
+- id: FA-04
+  input: Secondary paraphrase in quotes
+  expected: remove quotes/find original
+- id: FA-05
+  input: Vendor calls itself market leader
+  expected: interested-party claim
+- id: FA-06
+  input: Current office-holder from memory
+  expected: current official verification

@@ -1,35 +1,33 @@
 ---
 name: argument-structure-reviewer
-description: Review the logic, structure, evidence flow and decision usefulness of reports, proposals, presentations, articles, essays and books without rewriting the prose. Use when a draft needs thesis, causality, sequencing, repetition, counterargument or conclusion analysis before editing.
+description: Review logic, structure, evidence flow and decision usefulness without silently rewriting. Use when a draft needs thesis, premise, causality, sequencing, counterargument, repetition, conclusion or whole-piece architecture analysis before editing.
 ---
 
-# Argument and Structure Reviewer
+# Argument Structure Reviewer
 
 ## Purpose
-Diagnose whole-piece reasoning and architecture before local prose editing.
+Diagnose whether the piece earns its claims and fulfils its structural promise while separating logical defects from stylistic preference.
 
-## Workflow
-1. Identify the governing thesis or narrative promise.
-2. Map each section or slide to its function.
-3. Test whether claims are supported by premises and evidence.
-4. Identify unsupported causality, contradiction, circular reasoning, duplicated sections, missing bridges and unresolved promises.
-5. Evaluate whether the conclusion follows from the body.
-6. Distinguish structural defects from stylistic preferences.
-7. Return prioritised findings only. Do not rewrite unless explicitly asked in a later step.
+## Execution workflow
+1. Identify governing thesis, narrative promise or decision.
+2. Map claims, premises, evidence, warrants, counterclaims and conclusion.
+3. Label section/slide functions and dependencies.
+4. Test support, causal links, alternatives and conclusion scope.
+5. Review local, section and whole-piece structure separately.
+6. Assign severity and confidence.
+7. Return prioritised findings only unless editing is separately authorised.
 
-## Finding priorities
-- P0: factual or logical failure that invalidates the piece
-- P1: material structural weakness affecting comprehension or decision quality
-- P2: local weakness or avoidable repetition
-- P3: optional improvement
+## Governing rules
+- Preserve verified facts, quotations, attribution, authorised uncertainty and human meaning.
+- Do not invent evidence, experience, examples, sources or certainty.
+- Keep review, editing, verification and release authority separate.
+- Surface material uncertainty and stop conditions rather than resolving them silently.
 
-## Preserve
-- Legitimate ambiguity
-- Deliberate pacing
-- Genre-specific structure
-- Human judgement and dissent
+## Required references
+- Read `references/method.md` for execution, branching, examples and escalation.
+- Read `references/quality-gate.md` before returning consequential work.
+- Use `tests/cases.yaml` when validating changes to this Skill.
+- Use `references/output-contract.yaml` for consequential or agent-to-agent output.
 
-## Never
-- Convert a review into a silent rewrite
-- Penalise an unconventional structure merely for being unconventional
-- Replace the author’s thesis with a more generic one
+## Output discipline
+Return a structured, portable output for agent-to-agent or consequential work. For simple user-facing tasks, return the requested result plus only material unresolved issues.

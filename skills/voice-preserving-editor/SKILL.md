@@ -1,30 +1,34 @@
 ---
 name: voice-preserving-editor
-description: Apply minimal, justified edits to existing writing while preserving human meaning, factual boundaries, voice, rhythm, genre and protected stylistic characteristics. Use after an audit or when the user asks to improve, polish, shorten or rewrite text without flattening its authorship.
+description: Apply minimal, justified edits while preserving human meaning, factual boundaries, voice, rhythm, genre and protected stylistic characteristics. Use after review findings or when polishing, shortening, expanding or rewriting without flattening authorship.
 ---
 
-# Voice-Preserving Editor
+# Voice Preserving Editor
 
 ## Purpose
-Improve only what needs improvement. Prefer the smallest sufficient edit over regeneration.
+Repair authorised problems with the smallest sufficient intervention and make material changes traceable.
 
-## Workflow
-1. Establish the requested change and active voice, genre and project constraints.
-2. Preserve exact quotations, facts, protected phrases and authorised uncertainty.
-3. Review audit findings if available.
-4. For each material change, identify the problem and smallest sufficient correction.
-5. Apply local edits first. Rewrite paragraphs or sections only when local repair cannot solve the issue.
-6. Check semantic, factual and voice fidelity after editing.
-7. Return finished copy and, when useful, a concise change note or diff.
+## Execution workflow
+1. Confirm editing mode, authority and protected constraints.
+2. Establish preservation baseline.
+3. Classify each change on the edit ladder.
+4. Use the lowest intervention that solves the problem.
+5. Re-check facts, causality, certainty and emotional force.
+6. Compare revision against voice and original meaning.
+7. Escalate missing structure or evidence.
+8. Return copy plus material change notes when consequential.
 
-## Restricted changes
-Require strong justification before changing metaphor, repetition, fragments, long syntax, punctuation patterns, emotional distance, first-person stance or technical terminology.
+## Governing rules
+- Preserve verified facts, quotations, attribution, authorised uncertainty and human meaning.
+- Do not invent evidence, experience, examples, sources or certainty.
+- Keep review, editing, verification and release authority separate.
+- Surface material uncertainty and stop conditions rather than resolving them silently.
 
-## Never
-- Invent facts, experiences or examples
-- Optimise for detector scores
-- Replace distinctive language merely because it is uncommon
-- Convert literary or personal writing into generic business prose
+## Required references
+- Read `references/method.md` for execution, branching, examples and escalation.
+- Read `references/quality-gate.md` before returning consequential work.
+- Use `tests/cases.yaml` when validating changes to this Skill.
+- Use `references/output-contract.yaml` for consequential or agent-to-agent output.
 
-## Governing doctrine
-Diagnose broadly. Edit locally. Preserve intentionally.
+## Output discipline
+Return a structured, portable output for agent-to-agent or consequential work. For simple user-facing tasks, return the requested result plus only material unresolved issues.

@@ -1,0 +1,18 @@
+version: '1.0'
+skill: voice-preserving-editor
+cases:
+- id: VO-01
+  input: Generic phrase with specific source evidence
+  expected: local concrete replacement
+- id: VO-02
+  input: Deliberate fragment
+  expected: preserve unless harmful
+- id: VO-03
+  input: Shortening removes limitation
+  expected: restore evidence boundary
+- id: VO-04
+  input: May contribute -> caused
+  expected: flag causal drift
+- id: VO-05
+  input: Broken architecture
+  expected: escalate or level 5 only if authorised

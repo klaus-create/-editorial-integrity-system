@@ -1,0 +1,12 @@
+version: '1.0'
+authorship_source_pack:
+  assignment: {}
+  central_thesis:
+    text: string
+    status: authorised|inferred_for_confirmation|unresolved
+  source_inventory: []
+  substantive_items: []
+  protected_language: []
+  prohibited_inventions: []
+  unresolved_questions: []
+  sufficiency: sufficient|conditional|insufficient

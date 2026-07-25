@@ -1,4 +1,6 @@
 interface:
-  display_name: "Authorship Capture"
-  short_description: "Capture human meaning, evidence and constraints before drafting"
-  brand_color: "#1F2937"
+  display_name: Authorship Capture
+  short_description: Build an authorised source pack that distinguishes what the author
+    knows, believes, recall
+  default_prompt: Use Authorship Capture and apply its specialist method and quality
+    gate.

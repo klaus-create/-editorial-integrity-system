@@ -1,31 +1,33 @@
 ---
 name: authorship-capture
-description: Capture the human thesis, evidence, observations, experiences, uncertainties, protected language and prohibited inventions before substantial AI-assisted writing begins. Use for reports, proposals, presentations, articles, books and other consequential writing when source substance is incomplete, scattered or implicit.
+description: Capture the human thesis, evidence, observations, experience, uncertainty, protected language and prohibited inventions before substantial AI-assisted writing. Use when source material is incomplete, scattered, contradictory or implicit, especially for consequential reports, proposals, presentations, articles and books.
 ---
 
 # Authorship Capture
 
 ## Purpose
-Create an authorised source pack before drafting. Do not beautify, expand or invent substantive content.
+Build an authorised source pack that distinguishes what the author knows, believes, recalls, infers and still needs to resolve.
 
-## Workflow
-1. Identify the assignment, audience, purpose and intended reader effect.
-2. Extract the central thesis and supporting claims.
-3. Classify each substantive item as verified fact, supplied source, attributed view, author judgement, personal recollection, inference, contested, uncertain or unsupported.
-4. Capture examples, disagreements, uncertainties, protected phrases and facts that must not be invented.
-5. Surface material gaps. Do not silently fill them.
-6. Return a compact authorship source pack and claim registry.
+## Execution workflow
+1. Frame the assignment and accountable author.
+2. Inventory sources with owner, date, authority, sensitivity and permitted use.
+3. Elicit thesis, evidence, judgement, disagreement, uncertainty and reader effect.
+4. Atomise compound statements into testable claims.
+5. Classify epistemic and publication status.
+6. Preserve contradictions and identify decision owners.
+7. Test sufficiency and return source pack, claim seed and unresolved questions.
 
-## Preserve
-- Human meaning and judgement
-- Uncertainty and disagreement
-- Exact quotations and attribution duties
-- Protected wording
+## Governing rules
+- Preserve verified facts, quotations, attribution, authorised uncertainty and human meaning.
+- Do not invent evidence, experience, examples, sources or certainty.
+- Keep review, editing, verification and release authority separate.
+- Surface material uncertainty and stop conditions rather than resolving them silently.
 
-## Never
-- Invent experiences, evidence, statistics or examples
-- Convert uncertainty into certainty
-- Rewrite the final piece during capture
+## Required references
+- Read `references/method.md` for execution, branching, examples and escalation.
+- Read `references/quality-gate.md` before returning consequential work.
+- Use `tests/cases.yaml` when validating changes to this Skill.
+- Use `references/output-contract.yaml` for consequential or agent-to-agent output.
 
-## Output
-Use the schemas in `../../schemas/authorship-source-pack.schema.yaml` and `../../schemas/claim-registry.schema.yaml` when available.
+## Output discipline
+Return a structured, portable output for agent-to-agent or consequential work. For simple user-facing tasks, return the requested result plus only material unresolved issues.

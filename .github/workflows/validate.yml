@@ -13,13 +13,66 @@ jobs:
         with:
           python-version: '3.12'
       - run: pip install pyyaml jsonschema
-      - name: Check skill structure
+
+      - name: Check specialist Skill depth
         run: |
           set -e
           for skill in skills/*; do
             test -f "$skill/SKILL.md"
             test -f "$skill/agents/openai.yaml"
+            test -f "$skill/references/method.md"
+            test -f "$skill/references/quality-gate.md"
+            test -f "$skill/references/output-contract.yaml"
+            test -f "$skill/tests/cases.yaml"
           done
+
+      - name: Validate Skill metadata, contracts and cases
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import yaml
+
+          failures = []
+          for skill in sorted(Path('skills').iterdir()):
+              if not skill.is_dir():
+                  continue
+              name = skill.name
+              skill_text = (skill / 'SKILL.md').read_text(encoding='utf-8')
+              for required_reference in (
+                  'references/method.md',
+                  'references/quality-gate.md',
+                  'references/output-contract.yaml',
+                  'tests/cases.yaml',
+              ):
+                  if required_reference not in skill_text:
+                      failures.append(f'{name}: SKILL.md does not reference {required_reference}')
+
+              for relative in ('agents/openai.yaml', 'references/output-contract.yaml', 'tests/cases.yaml'):
+                  path = skill / relative
+                  try:
+                      data = yaml.safe_load(path.read_text(encoding='utf-8'))
+                  except Exception as exc:
+                      failures.append(f'{name}: invalid YAML in {relative}: {exc}')
+                      continue
+                  if not isinstance(data, dict) or not data:
+                      failures.append(f'{name}: {relative} must contain a non-empty mapping')
+
+              cases = yaml.safe_load((skill / 'tests/cases.yaml').read_text(encoding='utf-8'))
+              if not isinstance(cases.get('cases'), list) or len(cases['cases']) < 4:
+                  failures.append(f'{name}: tests/cases.yaml must define at least four calibrated cases')
+
+              method = (skill / 'references/method.md').read_text(encoding='utf-8').strip()
+              gate = (skill / 'references/quality-gate.md').read_text(encoding='utf-8').strip()
+              if len(method) < 500:
+                  failures.append(f'{name}: specialist method is too thin')
+              if len(gate) < 200:
+                  failures.append(f'{name}: quality gate is too thin')
+
+          if failures:
+              raise SystemExit('\n'.join(failures))
+          print('All Skills satisfy the repository capability-depth structure.')
+          PY
+
       - name: Check Router references
         run: |
           set -e
@@ -33,12 +86,14 @@ jobs:
             examples.md; do
             test -f "skills/editorial-integrity-router/references/$file"
           done
+
       - name: Validate project manifests
         run: |
           set -e
           for manifest in projects/*/project-editorial-manifest.yaml; do
             python scripts/validate_manifest.py "$manifest"
           done
+
       - name: Test packaging
         run: |
           set -e
