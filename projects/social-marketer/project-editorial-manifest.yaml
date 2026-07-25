@@ -1,0 +1,26 @@
+project_editorial_manifest:
+  project_name: Social Marketer
+  editorial_system_version: 0.1
+  authorship_model: institutional
+  default_voice_profile: social-marketer-core
+  active_registers: [educational, strategic, social-content]
+  default_audiences: [founders, marketers]
+  required_skills:
+    - editorial-integrity-router
+    - authorship-capture
+    - editorial-brief-compiler
+    - source-grounded-drafter
+    - argument-structure-reviewer
+    - anti-slop-auditor
+    - voice-preserving-editor
+    - factual-verifier
+    - final-editorial-gate
+  factual_verification: external_claims
+  protected_characteristics:
+    - accessible but intellectually serious
+    - practical and empowering
+    - human and technology adjacent
+    - commercially useful without hype
+  project_exceptions:
+    - avoid consultant abstraction without an actionable implication
+    - do not reduce sophisticated ideas to generic social media advice
