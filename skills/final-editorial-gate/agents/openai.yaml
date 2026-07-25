@@ -1,0 +1,4 @@
+interface:
+  display_name: "Final Editorial Gate"
+  short_description: "Check release readiness, integrity, voice and accountability"
+  brand_color: "#1F2937"
