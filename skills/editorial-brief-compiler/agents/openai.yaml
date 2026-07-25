@@ -1,0 +1,4 @@
+interface:
+  display_name: "Editorial Brief Compiler"
+  short_description: "Turn project context and source material into a governed writing brief"
+  brand_color: "#1F2937"
