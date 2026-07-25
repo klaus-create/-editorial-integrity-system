@@ -1,0 +1,4 @@
+interface:
+  display_name: "Voice-Preserving Editor"
+  short_description: "Improve writing with minimal edits while preserving authorship"
+  brand_color: "#1F2937"
