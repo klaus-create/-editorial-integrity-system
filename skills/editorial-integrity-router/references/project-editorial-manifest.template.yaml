@@ -1,0 +1,70 @@
+manifest_version: "1.0"
+
+project:
+  name: ""
+  project_id: ""
+  project_type: mixed
+  description: ""
+  status: active
+  owner: ""
+
+editorial_system:
+  required_version: "0.1"
+  compatibility: ""
+  canonical_repository: "https://github.com/klaus-create/-editorial-integrity-system"
+
+authorship:
+  model: mixed
+  accountable_author: ""
+  accountable_editor: ""
+  contributors: []
+  disclosure_policy: situational
+
+defaults:
+  language: en
+  locale: en-AU
+  spelling: Australian English
+  voice_profile: ""
+  register_profile: ""
+  audience_profiles: []
+  consequence_level: moderate
+  workflow_level: auto
+
+voice:
+  desired_characteristics: []
+  protected_characteristics: []
+  discouraged_characteristics: []
+  context_dependent_characteristics: []
+  prohibited_imitation: []
+
+form_routing: {}
+
+factual_integrity:
+  verification_default: material_claims
+  current_claims_require_web: true
+  source_priority: []
+  prohibited_claim_behaviours:
+    - inventing facts, quotations, examples, or experience
+    - presenting inference as verified fact
+  uncertainty_treatment: preserve and label
+
+terminology:
+  preferred: []
+  prohibited: []
+  definitions_file: ""
+
+required_skills:
+  - editorial-integrity-router
+optional_skills: []
+source_locations: []
+
+governance:
+  final_approval: author
+  named_approver: ""
+  change_log_required: false
+  claim_traceability_required: false
+  retention: project lifetime
+  privacy: private project workspace
+  unresolved_issue_policy: surface
+
+project_exceptions: []
