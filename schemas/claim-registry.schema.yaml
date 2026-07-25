@@ -1,0 +1,25 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$title: Claim Registry
+$type: object
+required: [claims]
+properties:
+  claims:
+    type: array
+    items:
+      type: object
+      required: [claim_id, claim_text, claim_class, source_status, confidence]
+      properties:
+        claim_id: {type: string}
+        claim_text: {type: string}
+        claim_class:
+          enum: [factual, numerical, causal, comparative, predictive, interpretive, normative, experiential, attributed, rhetorical]
+        source_status:
+          enum: [verified_fact, supplied_source, attributed_view, author_judgement, personal_recollection, inference, contested, uncertain, unsupported]
+        confidence: {type: number, minimum: 0, maximum: 1}
+        supporting_sources:
+          type: array
+          items: {type: string}
+        verification_required: {type: boolean, default: false}
+        publication_status:
+          enum: [approved, qualify, query, remove, unresolved]
+        final_location: {type: string}
