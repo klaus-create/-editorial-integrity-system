@@ -1,0 +1,4 @@
+interface:
+  display_name: "Authorship Capture"
+  short_description: "Capture human meaning, evidence and constraints before drafting"
+  brand_color: "#1F2937"
