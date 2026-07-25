@@ -1,26 +1,101 @@
-project_editorial_manifest:
-  project_name: Social Marketer
-  editorial_system_version: 0.1
-  authorship_model: institutional
-  default_voice_profile: social-marketer-core
-  active_registers: [educational, strategic, social-content]
-  default_audiences: [founders, marketers]
-  required_skills:
-    - editorial-integrity-router
-    - authorship-capture
-    - editorial-brief-compiler
-    - source-grounded-drafter
-    - argument-structure-reviewer
-    - anti-slop-auditor
-    - voice-preserving-editor
-    - factual-verifier
-    - final-editorial-gate
-  factual_verification: external_claims
-  protected_characteristics:
+manifest_version: "1.0"
+project:
+  name: Social Marketer
+  project_id: social-marketer
+  project_type: brand
+  description: Educational and commercial marketing resources for founders and marketers seeking practical, modern, high-impact capability.
+  status: active
+  owner: Klaus Germann
+editorial_system:
+  required_version: "0.1.1"
+  compatibility: foundation
+  canonical_repository: "https://github.com/klaus-create/-editorial-integrity-system"
+authorship:
+  model: institutional
+  accountable_author: Klaus Germann
+  accountable_editor: Klaus Germann
+  contributors: []
+  disclosure_policy: situational
+defaults:
+  language: en
+  locale: en-AU
+  spelling: Australian English
+  voice_profile: social-marketer-core
+  register_profile: educational-strategic
+  audience_profiles: [founders, marketers]
+  consequence_level: moderate
+  workflow_level: auto
+voice:
+  desired_characteristics:
     - accessible but intellectually serious
     - practical and empowering
-    - human and technology adjacent
     - commercially useful without hype
-  project_exceptions:
-    - avoid consultant abstraction without an actionable implication
-    - do not reduce sophisticated ideas to generic social media advice
+    - human and technology adjacent
+  protected_characteristics:
+    - clear implications and executable guidance
+    - sophisticated ideas expressed without consultant abstraction
+  discouraged_characteristics:
+    - generic social media advice
+    - inflated AI claims
+    - formulaic hooks without substance
+  context_dependent_characteristics:
+    - conversational phrasing
+    - rhetorical questions
+  prohibited_imitation: []
+form_routing:
+  email:
+    register_profile: direct-professional
+    workflow_level: standard
+    required_modules: [editorial-integrity-router, voice-preserving-editor, final-editorial-gate]
+    output_requirements: [clear action, preserve relationship context]
+  social_post:
+    register_profile: social-content
+    workflow_level: standard
+    required_modules: [editorial-integrity-router, editorial-brief-compiler, anti-slop-auditor, voice-preserving-editor, final-editorial-gate]
+    output_requirements: [substantive hook, practical value, no generic call to action]
+  guide:
+    register_profile: educational-strategic
+    workflow_level: full
+    required_modules: [editorial-integrity-router, authorship-capture, editorial-brief-compiler, source-grounded-drafter, argument-structure-reviewer, anti-slop-auditor, voice-preserving-editor, factual-verifier, final-editorial-gate]
+    output_requirements: [clear learning outcome, executable next steps, source-backed external claims]
+factual_integrity:
+  verification_default: all_external_claims
+  current_claims_require_web: true
+  source_priority: [primary sources, official documentation, peer-reviewed research, authoritative industry sources]
+  prohibited_claim_behaviours:
+    - inventing facts, quotations, examples, or experience
+    - presenting inference as verified fact
+    - making unsupported claims about AI capability or performance
+  uncertainty_treatment: preserve and label
+terminology:
+  preferred: [Reach, Engage, Grow, marketing hourglass]
+  prohibited: []
+  definitions_file: ""
+required_skills:
+  - editorial-integrity-router
+  - authorship-capture
+  - voice-profile-builder
+  - editorial-brief-compiler
+  - source-grounded-drafter
+  - argument-structure-reviewer
+  - anti-slop-auditor
+  - voice-preserving-editor
+  - factual-verifier
+  - final-editorial-gate
+optional_skills: []
+source_locations: []
+governance:
+  final_approval: project_owner
+  named_approver: Klaus Germann
+  change_log_required: false
+  claim_traceability_required: true
+  retention: project lifetime
+  privacy: private project workspace
+  unresolved_issue_policy: surface
+project_exceptions:
+  - rule: Avoid consultant abstraction without an actionable implication.
+    rationale: The project exists to empower understanding and execution.
+    applies_to: [all]
+  - rule: Do not reduce sophisticated ideas to generic social media advice.
+    rationale: The value proposition depends on depth made usable, not oversimplification.
+    applies_to: [guide, social_post, report]
