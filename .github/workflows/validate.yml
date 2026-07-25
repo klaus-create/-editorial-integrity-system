@@ -1,0 +1,37 @@
+name: Validate editorial integrity system
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install pyyaml
+      - name: Check skill structure
+        run: |
+          set -e
+          for skill in skills/*; do
+            test -f "$skill/SKILL.md"
+            test -f "$skill/agents/openai.yaml"
+          done
+      - name: Validate project manifests
+        run: |
+          set -e
+          for manifest in projects/*/project-editorial-manifest.yaml; do
+            python scripts/validate_manifest.py "$manifest"
+          done
+      - name: Test packaging
+        run: |
+          set -e
+          mkdir -p dist
+          for skill in skills/*; do
+            rm -f dist/skill.zip
+            python scripts/package_skill.py "$skill" dist
+            test -s dist/skill.zip
+          done
