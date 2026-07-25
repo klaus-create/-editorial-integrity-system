@@ -1,0 +1,4 @@
+interface:
+  display_name: "Anti-Slop Auditor"
+  short_description: "Diagnose generic model defaults without flattening legitimate voice"
+  brand_color: "#1F2937"
