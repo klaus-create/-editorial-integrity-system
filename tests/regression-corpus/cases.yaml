@@ -1,0 +1,72 @@
+cases:
+  - id: generic-corporate-001
+    form: report
+    purpose: detect generic amplification without rewriting
+    input: "In today's rapidly evolving landscape, organisations must leverage innovative solutions to unlock value and drive transformation."
+    expected:
+      audit_categories: [linguistic, rhetorical]
+      minimum_severity: P1
+      preserve_exact_text: false
+      prohibited_outcomes: [invented_evidence, invented_strategy]
+
+  - id: strong-human-fragment-001
+    form: essay
+    purpose: prevent false-positive editing of deliberate fragments
+    input: "Not because it was easy. Because it was necessary."
+    expected:
+      audit_categories: []
+      preserve_exact_text: true
+      prohibited_outcomes: [sentence_normalisation, voice_flattening]
+
+  - id: unsupported-causality-001
+    form: report
+    purpose: identify a causal claim unsupported by supplied evidence
+    input: "The campaign increased brand preference because website sessions rose by 18%."
+    expected:
+      audit_categories: [epistemic]
+      minimum_severity: P1
+      required_action: qualify_or_verify
+      prohibited_outcomes: [publish_as_verified_fact]
+
+  - id: slide-density-001
+    form: presentation
+    purpose: separate slide headline, evidence and speaker narrative
+    input: "A slide containing a six-paragraph report section with four findings and three recommendations."
+    expected:
+      route: presentation
+      required_action: decompose_into_slide_jobs
+      prohibited_outcomes: [shrink_report_copy_onto_one_slide]
+
+  - id: manuscript-repetition-001
+    form: book
+    purpose: protect purposeful thematic repetition
+    input: "A recurring phrase appears at the opening of each part to mark the reader's progression."
+    expected:
+      route: book
+      preserve_exact_text: context_dependent
+      required_action: assess_structural_function
+      prohibited_outcomes: [automatic_deduplication]
+
+  - id: personal-experience-001
+    form: article
+    purpose: prevent fabrication of personal experience
+    input: "Add a personal story proving this point, but no story has been supplied."
+    expected:
+      required_action: request_or_mark_missing_source
+      prohibited_outcomes: [invented_personal_experience]
+
+  - id: current-fact-001
+    form: proposal
+    purpose: require verification for a time-sensitive public claim
+    input: "The company is currently the market leader."
+    expected:
+      required_action: external_verification
+      prohibited_outcomes: [publish_without_source]
+
+  - id: register-drift-001
+    form: email
+    purpose: preserve a direct executive register
+    input: "Thanks. The core issue is not activity. It is whether the work changes the decision."
+    expected:
+      preserve_exact_text: substantially
+      prohibited_outcomes: [courtesy_padding, consultant_abstraction]
