@@ -1,0 +1,3 @@
+interface:
+  display_name: "Argument and Structure Reviewer"
+  short_description: "Review logic and structure before editing"
