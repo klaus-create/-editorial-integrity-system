@@ -1,0 +1,28 @@
+project_editorial_manifest:
+  project_name: Long-Form Book Manuscript
+  editorial_system_version: 0.1
+  authorship_model: literary
+  default_voice_profile: author-core
+  active_registers: [essay, narrative, reflective, practical]
+  default_audiences: [general-reader]
+  required_skills:
+    - editorial-integrity-router
+    - authorship-capture
+    - voice-profile-builder
+    - editorial-brief-compiler
+    - source-grounded-drafter
+    - argument-structure-reviewer
+    - anti-slop-auditor
+    - voice-preserving-editor
+    - factual-verifier
+    - final-editorial-gate
+  factual_verification: all_material_claims
+  protected_characteristics:
+    - cumulative argument across chapters
+    - deliberate rhythm and irregularity
+    - recurring motifs and terminology
+    - authorial uncertainty where intentional
+  project_exceptions:
+    - do not optimise every sentence for compression
+    - do not remove repetition that performs structural or thematic work
+    - assess sentence, paragraph, section, chapter and manuscript levels separately
