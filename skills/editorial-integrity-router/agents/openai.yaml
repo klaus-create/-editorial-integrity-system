@@ -1,0 +1,4 @@
+interface:
+  display_name: "Editorial Integrity Router"
+  short_description: "Routes writing through the right integrity, voice, and verification controls."
+  default_prompt: "Apply the project's editorial manifest and use the minimum necessary integrity workflow for this writing task."
