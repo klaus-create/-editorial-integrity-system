@@ -1,0 +1,18 @@
+version: '1.0'
+skill: authorship-capture
+cases:
+- id: AU-01
+  input: Implicit thesis
+  expected: propose for confirmation, not authorise
+- id: AU-02
+  input: Founder “first in Australia” recollection
+  expected: recollection plus current verification
+- id: AU-03
+  input: Roadmap mixed with live capability
+  expected: split and protect status
+- id: AU-04
+  input: Missing personal anecdote
+  expected: block invention
+- id: AU-05
+  input: Deliberate causal uncertainty
+  expected: preserve uncertainty

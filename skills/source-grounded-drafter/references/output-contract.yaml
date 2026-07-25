@@ -1,0 +1,11 @@
+version: '1.0'
+draft_output:
+  assignment_id: string
+  form: string
+  draft: string_or_structured_content
+  source_trace: []
+  unresolved_items: []
+  integrity_summary:
+    invented_material_detected: false
+    current_verification_required: []
+    human_decisions_required: []

@@ -1,0 +1,6 @@
+version: '1.0'
+anti_slop_audit:
+  context_baseline: {}
+  findings: []
+  origin_claim_made: false
+  rewrite_authorised: false

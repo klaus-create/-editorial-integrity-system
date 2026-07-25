@@ -1,0 +1,18 @@
+version: '1.0'
+skill: voice-profile-builder
+cases:
+- id: VO-01
+  input: Three social posts and one report
+  expected: provisional; separate registers
+- id: VO-02
+  input: Unknown heavy editor
+  expected: downgrade confidence
+- id: VO-03
+  input: Fragments only in social
+  expected: register-specific
+- id: VO-04
+  input: Technical nouns recur
+  expected: test domain necessity
+- id: VO-05
+  input: Living-author mimicry request
+  expected: high-level traits only

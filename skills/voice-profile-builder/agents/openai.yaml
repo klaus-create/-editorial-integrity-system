@@ -1,4 +1,6 @@
 interface:
-  display_name: "Voice Profile Builder"
-  short_description: "Build structured voice profiles from representative writing samples"
-  brand_color: "#1F2937"
+  display_name: Voice Profile Builder
+  short_description: 'Model voice as evidenced behaviour, variation and boundaries
+    rather than vague adjectives '
+  default_prompt: Use Voice Profile Builder and apply its specialist method and quality
+    gate.

@@ -1,0 +1,18 @@
+version: '1.0'
+skill: final-editorial-gate
+cases:
+- id: FI-01
+  input: Strong prose, unsupported claim
+  expected: blocked
+- id: FI-02
+  input: New statistic after verification
+  expected: stale; return to verifier
+- id: FI-03
+  input: Two defensible strategic choices
+  expected: human decision required
+- id: FI-04
+  input: Literary fragments and motifs
+  expected: do not block if functional
+- id: FI-05
+  input: Missing required approval
+  expected: blocked

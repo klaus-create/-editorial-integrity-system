@@ -1,4 +1,6 @@
 interface:
-  display_name: "Final Editorial Gate"
-  short_description: "Check release readiness, integrity, voice and accountability"
-  brand_color: "#1F2937"
+  display_name: Final Editorial Gate
+  short_description: Issue a traceable release decision based on required evidence
+    and governance, not prose po
+  default_prompt: Use Final Editorial Gate and apply its specialist method and quality
+    gate.

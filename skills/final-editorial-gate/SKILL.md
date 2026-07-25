@@ -1,32 +1,34 @@
 ---
 name: final-editorial-gate
-description: Perform the final release-readiness review for AI-assisted writing across emails, reports, proposals, presentations, articles, scripts and books. Use before submission, publication or external circulation to verify meaning, factual boundaries, voice, genre, uncertainty and required human approval.
+description: Perform the final release-readiness review before submission, publication or external circulation. Use to verify required upstream artefacts, meaning, claims, attribution, voice, form, uncertainty, privacy and human approval. Decide release status without silently rewriting.
 ---
 
 # Final Editorial Gate
 
 ## Purpose
-Make a release decision without performing uncontrolled rewriting.
+Issue a traceable release decision based on required evidence and governance, not prose polish or intuition.
 
-## Workflow
-1. Load the active brief, project manifest and relevant profiles.
-2. Check preservation of the human thesis and intended reader effect.
-3. Check factual claims, quotations, attribution and visible uncertainty.
-4. Check voice, register and protected-characteristic preservation.
-5. Check argument coherence, specificity, structure and residual generic model behaviour.
-6. Confirm required review, disclosure and human accountability.
-7. Return one outcome: pass, pass with disclosure, revise, human decision required or fail.
+## Execution workflow
+1. Determine required artefacts from workflow level, consequence and manifest.
+2. Confirm artefacts exist, are current and cover the final draft.
+3. Test thesis and meaning preservation.
+4. Test facts, attribution, privacy and disclosure.
+5. Test argument, voice, register, form and protected characteristics.
+6. Review unresolved P0/P1 findings and material post-verification changes.
+7. Apply release matrix.
+8. Return ready, conditional, human decision required or blocked with evidence and next action.
 
-## Required output
-- Outcome
-- Material reasons
-- Blocking issues
-- Non-blocking improvements
-- Human decisions required
-- Verification or disclosure status
+## Governing rules
+- Preserve verified facts, quotations, attribution, authorised uncertainty and human meaning.
+- Do not invent evidence, experience, examples, sources or certainty.
+- Keep review, editing, verification and release authority separate.
+- Surface material uncertainty and stop conditions rather than resolving them silently.
 
-## Rules
-- Do not use detector scores as a release gate.
-- Do not rewrite a passed document.
-- Fail unsupported factual claims even when the prose is strong.
-- Do not fail legitimate literary or authorial irregularity merely because it is unusual.
+## Required references
+- Read `references/method.md` for execution, branching, examples and escalation.
+- Read `references/quality-gate.md` before returning consequential work.
+- Use `tests/cases.yaml` when validating changes to this Skill.
+- Use `references/output-contract.yaml` for consequential or agent-to-agent output.
+
+## Output discipline
+Return a structured, portable output for agent-to-agent or consequential work. For simple user-facing tasks, return the requested result plus only material unresolved issues.

@@ -1,0 +1,18 @@
+version: '1.0'
+skill: argument-structure-reviewer
+cases:
+- id: AR-01
+  input: Recommendation exceeds evidence
+  expected: P1 conclusion overreach
+- id: AR-02
+  input: Motif repeats in chapter
+  expected: assess function before duplication
+- id: AR-03
+  input: Metrics move together
+  expected: no causal wording without evidence
+- id: AR-04
+  input: Essay opens with scene
+  expected: preserve if functional
+- id: AR-05
+  input: Solution precedes problem in deck
+  expected: P1 dependency failure

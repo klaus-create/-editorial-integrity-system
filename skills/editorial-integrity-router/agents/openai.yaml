@@ -1,4 +1,6 @@
 interface:
-  display_name: "Editorial Integrity Router"
-  short_description: "Routes writing through the right integrity, voice, and verification controls."
-  default_prompt: "Apply the project's editorial manifest and use the minimum necessary integrity workflow for this writing task."
+  display_name: Editorial Integrity Router
+  short_description: Classify, route, track and assemble. Do not absorb specialist
+    work or hide unresolved auth
+  default_prompt: Use Editorial Integrity Router and apply its specialist method and
+    quality gate.

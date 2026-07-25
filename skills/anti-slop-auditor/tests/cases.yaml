@@ -1,0 +1,21 @@
+version: '1.0'
+skill: anti-slop-auditor
+cases:
+- id: AN-01
+  input: “rapidly evolving landscape” cluster
+  expected: P1 genericity with consequence
+- id: AN-02
+  input: “Not yet. And that matters.”
+  expected: preserve if deliberate
+- id: AN-03
+  input: Manifesto anaphora
+  expected: preserve if differentiated
+- id: AN-04
+  input: “will double conversion”
+  expected: epistemic P0/P1 verification
+- id: AN-05
+  input: Assistant offer in article
+  expected: P0 residue
+- id: AN-06
+  input: Necessary technical repetition
+  expected: no genericity finding

@@ -1,0 +1,12 @@
+version: '1.0'
+gate_decision:
+  draft_version: string
+  workflow_level: lightweight|standard|full|extended
+  artefacts_reviewed: []
+  outcome: ready|conditional|human_decision_required|blocked
+  material_reasons: []
+  blocking_issues: []
+  conditions_for_release: []
+  human_approval: {}
+  verification_status: complete|partial|stale|not_required
+  disclosure_status: complete|pending|not_required

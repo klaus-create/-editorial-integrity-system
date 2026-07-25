@@ -1,0 +1,12 @@
+version: '1.0'
+voice_profile:
+  profile_id: string
+  owner: string
+  sample_sufficiency: provisional|adequate|strong
+  enduring_traits: []
+  register_profiles: {}
+  protected_characteristics: []
+  discouraged_characteristics: []
+  counterevidence: []
+  imitation_boundaries: []
+  unresolved_questions: []

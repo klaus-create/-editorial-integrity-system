@@ -1,27 +1,33 @@
 ---
 name: voice-profile-builder
-description: Build or refresh a structured author, brand or institutional voice profile from representative writing samples. Use when writing must preserve an established voice across emails, reports, presentations, articles, scripts or books. Separate enduring traits from register-specific behaviour and identify protected characteristics without copying source phrasing.
+description: Build or refresh a structured author, brand or institutional voice profile from representative writing samples. Use when writing must preserve an established voice across communications, reports, presentations, articles, scripts or books. Separate enduring behaviour from register-specific variation and cite evidence for every trait.
 ---
 
 # Voice Profile Builder
 
 ## Purpose
-Represent voice as observable behaviour rather than vague tone labels or favourite words.
+Model voice as evidenced behaviour, variation and boundaries rather than vague adjectives or copied phrases.
 
-## Workflow
-1. Confirm the profile owner and target writing surfaces.
-2. Analyse representative samples across relevant registers.
-3. Separate enduring characteristics from register-specific behaviour.
-4. Extract rhetorical, lexical, structural, punctuation and epistemic traits.
-5. Identify protected, discouraged and context-dependent characteristics.
-6. Record confidence and contradictory evidence.
-7. Produce a machine-readable profile plus a concise human-readable summary.
+## Execution workflow
+1. Confirm owner, consent, permitted samples and target surfaces.
+2. Assess authorship certainty, editing history, sufficiency and representativeness.
+3. Segment samples by register, date, audience and surface.
+4. Analyse rhetorical, syntactic, lexical, structural, punctuation and epistemic behaviour.
+5. Infer enduring traits only from repeated cross-sample evidence.
+6. Record counterevidence, scope and confidence.
+7. Return machine-readable profile and evidence-led summary.
 
-## Guardrails
-- Do not copy signature phrases from samples unless explicitly protected by the owner.
-- Do not infer a permanent preference from one unusual piece.
-- Do not flatten dialect, second-language features or literary irregularity.
-- For living public authors, describe high-level characteristics rather than cloning identifiable expression.
+## Governing rules
+- Preserve verified facts, quotations, attribution, authorised uncertainty and human meaning.
+- Do not invent evidence, experience, examples, sources or certainty.
+- Keep review, editing, verification and release authority separate.
+- Surface material uncertainty and stop conditions rather than resolving them silently.
 
-## Output
-Use `../../schemas/voice-profile.schema.yaml` when available.
+## Required references
+- Read `references/method.md` for execution, branching, examples and escalation.
+- Read `references/quality-gate.md` before returning consequential work.
+- Use `tests/cases.yaml` when validating changes to this Skill.
+- Use `references/output-contract.yaml` for consequential or agent-to-agent output.
+
+## Output discipline
+Return a structured, portable output for agent-to-agent or consequential work. For simple user-facing tasks, return the requested result plus only material unresolved issues.

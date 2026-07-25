@@ -1,0 +1,11 @@
+version: '1.0'
+route_declaration:
+  assignment_id: string
+  task_type: create|review|edit|verify|release|profile
+  workflow_level: lightweight|standard|full|extended
+  modules: []
+  human_approval:
+    required: boolean
+    approver: string_or_null
+  route_status: executable|conditional|blocked|human_input_required
+  unresolved_issues: []

@@ -1,3 +1,6 @@
 interface:
-  display_name: "Source-Grounded Drafter"
-  short_description: "Draft from authorised sources without invention"
+  display_name: Source Grounded Drafter
+  short_description: Create an effective first draft while preserving claim status,
+    source boundaries, voice an
+  default_prompt: Use Source Grounded Drafter and apply its specialist method and
+    quality gate.

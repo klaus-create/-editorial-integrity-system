@@ -1,29 +1,34 @@
 ---
 name: factual-verifier
-description: Verify material factual, numerical, comparative, causal, quoted, scientific, legal-adjacent, product and current claims before publication. Use for reports, proposals, presentations, articles, books and public-facing copy when unsupported or time-sensitive claims could create reputational, commercial or decision risk.
+description: Verify material factual, numerical, comparative, causal, quoted, scientific, legal-adjacent, product and current claims before publication. Use when unsupported or time-sensitive claims could create reputational, commercial, legal or decision risk.
 ---
 
 # Factual Verifier
 
 ## Purpose
-Test publication claims against authorised sources and classify what may be published, qualified, attributed, queried or removed.
+Determine what evidence permits the piece to say, with what confidence, attribution, qualification or release restriction.
 
-## Workflow
-1. Read the claim registry and final draft.
-2. Identify all material claims requiring verification.
-3. Check names, dates, figures, quotations, comparisons, causal statements and current facts against approved sources.
-4. Classify each claim as verified, qualified, author judgement, attributed, contested, unverifiable, unsupported or removed.
-5. Make only the smallest factual correction necessary.
-6. Preserve the author’s meaning where the evidence permits it.
-7. Return unresolved claims separately for human decision.
+## Execution workflow
+1. Extract and atomise material claims.
+2. Classify claim type, materiality and evidence burden.
+3. Select sources by authority, proximity, independence and freshness.
+4. Verify names, dates, figures, units, quotations, comparisons, product status and causal language.
+5. Reconcile conflicts and record unresolved disputes.
+6. Assign publication status and action.
+7. Make only authorised factual amendments.
+8. Return verification record, source trace and risks.
 
-## Rules
-- Truth outranks elegance.
-- Do not infer verification from confident wording.
-- Do not convert judgement into fact.
-- Do not hide contested evidence.
-- Do not rewrite unrelated prose.
-- Use current external verification when the assignment requires current facts.
+## Governing rules
+- Preserve verified facts, quotations, attribution, authorised uncertainty and human meaning.
+- Do not invent evidence, experience, examples, sources or certainty.
+- Keep review, editing, verification and release authority separate.
+- Surface material uncertainty and stop conditions rather than resolving them silently.
 
-## Output
-Return an updated claim registry, factual amendments and unresolved publication risks.
+## Required references
+- Read `references/method.md` for execution, branching, examples and escalation.
+- Read `references/quality-gate.md` before returning consequential work.
+- Use `tests/cases.yaml` when validating changes to this Skill.
+- Use `references/output-contract.yaml` for consequential or agent-to-agent output.
+
+## Output discipline
+Return a structured, portable output for agent-to-agent or consequential work. For simple user-facing tasks, return the requested result plus only material unresolved issues.

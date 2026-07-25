@@ -1,0 +1,18 @@
+version: '1.0'
+skill: editorial-integrity-router
+cases:
+- id: ED-01
+  input: Simple wording correction
+  expected: lightweight; editor only
+- id: ED-02
+  input: Investor report with current claims
+  expected: full; verifier and gate mandatory
+- id: ED-03
+  input: Audit-only request
+  expected: may_edit false
+- id: ED-04
+  input: Draft changed after verification
+  expected: mark verification stale
+- id: ED-05
+  input: Book chapter with no thesis
+  expected: capture or human input; no full draft

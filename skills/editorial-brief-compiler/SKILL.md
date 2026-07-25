@@ -1,37 +1,34 @@
 ---
 name: editorial-brief-compiler
-description: Convert project context, source material, claim status, audience, voice and assignment requirements into a single governed editorial brief before drafting or substantial rewriting. Use for reports, proposals, presentations, articles, scripts, books and consequential communications.
+description: Convert project context, source material, claim status, audience, voice and assignment requirements into one governed editorial brief before drafting or substantial rewriting. Use when conflicting inputs, evidence duties or hidden assumptions must be resolved explicitly.
 ---
 
 # Editorial Brief Compiler
 
 ## Purpose
-Create one execution contract that resolves what the writing must do, preserve, evidence and avoid.
+Produce the smallest complete execution contract that states what the piece must achieve, may assert, must preserve and must not invent.
 
-## Workflow
-1. Load the active project manifest when available.
-2. Gather the source pack, claim registry, voice profile, audience, genre and piece direction.
-3. Resolve conflicts according to the editorial decision hierarchy.
-4. Record unresolved conflicts rather than silently choosing.
-5. Define objective, thesis, argument sequence, evidence duties, protected characteristics, exclusions and review requirements.
-6. Return a concise editorial brief suitable for the relevant writing form.
+## Execution workflow
+1. Load manifest, assignment and upstream artefacts.
+2. Separate project defaults from authorised assignment overrides.
+3. Test completeness and identify blocking gaps.
+4. Resolve conflicts by editorial precedence and record unresolved conflicts.
+5. Define objective, reader effect, thesis, claims, evidence duties and permitted inferences.
+6. Select form architecture, register, density and output surface.
+7. Define prohibited moves, reviews and release conditions.
+8. Return a portable brief.
 
-## Required sections
-- Objective and intended reader effect
-- Central thesis or message
-- Required claims and evidence
-- Permitted inferences
-- Audience and genre requirements
-- Voice and protected characteristics
-- Prohibited inventions and unsupported moves
-- Structure or format requirements
-- Unresolved questions
-- Required review depth
+## Governing rules
+- Preserve verified facts, quotations, attribution, authorised uncertainty and human meaning.
+- Do not invent evidence, experience, examples, sources or certainty.
+- Keep review, editing, verification and release authority separate.
+- Surface material uncertainty and stop conditions rather than resolving them silently.
 
-## Never
-- Change the human thesis to make the brief easier
-- Treat unsupported claims as facts
-- Let anti-slop heuristics override voice, genre or meaning
+## Required references
+- Read `references/method.md` for execution, branching, examples and escalation.
+- Read `references/quality-gate.md` before returning consequential work.
+- Use `tests/cases.yaml` when validating changes to this Skill.
+- Use `references/output-contract.yaml` for consequential or agent-to-agent output.
 
-## Output
-Use `../../schemas/editorial-brief.schema.yaml` when available.
+## Output discipline
+Return a structured, portable output for agent-to-agent or consequential work. For simple user-facing tasks, return the requested result plus only material unresolved issues.

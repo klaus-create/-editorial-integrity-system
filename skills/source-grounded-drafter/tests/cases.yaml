@@ -1,0 +1,18 @@
+version: '1.0'
+skill: source-grounded-drafter
+cases:
+- id: SO-01
+  input: Source-poor report
+  expected: conditional outline and gaps, no filler
+- id: SO-02
+  input: Report to slides
+  expected: one decision idea per slide
+- id: SO-03
+  input: Sequence written as causality
+  expected: qualify
+- id: SO-04
+  input: Book repetition
+  expected: preserve if functional
+- id: SO-05
+  input: Missing founder anecdote
+  expected: author marker, no invention

@@ -1,0 +1,16 @@
+version: '1.0'
+editorial_brief:
+  assignment_id: string
+  objective: string
+  intended_reader_effect: string
+  central_thesis: {}
+  required_claims: []
+  evidence_duties: []
+  permitted_inferences: []
+  prohibited_moves: []
+  audience: {}
+  form: {}
+  voice_and_register: {}
+  required_modules: []
+  release_conditions: []
+  unresolved_questions: []

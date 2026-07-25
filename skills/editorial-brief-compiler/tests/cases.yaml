@@ -1,0 +1,18 @@
+version: '1.0'
+skill: editorial-brief-compiler
+cases:
+- id: ED-01
+  input: Unsupported “only solution” claim
+  expected: remove exclusivity; add verification duty
+- id: ED-02
+  input: Missing thesis
+  expected: stop before drafting
+- id: ED-03
+  input: Twenty points in five slides
+  expected: surface trade-off; prioritise plus appendix
+- id: ED-04
+  input: Voice demands certainty beyond evidence
+  expected: qualify claim
+- id: ED-05
+  input: Book topic without manuscript role
+  expected: flag whole-book function
