@@ -42,8 +42,26 @@ jobs:
             python scripts/validate_manifest.py "$manifest"
           done
 
-      - name: Validate extracted packages
-        run: python scripts/validate_packages.py --prevalidated
+      - name: Package anti-slop-auditor
+        run: python scripts/validate_packages.py --skill skills/anti-slop-auditor --prevalidated
+      - name: Package argument-structure-reviewer
+        run: python scripts/validate_packages.py --skill skills/argument-structure-reviewer --prevalidated
+      - name: Package authorship-capture
+        run: python scripts/validate_packages.py --skill skills/authorship-capture --prevalidated
+      - name: Package editorial-brief-compiler
+        run: python scripts/validate_packages.py --skill skills/editorial-brief-compiler --prevalidated
+      - name: Package editorial-integrity-router
+        run: python scripts/validate_packages.py --skill skills/editorial-integrity-router --prevalidated
+      - name: Package factual-verifier
+        run: python scripts/validate_packages.py --skill skills/factual-verifier --prevalidated
+      - name: Package final-editorial-gate
+        run: python scripts/validate_packages.py --skill skills/final-editorial-gate --prevalidated
+      - name: Package source-grounded-drafter
+        run: python scripts/validate_packages.py --skill skills/source-grounded-drafter --prevalidated
+      - name: Package voice-preserving-editor
+        run: python scripts/validate_packages.py --skill skills/voice-preserving-editor --prevalidated
+      - name: Package voice-profile-builder
+        run: python scripts/validate_packages.py --skill skills/voice-profile-builder --prevalidated
 
       - name: Verify release acceptance report
         run: python scripts/audit_repository.py
