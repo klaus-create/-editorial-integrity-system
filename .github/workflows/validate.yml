@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - full-capability-audit
-  pull_request:
-    branches:
-      - main
 
 permissions:
   contents: write
@@ -17,6 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          ref: full-capability-audit
           fetch-depth: 0
 
       - name: Verify and apply audited repository tree
