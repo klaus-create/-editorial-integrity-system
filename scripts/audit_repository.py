@@ -59,17 +59,25 @@ def semantic_signature(report: dict[str,Any]) -> tuple[Any,...]:
     checks=report.get('checks') if isinstance(report,dict) else None
     if not isinstance(checks,list): return ()
     states=tuple(sorted((item.get('check_id'),bool(item.get('passed'))) for item in checks if isinstance(item,dict)))
-    return (report.get('audit_version'),report.get('release'),states,report.get('deterministic_result'),report.get('performance_evidence'))
+    return (str(report.get('audit_version')),str(report.get('release')),states,report.get('deterministic_result'),report.get('performance_evidence'))
 
 def main():
     parser=argparse.ArgumentParser(); parser.add_argument('--write',action='store_true'); args=parser.parse_args()
-    report=build(); output=render(report); print(output,end='')
-    if args.write: REPORT.write_text(output,encoding='utf-8')
+    report=build(); output=render(report)
+    if args.write:
+        REPORT.write_text(output,encoding='utf-8')
+        print(output,end='')
     elif not REPORT.is_file():
         print('ERROR: tracked audit report is missing.',file=sys.stderr); raise SystemExit(1)
     else:
         tracked=yaml.safe_load(REPORT.read_text(encoding='utf-8'))
         if semantic_signature(tracked)!=semantic_signature(report):
-            print('ERROR: tracked audit report has stale check identities or pass states; run python scripts/audit_repository.py --write after review.',file=sys.stderr); raise SystemExit(1)
+            print(f"ERROR: tracked signature={semantic_signature(tracked)!r}",file=sys.stderr)
+            print(f"ERROR: current signature={semantic_signature(report)!r}",file=sys.stderr)
+            raise SystemExit(1)
+    failed=[item for item in report['checks'] if not item['passed']]
+    for item in failed:
+        print(f"FAILED {item['check_id']}: {item['evidence']}",file=sys.stderr)
+    print(f"PASS: {report['summary']['passed']} of {len(report['checks'])} release controls; failed={report['summary']['failed']}.")
     if report['deterministic_result']!='pass': raise SystemExit(1)
 if __name__=='__main__': main()
