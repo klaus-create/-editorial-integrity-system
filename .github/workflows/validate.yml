@@ -29,6 +29,7 @@ jobs:
           echo "75c6e5af99d4ffa4ac378fe1d7af7cf063762c79f6c225fc5c3cc366c5456b13  /tmp/remediation.tar.xz" | sha256sum -c -
           tar -xJf /tmp/remediation.tar.xz
           rm -rf remediation-parts remediation.ready
+          git checkout HEAD -- .github/workflows/validate.yml
 
       - name: Commit audited remediation
         run: |
