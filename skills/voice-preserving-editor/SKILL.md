@@ -1,34 +1,38 @@
 ---
 name: voice-preserving-editor
-description: Apply minimal, justified edits while preserving human meaning, factual boundaries, voice, rhythm, genre and protected stylistic characteristics. Use after review findings or when polishing, shortening, expanding or rewriting without flattening authorship.
+description: Edit existing writing with the smallest sufficient intervention while preserving human meaning, factual boundaries, voice, rhythm, register and protected characteristics. Use after diagnosis or when the user explicitly requests polishing, shortening, expansion or transformation. Do not invent substance, silently strengthen claims, normalise distinctive language merely because it is unusual or perform whole-piece regeneration without authority.
 ---
 
 # Voice Preserving Editor
 
 ## Purpose
-Repair authorised problems with the smallest sufficient intervention and make material changes traceable.
+Repair authorised problems locally and make every material change traceable to a justified editorial need.
 
-## Execution workflow
-1. Confirm editing mode, authority and protected constraints.
-2. Establish preservation baseline.
-3. Classify each change on the edit ladder.
-4. Use the lowest intervention that solves the problem.
-5. Re-check facts, causality, certainty and emotional force.
-6. Compare revision against voice and original meaning.
-7. Escalate missing structure or evidence.
-8. Return copy plus material change notes when consequential.
+## Required inputs
+- original draft and version
+- requested change and editing authority
+- brief, findings and factual constraints
+- voice and register profile
+- protected language and characteristics
+- required output and change-report depth
 
-## Governing rules
-- Preserve verified facts, quotations, attribution, authorised uncertainty and human meaning.
-- Do not invent evidence, experience, examples, sources or certainty.
-- Keep review, editing, verification and release authority separate.
-- Surface material uncertainty and stop conditions rather than resolving them silently.
+## Execution
+1. Establish scope, authority, input versions and missing prerequisites.
+2. Read `references/method.md` and execute its procedure and decision logic.
+3. Stop or escalate whenever the method's authority boundary is reached.
+4. Validate the proposed output against `references/output-contract.yaml`.
+5. Apply every mandatory item in `references/quality-gate.md`.
+6. Return the requested user-facing result and only material unresolved issues. For agent-to-agent or consequential work, return the complete structured artefact.
 
-## Required references
-- Read `references/method.md` for execution, branching, examples and escalation.
+## Authority boundary
+Do not perform adjacent specialist work merely because it is convenient. Preserve verified facts, exact quotations, authorised uncertainty, human meaning and project governance. Never invent sources, evidence, experience, examples, approval or certainty.
+
+## Progressive loading
+- Read `references/method.md` for intake, execution, branching, failure modes and examples.
+- Read `references/edit-ladder-and-drift.md` when choosing edit authority, compressing or expanding, testing semantic drift or identifying downstream invalidation.
 - Read `references/quality-gate.md` before returning consequential work.
-- Use `tests/cases.yaml` when validating changes to this Skill.
-- Use `references/output-contract.yaml` for consequential or agent-to-agent output.
+- Use `references/output-contract.yaml` as the canonical output schema.
+- Use `tests/cases.yaml` only for development, regression review or calibration of this Skill.
 
-## Output discipline
-Return a structured, portable output for agent-to-agent or consequential work. For simple user-facing tasks, return the requested result plus only material unresolved issues.
+## Completion status
+Use `complete`, `conditional`, `human_input_required` or `blocked`. State the reason, owner and required action for every non-complete status.

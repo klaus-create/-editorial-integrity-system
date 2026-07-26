@@ -1,18 +1,341 @@
-version: '1.0'
+schema_version: '1.0'
 skill: argument-structure-reviewer
+contract: ../references/output-contract.yaml
 cases:
-- id: AR-01
-  input: Recommendation exceeds evidence
-  expected: P1 conclusion overreach
-- id: AR-02
-  input: Motif repeats in chapter
-  expected: assess function before duplication
-- id: AR-03
-  input: Metrics move together
-  expected: no causal wording without evidence
-- id: AR-04
-  input: Essay opens with scene
-  expected: preserve if functional
-- id: AR-05
-  input: Solution precedes problem in deck
-  expected: P1 dependency failure
+- case_id: argument.standard.sound-map
+  category: standard
+  risk: moderate
+  input:
+    summary: Review a coherent recommendation.
+  expected_behaviour: Return a map with no invented defects.
+  example_output:
+    schema_version: '1.0'
+    artefact_type: argument_review
+    assignment_id: ASSIGN-001
+    artefact_version: '1.0'
+    status: complete
+    input_versions:
+      draft_output: '1.0'
+      editorial_brief: '1.0'
+    unresolved_issues: []
+    human_action_required: false
+    governing_thesis:
+      text: A limited pilot is warranted because the tested workflow reduced processing time without establishing
+        wider rollout readiness.
+      status: identified
+    argument_map:
+    - node_id: N1
+      node_type: thesis
+      text: Proceed with a limited second pilot.
+      supports: []
+    - node_id: N2
+      node_type: premise
+      text: The current approval workflow creates avoidable processing delay.
+      supports:
+      - N1
+    - node_id: N3
+      node_type: evidence
+      text: The first pilot reduced median processing time by 18 per cent in one team.
+      supports:
+      - N2
+    - node_id: N4
+      node_type: warrant
+      text: A bounded repeat test is proportionate to promising but narrow evidence.
+      supports:
+      - N1
+    findings: []
+    review_limitations: []
+    rewrite_authorised: false
+  assertions:
+    equals:
+      governing_thesis.status: identified
+      rewrite_authorised: false
+    contains: {}
+    prohibited_values: {}
+- case_id: argument.edge.conclusion-overreach
+  category: edge
+  risk: high
+  input:
+    summary: Conclusion recommends full rollout from pilot evidence.
+  expected_behaviour: Issue a P1 conclusion-overreach finding.
+  example_output:
+    schema_version: '1.0'
+    artefact_type: argument_review
+    assignment_id: ASSIGN-001
+    artefact_version: '1.0'
+    status: complete
+    input_versions:
+      draft_output: '1.0'
+      editorial_brief: '1.0'
+    unresolved_issues: []
+    human_action_required: false
+    governing_thesis:
+      text: A one-team pilot supports further testing, but the draft concludes that the organisation should
+        roll out immediately.
+      status: identified
+    argument_map:
+    - node_id: N1
+      node_type: conclusion
+      text: Roll the workflow out across the organisation immediately.
+      supports: []
+    - node_id: N2
+      node_type: evidence
+      text: One team recorded an 18 per cent processing-time reduction during a four-week pilot.
+      supports:
+      - N1
+    - node_id: N3
+      node_type: warrant
+      text: A short result in one team will generalise across every function.
+      supports:
+      - N1
+    findings:
+    - finding_id: F1
+      location: conclusion
+      defect_type: conclusion_overreach
+      severity: P1
+      confidence: 0.97
+      evidence_from_piece: The evidence covers one team and four weeks, while the conclusion commits the
+        whole organisation.
+      consequence: The requested decision exceeds the tested scope and hides implementation risk.
+      repair_direction: Narrow the recommendation to a staged pilot or supply representative rollout evidence.
+    review_limitations: []
+    rewrite_authorised: false
+  assertions:
+    equals:
+      governing_thesis.status: identified
+      rewrite_authorised: false
+      findings.0.defect_type: conclusion_overreach
+    contains: {}
+    prohibited_values: {}
+- case_id: argument.adversarial.correlation-causality
+  category: adversarial
+  risk: high
+  input:
+    summary: Two metrics move together and draft says one caused the other.
+  expected_behaviour: Diagnose causal overreach.
+  example_output:
+    schema_version: '1.0'
+    artefact_type: argument_review
+    assignment_id: ASSIGN-001
+    artefact_version: '1.0'
+    status: complete
+    input_versions:
+      draft_output: '1.0'
+      editorial_brief: '1.0'
+    unresolved_issues: []
+    human_action_required: false
+    governing_thesis:
+      text: The draft claims the campaign caused revenue growth because sessions and revenue increased
+        in the same month.
+      status: identified
+    argument_map:
+    - node_id: N1
+      node_type: thesis
+      text: The campaign caused the revenue increase.
+      supports: []
+    - node_id: N2
+      node_type: evidence
+      text: Campaign sessions and revenue both increased in June.
+      supports:
+      - N1
+    - node_id: N3
+      node_type: counterclaim
+      text: A price change and seasonal demand occurred during the same period.
+      supports: []
+    - node_id: N4
+      node_type: warrant
+      text: Temporal co-movement is treated as sufficient proof of causation.
+      supports:
+      - N1
+    findings:
+    - finding_id: F1
+      location: paragraph-3
+      defect_type: causal_overreach
+      severity: P1
+      confidence: 0.96
+      evidence_from_piece: The argument relies on concurrent movement and does not rule out price or seasonal
+        effects.
+      consequence: Readers may act on a causal attribution that the evidence cannot support.
+      repair_direction: Use association language or add a defensible causal design and alternative-explanation
+        analysis.
+    review_limitations: []
+    rewrite_authorised: false
+  assertions:
+    equals:
+      governing_thesis.status: identified
+      rewrite_authorised: false
+      findings.0.defect_type: causal_overreach
+    contains: {}
+    prohibited_values: {}
+- case_id: argument.false-positive.motif
+  category: false_positive
+  risk: low
+  input:
+    summary: A motif recurs across a book chapter.
+  expected_behaviour: Assess function and avoid automatic duplication finding.
+  example_output:
+    schema_version: '1.0'
+    artefact_type: argument_review
+    assignment_id: ASSIGN-001
+    artefact_version: '1.0'
+    status: complete
+    input_versions:
+      draft_output: '1.0'
+      editorial_brief: '1.0'
+    unresolved_issues: []
+    human_action_required: false
+    governing_thesis:
+      text: The chapter argues that capability matures through repeated returns to the same threshold.
+      status: identified
+    argument_map:
+    - node_id: N1
+      node_type: thesis
+      text: Capability develops through repeated encounters with the same limit.
+      supports: []
+    - node_id: N2
+      node_type: claim
+      text: The threshold motif returns at three turning points.
+      supports:
+      - N1
+    - node_id: N3
+      node_type: evidence
+      text: Each recurrence changes from warning, to choice, to responsibility.
+      supports:
+      - N2
+    findings: []
+    review_limitations:
+    - The repeated threshold is functional development and is not a defect.
+    rewrite_authorised: false
+  assertions:
+    equals:
+      governing_thesis.status: identified
+      rewrite_authorised: false
+    contains:
+      review_limitations.0: not a defect
+    prohibited_values: {}
+- case_id: argument.edge.missing-thesis
+  category: edge
+  risk: high
+  input:
+    summary: Draft contains incompatible governing propositions.
+  expected_behaviour: Require a human thesis decision.
+  example_output:
+    schema_version: '1.0'
+    artefact_type: argument_review
+    assignment_id: ASSIGN-001
+    artefact_version: '1.0'
+    status: human_input_required
+    input_versions:
+      draft_output: '1.0'
+      editorial_brief: '1.0'
+    unresolved_issues:
+    - issue_id: ISS-001
+      description: Two incompatible governing theses remain active.
+      owner: author
+      blocking: true
+      required_action: Authorise one thesis or define the boundary of a deliberate hybrid model.
+    human_action_required: true
+    governing_thesis:
+      text: null
+      status: human_decision_required
+    argument_map:
+    - node_id: N1
+      node_type: thesis
+      text: Centralise all customer decisions to improve consistency.
+      supports: []
+    - node_id: N2
+      node_type: thesis
+      text: Preserve local decision authority to improve responsiveness.
+      supports: []
+    - node_id: N3
+      node_type: evidence
+      text: Central rules reduced variation in two processes.
+      supports:
+      - N1
+    - node_id: N4
+      node_type: evidence
+      text: Local teams resolved exceptions faster than the central queue.
+      supports:
+      - N2
+    findings:
+    - finding_id: F1
+      location: whole-piece
+      defect_type: contradiction
+      severity: P1
+      confidence: 0.99
+      evidence_from_piece: The draft advances centralisation and local autonomy as governing answers without
+        defining their boundary.
+      consequence: No stable recommendation or section hierarchy can be assessed until the governing position
+        is chosen.
+      repair_direction: Ask the author to choose a governing thesis or explicitly define a hybrid operating
+        principle.
+    review_limitations: []
+    rewrite_authorised: false
+  assertions:
+    equals:
+      governing_thesis.status: human_decision_required
+      rewrite_authorised: false
+      findings.0.defect_type: contradiction
+    contains: {}
+    prohibited_values: {}
+- case_id: argument.adversarial.solution-first
+  category: adversarial
+  risk: moderate
+  input:
+    summary: Deck presents solution before problem and criteria.
+  expected_behaviour: Diagnose a sequence dependency failure.
+  example_output:
+    schema_version: '1.0'
+    artefact_type: argument_review
+    assignment_id: ASSIGN-001
+    artefact_version: '1.0'
+    status: complete
+    input_versions:
+      draft_output: '1.0'
+      editorial_brief: '1.0'
+    unresolved_issues: []
+    human_action_required: false
+    governing_thesis:
+      text: The deck asks the executive team to adopt Platform X before establishing the problem or decision
+        criteria.
+      status: identified
+    argument_map:
+    - node_id: N1
+      node_type: decision
+      text: Approve Platform X this quarter.
+      supports: []
+    - node_id: N2
+      node_type: claim
+      text: Platform X connects the required channels.
+      supports:
+      - N1
+    - node_id: N3
+      node_type: premise
+      text: The organisation needs a connected operating model.
+      supports:
+      - N1
+    - node_id: N4
+      node_type: evidence
+      text: The vendor lists six native integrations.
+      supports:
+      - N2
+    findings:
+    - finding_id: F1
+      location: slides-1-to-4
+      defect_type: sequence_failure
+      severity: P1
+      confidence: 0.94
+      evidence_from_piece: The solution and vendor appear before the decision problem, criteria and alternatives.
+      consequence: The audience cannot judge relevance, sufficiency or trade-offs before being asked to
+        approve.
+      repair_direction: Establish the problem, decision criteria and option set before introducing the
+        preferred solution.
+    review_limitations: []
+    rewrite_authorised: false
+  assertions:
+    equals:
+      governing_thesis.status: identified
+      rewrite_authorised: false
+      findings.0.defect_type: sequence_failure
+    contains: {}
+    prohibited_values: {}

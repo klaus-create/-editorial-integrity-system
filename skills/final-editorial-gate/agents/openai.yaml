@@ -1,6 +1,6 @@
 interface:
   display_name: Final Editorial Gate
-  short_description: Issue a traceable release decision based on required evidence
-    and governance, not prose po
-  default_prompt: Use Final Editorial Gate and apply its specialist method and quality
-    gate.
+  short_description: Issue a traceable release decision for the actual final version using mandatory artefacts, evidence,
+    approvals and stale-work checks.
+  default_prompt: Use Final Editorial Gate to perform the requested task. Apply its specialist method, respect its authority
+    boundary, validate the structured output and report any material stop or escalation condition.

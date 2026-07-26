@@ -1,6 +1,6 @@
 interface:
   display_name: Anti Slop Auditor
-  short_description: Identify high-confidence editorial artefacts and credibility
-    failures without treating unu
-  default_prompt: Use Anti Slop Auditor and apply its specialist method and quality
-    gate.
+  short_description: Identify consequential generic-model artefacts and credibility failures while protecting legitimate human
+    irregularity and voice.
+  default_prompt: Use Anti Slop Auditor to perform the requested task. Apply its specialist method, respect its authority
+    boundary, validate the structured output and report any material stop or escalation condition.

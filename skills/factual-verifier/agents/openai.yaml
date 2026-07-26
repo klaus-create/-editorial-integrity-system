@@ -1,6 +1,6 @@
 interface:
   display_name: Factual Verifier
-  short_description: Determine what evidence permits the piece to say, with what confidence,
-    attribution, quali
-  default_prompt: Use Factual Verifier and apply its specialist method and quality
-    gate.
+  short_description: Verify material claims against claim-specific evidence and record reproducible publication, qualification,
+    correction or blocking decisions.
+  default_prompt: Use Factual Verifier to perform the requested task. Apply its specialist method, respect its authority boundary,
+    validate the structured output and report any material stop or escalation condition.

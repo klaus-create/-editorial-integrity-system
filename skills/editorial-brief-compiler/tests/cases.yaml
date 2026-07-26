@@ -1,18 +1,531 @@
-version: '1.0'
+schema_version: '1.0'
 skill: editorial-brief-compiler
+contract: ../references/output-contract.yaml
 cases:
-- id: ED-01
-  input: Unsupported “only solution” claim
-  expected: remove exclusivity; add verification duty
-- id: ED-02
-  input: Missing thesis
-  expected: stop before drafting
-- id: ED-03
-  input: Twenty points in five slides
-  expected: surface trade-off; prioritise plus appendix
-- id: ED-04
-  input: Voice demands certainty beyond evidence
-  expected: qualify claim
-- id: ED-05
-  input: Book topic without manuscript role
-  expected: flag whole-book function
+- case_id: brief.standard.portable-report
+  category: standard
+  risk: moderate
+  input:
+    summary: Compile a governed report brief.
+  expected_behaviour: Return a portable brief with claim, structure and release duties.
+  example_output:
+    schema_version: '1.0'
+    artefact_type: editorial_brief
+    assignment_id: ASSIGN-001
+    artefact_version: '1.0'
+    status: complete
+    input_versions:
+      manifest: '1.0'
+      authorship_source_pack: '1.0'
+      voice_profile: '1.0'
+    unresolved_issues: []
+    human_action_required: false
+    objective: Enable the steering committee to decide whether to fund a second pilot.
+    intended_reader_effect: Understand the tested result, its limits and the bounded next step.
+    central_thesis:
+      text: The first pilot warrants a second bounded test, not full rollout.
+      status: authorised
+    audience:
+      primary: Transformation steering committee
+      knowledge_level: informed
+      decision_or_action: Approve or reject a second pilot.
+    form:
+      type: strategic report
+      surface: PDF and meeting pre-read
+      length_or_density: Six pages plus one-page executive summary
+      architecture:
+      - unit_id: U1
+        function: Frame the decision
+        required_content:
+        - Decision required
+        - Scope and constraints
+      - unit_id: U2
+        function: Show evidence and recommendation
+        required_content:
+        - Pilot result
+        - Limitations
+        - Recommended next step
+    required_claims:
+    - claim_id: CLM-PILOT
+      required_status: verified
+    evidence_duties:
+    - claim_id: CLM-PILOT
+      duty: Cite the approved pilot dataset and state sample and duration limits.
+    permitted_inferences:
+    - A second pilot is proportionate to promising but narrow evidence.
+    prohibited_moves:
+    - Do not generalise one-team results to organisation-wide impact.
+    voice_and_register:
+      profile_refs:
+      - VOICE-EXEC
+      piece_instructions:
+      - Direct, evidence-led and decision-useful.
+      protected_characteristics:
+      - Explicit limits before recommendation.
+    structure_plan:
+    - unit_id: U1
+      reader_question: What decision is required?
+      claims: []
+      evidence_refs: []
+    - unit_id: U2
+      reader_question: What does the evidence support?
+      claims:
+      - CLM-PILOT
+      evidence_refs:
+      - SRC-PILOT
+    required_modules:
+    - source-grounded-drafter
+    - argument-structure-reviewer
+    - factual-verifier
+    - final-editorial-gate
+    release_conditions: []
+  assertions:
+    equals:
+      status: complete
+      central_thesis.status: authorised
+      form.type: strategic report
+      required_modules.0: source-grounded-drafter
+    contains: {}
+    prohibited_values: {}
+- case_id: brief.edge.missing-thesis
+  category: edge
+  risk: high
+  input:
+    summary: Assignment lacks an authorised thesis.
+  expected_behaviour: Require human input rather than letting the Drafter invent one.
+  example_output:
+    schema_version: '1.0'
+    artefact_type: editorial_brief
+    assignment_id: ASSIGN-001
+    artefact_version: '1.0'
+    status: human_input_required
+    input_versions:
+      manifest: '1.0'
+      authorship_source_pack: '1.0'
+      voice_profile: '1.0'
+    unresolved_issues:
+    - issue_id: ISS-THESIS
+      description: No authorised governing thesis is available.
+      owner: author
+      blocking: true
+      required_action: Authorise the central thesis before drafting.
+    human_action_required: true
+    objective: Prepare a position paper once the accountable author chooses the governing proposition.
+    intended_reader_effect: Receive a coherent position rather than a synthesis of incompatible notes.
+    central_thesis:
+      text: null
+      status: unresolved
+    audience:
+      primary: Executive leadership
+      knowledge_level: informed
+      decision_or_action: Choose the operating principle to recommend.
+    form:
+      type: position paper
+      surface: Internal document
+      length_or_density: Four pages
+      architecture:
+      - unit_id: U1
+        function: State authorised position
+        required_content:
+        - Chosen thesis
+        - Decision implications
+    required_claims: []
+    evidence_duties: []
+    permitted_inferences: []
+    prohibited_moves:
+    - Do not infer or choose the author’s thesis.
+    voice_and_register:
+      profile_refs:
+      - VOICE-EXEC
+      piece_instructions:
+      - Hold competing positions visibly until resolved.
+      protected_characteristics:
+      - Authorial dissent.
+    structure_plan:
+    - unit_id: U1
+      reader_question: What position is being advanced?
+      claims: []
+      evidence_refs: []
+    required_modules:
+    - authorship-capture
+    - source-grounded-drafter
+    - final-editorial-gate
+    release_conditions:
+    - condition_id: COND-THESIS
+      description: The governing thesis must be authorised.
+      owner: author
+      required_action: Choose one position or define an explicit hybrid boundary.
+      blocking_before_release: true
+  assertions:
+    equals:
+      status: human_input_required
+      central_thesis.status: unresolved
+      form.type: position paper
+      required_modules.0: authorship-capture
+    contains: {}
+    prohibited_values: {}
+- case_id: brief.adversarial.impossible-density
+  category: adversarial
+  risk: moderate
+  input:
+    summary: Twenty points must fit on five slides.
+  expected_behaviour: Surface prioritisation and appendix trade-off.
+  example_output:
+    schema_version: '1.0'
+    artefact_type: editorial_brief
+    assignment_id: ASSIGN-001
+    artefact_version: '1.0'
+    status: human_input_required
+    input_versions:
+      manifest: '1.0'
+      authorship_source_pack: '1.0'
+      voice_profile: '1.0'
+    unresolved_issues:
+    - issue_id: ISS-DENSITY
+      description: The requested twenty points cannot be communicated legibly in five slides.
+      owner: project_owner
+      blocking: true
+      required_action: Prioritise five governing ideas or expand the format.
+    human_action_required: true
+    objective: Give the board a five-slide decision narrative without pretending twenty messages fit at
+      equal weight.
+    intended_reader_effect: Understand the decision, evidence, trade-offs and next action within the available
+      attention.
+    central_thesis:
+      text: The deck must prioritise the five ideas required for the board decision.
+      status: proposed_for_confirmation
+    audience:
+      primary: Board
+      knowledge_level: mixed
+      decision_or_action: Choose which content is essential and approve the recommendation.
+    form:
+      type: presentation
+      surface: Board meeting
+      length_or_density: Five content slides; one governing idea per slide
+      architecture:
+      - unit_id: S1
+        function: Decision frame
+        required_content:
+        - Decision and stakes
+      - unit_id: S2
+        function: Problem evidence
+        required_content:
+        - Two decisive facts
+      - unit_id: S3
+        function: Options
+        required_content:
+        - Criteria and alternatives
+      - unit_id: S4
+        function: Recommendation
+        required_content:
+        - Preferred option and rationale
+      - unit_id: S5
+        function: Action
+        required_content:
+        - Decision and next step
+    required_claims:
+    - claim_id: CLM-DECISION
+      required_status: approved
+    evidence_duties:
+    - claim_id: CLM-DECISION
+      duty: Use only the evidence necessary to support the board decision.
+    permitted_inferences:
+    - Supporting detail may move to an appendix.
+    prohibited_moves:
+    - Do not compress twenty independent claims into unreadable slides.
+    voice_and_register:
+      profile_refs:
+      - VOICE-BOARD
+      piece_instructions:
+      - One idea per slide; evidence before recommendation.
+      protected_characteristics:
+      - Decision clarity.
+    structure_plan:
+    - unit_id: S1
+      reader_question: What must the board decide?
+      claims:
+      - CLM-DECISION
+      evidence_refs:
+      - SRC-BRIEF
+    - unit_id: S2
+      reader_question: Why act now?
+      claims: []
+      evidence_refs:
+      - SRC-EVIDENCE
+    required_modules:
+    - source-grounded-drafter
+    - argument-structure-reviewer
+    - final-editorial-gate
+    release_conditions:
+    - condition_id: COND-PRIORITY
+      description: Fifteen lower-priority points must be removed or moved to an appendix.
+      owner: project_owner
+      required_action: Approve the five governing ideas.
+      blocking_before_release: true
+  assertions:
+    equals:
+      status: human_input_required
+      central_thesis.status: proposed_for_confirmation
+      form.type: presentation
+      required_modules.0: source-grounded-drafter
+    contains: {}
+    prohibited_values: {}
+- case_id: brief.false-positive.forceful-voice
+  category: false_positive
+  risk: moderate
+  input:
+    summary: Voice profile favours certainty but evidence is limited.
+  expected_behaviour: Protect evidence boundaries over register preference.
+  example_output:
+    schema_version: '1.0'
+    artefact_type: editorial_brief
+    assignment_id: ASSIGN-001
+    artefact_version: '1.0'
+    status: complete
+    input_versions:
+      manifest: '1.0'
+      authorship_source_pack: '1.0'
+      voice_profile: '1.0'
+    unresolved_issues: []
+    human_action_required: false
+    objective: Recommend a cautious next step in a forceful house voice without increasing evidentiary
+      certainty.
+    intended_reader_effect: Understand the recommended action and the limits of the evidence.
+    central_thesis:
+      text: The evidence supports a controlled test, not a guaranteed outcome.
+      status: authorised
+    audience:
+      primary: Senior commercial leaders
+      knowledge_level: informed
+      decision_or_action: Approve a controlled test.
+    form:
+      type: executive recommendation
+      surface: Email and one-page attachment
+      length_or_density: Under 600 words
+      architecture:
+      - unit_id: U1
+        function: Recommendation
+        required_content:
+        - Action
+        - Evidence limit
+        - Next test
+    required_claims:
+    - claim_id: CLM-ASSOCIATION
+      required_status: qualified
+    evidence_duties:
+    - claim_id: CLM-ASSOCIATION
+      duty: Describe the observed association and state that causality is unproven.
+    permitted_inferences:
+    - A controlled test is justified by the observed signal.
+    prohibited_moves:
+    - Do not convert a forceful register into causal certainty.
+    - Do not use “will deliver” or equivalent guarantee language.
+    voice_and_register:
+      profile_refs:
+      - VOICE-FORCEFUL
+      piece_instructions:
+      - Use short declarative sentences for the decision, with precise qualification for evidence.
+      protected_characteristics:
+      - Direct recommendation.
+    structure_plan:
+    - unit_id: U1
+      reader_question: What should we do and why?
+      claims:
+      - CLM-ASSOCIATION
+      evidence_refs:
+      - SRC-OBSERVATION
+    required_modules:
+    - source-grounded-drafter
+    - factual-verifier
+    - final-editorial-gate
+    release_conditions: []
+  assertions:
+    equals:
+      status: complete
+      central_thesis.status: authorised
+      form.type: executive recommendation
+      required_modules.0: source-grounded-drafter
+    contains:
+      prohibited_moves.0: certainty
+    prohibited_values: {}
+- case_id: brief.edge.competing-priorities
+  category: edge
+  risk: high
+  input:
+    summary: Two strategic priorities cannot both govern the piece.
+  expected_behaviour: Require an accountable choice.
+  example_output:
+    schema_version: '1.0'
+    artefact_type: editorial_brief
+    assignment_id: ASSIGN-001
+    artefact_version: '1.0'
+    status: human_input_required
+    input_versions:
+      manifest: '1.0'
+      authorship_source_pack: '1.0'
+      voice_profile: '1.0'
+    unresolved_issues:
+    - issue_id: ISS-PRIORITY
+      description: Growth and operational control are both stated as the primary objective.
+      owner: project_owner
+      blocking: true
+      required_action: Authorise a priority hierarchy before drafting.
+    human_action_required: true
+    objective: Compile a proposition after the owner resolves whether growth or operational control is
+      primary.
+    intended_reader_effect: Receive one coherent decision narrative rather than two competing briefs.
+    central_thesis:
+      text: null
+      status: unresolved
+    audience:
+      primary: Executive sponsor
+      knowledge_level: expert
+      decision_or_action: Choose the primary strategic priority.
+    form:
+      type: strategic proposition
+      surface: Workshop document
+      length_or_density: Three pages
+      architecture:
+      - unit_id: U1
+        function: Governing choice
+        required_content:
+        - Priority
+        - Trade-off
+        - Success criterion
+    required_claims: []
+    evidence_duties: []
+    permitted_inferences: []
+    prohibited_moves:
+    - Do not blend incompatible priorities into generic balance language.
+    voice_and_register:
+      profile_refs:
+      - VOICE-STRATEGY
+      piece_instructions:
+      - Make the unresolved trade-off explicit.
+      protected_characteristics:
+      - Strategic tension.
+    structure_plan:
+    - unit_id: U1
+      reader_question: Which outcome governs the proposition?
+      claims: []
+      evidence_refs: []
+    required_modules:
+    - authorship-capture
+    - final-editorial-gate
+    release_conditions:
+    - condition_id: COND-PRIORITY
+      description: The accountable owner must choose the governing priority.
+      owner: project_owner
+      required_action: Choose growth, control or authorise a defined hierarchy.
+      blocking_before_release: true
+  assertions:
+    equals:
+      status: human_input_required
+      central_thesis.status: unresolved
+      form.type: strategic proposition
+      required_modules.0: authorship-capture
+    contains: {}
+    prohibited_values: {}
+- case_id: brief.adversarial.only-solution
+  category: adversarial
+  risk: high
+  input:
+    summary: Draft direction demands “the only solution”.
+  expected_behaviour: Require defined comparative evidence before exclusivity.
+  example_output:
+    schema_version: '1.0'
+    artefact_type: editorial_brief
+    assignment_id: ASSIGN-001
+    artefact_version: '1.0'
+    status: conditional
+    input_versions:
+      manifest: '1.0'
+      authorship_source_pack: '1.0'
+      voice_profile: '1.0'
+    unresolved_issues:
+    - issue_id: ISS-EXCLUSIVITY
+      description: The supplied evidence does not establish that no alternative solution exists.
+      owner: verifier
+      blocking: true
+      required_action: Verify the exclusivity claim or remove it.
+    human_action_required: false
+    objective: Present the preferred option without making an unsupported exclusivity claim.
+    intended_reader_effect: Understand why the option is preferred and what alternatives were considered.
+    central_thesis:
+      text: The proposed option is preferred against the stated criteria; it is not established as the
+        only possible solution.
+      status: authorised
+    audience:
+      primary: Procurement and executive sponsors
+      knowledge_level: mixed
+      decision_or_action: Approve further evaluation of the preferred option.
+    form:
+      type: option recommendation
+      surface: Decision paper
+      length_or_density: Five pages
+      architecture:
+      - unit_id: U1
+        function: Criteria and option set
+        required_content:
+        - Decision criteria
+        - Alternatives
+      - unit_id: U2
+        function: Recommendation
+        required_content:
+        - Comparison
+        - Preferred option
+        - Limits
+    required_claims:
+    - claim_id: CLM-PREFERRED
+      required_status: approved
+    - claim_id: CLM-ONLY
+      required_status: verified
+    evidence_duties:
+    - claim_id: CLM-PREFERRED
+      duty: Show the criteria-based comparison set and explain why the preferred option performs better.
+    - claim_id: CLM-ONLY
+      duty: Remove “only solution” unless an exhaustive and current option search supports it.
+    permitted_inferences:
+    - The preferred option may advance to due diligence.
+    prohibited_moves:
+    - Do not use “only solution” as persuasive emphasis without exhaustive evidence.
+    voice_and_register:
+      profile_refs:
+      - VOICE-DECISION
+      piece_instructions:
+      - State preference clearly and preserve option uncertainty.
+      protected_characteristics:
+      - Explicit recommendation.
+    structure_plan:
+    - unit_id: U1
+      reader_question: What alternatives and criteria were considered?
+      claims:
+      - CLM-ONLY
+      evidence_refs:
+      - SRC-MARKET-SCAN
+    - unit_id: U2
+      reader_question: Why is this option preferred?
+      claims:
+      - CLM-PREFERRED
+      evidence_refs:
+      - SRC-COMPARISON
+    required_modules:
+    - source-grounded-drafter
+    - argument-structure-reviewer
+    - factual-verifier
+    - final-editorial-gate
+    release_conditions:
+    - condition_id: COND-EXCLUSIVITY
+      description: The exclusivity claim must be verified or removed.
+      owner: verifier
+      required_action: Verify the option universe and freshness, or revise to preferred-option language.
+      blocking_before_release: true
+  assertions:
+    equals:
+      status: conditional
+      central_thesis.status: authorised
+      form.type: option recommendation
+      required_modules.0: source-grounded-drafter
+    contains:
+      evidence_duties.0.duty: comparison set
+    prohibited_values: {}

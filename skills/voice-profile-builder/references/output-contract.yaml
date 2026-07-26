@@ -1,12 +1,412 @@
-version: '1.0'
-voice_profile:
-  profile_id: string
-  owner: string
-  sample_sufficiency: provisional|adequate|strong
-  enduring_traits: []
-  register_profiles: {}
-  protected_characteristics: []
-  discouraged_characteristics: []
-  counterevidence: []
-  imitation_boundaries: []
-  unresolved_questions: []
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: https://editorial-integrity.local/schemas/voice_profile.schema.yaml
+title: Voice Profile
+description: Evidence-based author, brand or institutional voice profile.
+type: object
+additionalProperties: false
+required:
+- schema_version
+- artefact_type
+- assignment_id
+- artefact_version
+- status
+- input_versions
+- unresolved_issues
+- human_action_required
+- profile_id
+- owner
+- permission_status
+- sample_inventory
+- sample_assessment
+- enduring_traits
+- register_profiles
+- protected_characteristics
+- discouraged_characteristics
+- imitation_boundaries
+properties:
+  schema_version:
+    const: '1.0'
+  artefact_type:
+    const: voice_profile
+  assignment_id:
+    type: string
+    minLength: 1
+  artefact_version:
+    type: string
+    pattern: ^\d+(?:\.\d+)*$
+  status:
+    enum:
+    - complete
+    - conditional
+    - human_input_required
+    - blocked
+    description: Execution status of the specialist task. It is distinct from publication risk or release
+      outcome.
+  input_versions:
+    type: object
+    additionalProperties:
+      type: string
+      minLength: 1
+    minProperties: 1
+  unresolved_issues:
+    type: array
+    items:
+      $ref: '#/$defs/unresolved_issue'
+  human_action_required:
+    type: boolean
+  profile_id:
+    type: string
+    minLength: 1
+  owner:
+    type: string
+    minLength: 1
+  permission_status:
+    enum:
+    - confirmed
+    - organisational_authority
+    - restricted
+    - unknown
+  sample_assessment:
+    type: object
+    additionalProperties: false
+    required:
+    - sufficiency
+    - sample_count
+    - estimated_word_count
+    - registers
+    - authorship_confidence
+    - limitations
+    properties:
+      sufficiency:
+        enum:
+        - provisional
+        - adequate
+        - strong
+        - insufficient
+      sample_count:
+        type: integer
+        minimum: 0
+      estimated_word_count:
+        type: integer
+        minimum: 0
+      registers:
+        type: array
+        items:
+          type: string
+          minLength: 1
+        uniqueItems: true
+      authorship_confidence:
+        enum:
+        - low
+        - moderate
+        - high
+      limitations:
+        type: array
+        items:
+          type: string
+          minLength: 1
+  enduring_traits:
+    type: array
+    items:
+      type: object
+      additionalProperties: false
+      required:
+      - trait_id
+      - behaviour
+      - scope
+      - confidence
+      - evidence_refs
+      - counterevidence
+      - writing_instruction
+      - anti_pattern
+      properties:
+        trait_id:
+          type: string
+          minLength: 1
+        behaviour:
+          type: string
+          minLength: 1
+        scope:
+          enum:
+          - enduring
+          - register_specific
+          - context_dependent
+          - candidate
+        confidence:
+          enum:
+          - low
+          - moderate
+          - high
+        evidence_refs:
+          type: array
+          items:
+            type: string
+            minLength: 1
+          minItems: 1
+          uniqueItems: true
+        counterevidence:
+          type: array
+          items:
+            type: string
+            minLength: 1
+        writing_instruction:
+          type: string
+          minLength: 1
+        anti_pattern:
+          type: string
+          minLength: 1
+  register_profiles:
+    type: object
+    additionalProperties:
+      type: array
+      items:
+        type: object
+        additionalProperties: false
+        required:
+        - trait_id
+        - behaviour
+        - scope
+        - confidence
+        - evidence_refs
+        - counterevidence
+        - writing_instruction
+        - anti_pattern
+        properties:
+          trait_id:
+            type: string
+            minLength: 1
+          behaviour:
+            type: string
+            minLength: 1
+          scope:
+            enum:
+            - enduring
+            - register_specific
+            - context_dependent
+            - candidate
+          confidence:
+            enum:
+            - low
+            - moderate
+            - high
+          evidence_refs:
+            type: array
+            items:
+              type: string
+              minLength: 1
+            minItems: 1
+            uniqueItems: true
+          counterevidence:
+            type: array
+            items:
+              type: string
+              minLength: 1
+          writing_instruction:
+            type: string
+            minLength: 1
+          anti_pattern:
+            type: string
+            minLength: 1
+  protected_characteristics:
+    type: array
+    items:
+      type: object
+      additionalProperties: false
+      required:
+      - characteristic
+      - reason
+      - preservation_strength
+      - editing_implication
+      properties:
+        characteristic:
+          type: string
+          minLength: 1
+        reason:
+          type: string
+          minLength: 1
+        preservation_strength:
+          enum:
+          - low
+          - medium
+          - high
+          - absolute
+        editing_implication:
+          type: string
+          minLength: 1
+  discouraged_characteristics:
+    type: array
+    items:
+      type: string
+      minLength: 1
+  imitation_boundaries:
+    type: array
+    items:
+      type: string
+      minLength: 1
+    minItems: 1
+  sample_inventory:
+    type: array
+    minItems: 1
+    items:
+      type: object
+      additionalProperties: false
+      required:
+      - sample_id
+      - form
+      - date
+      - authorship_confidence
+      - editing_history
+      - inclusion_status
+      - limitation
+      properties:
+        sample_id:
+          type: string
+          minLength: 1
+        form:
+          type: string
+          minLength: 1
+        date:
+          type:
+          - string
+          - 'null'
+          format: date
+        authorship_confidence:
+          enum:
+          - low
+          - moderate
+          - high
+        editing_history:
+          enum:
+          - none_known
+          - light
+          - substantial
+          - unknown
+        inclusion_status:
+          enum:
+          - included
+          - excluded
+        limitation:
+          type:
+          - string
+          - 'null'
+$defs:
+  unresolved_issue:
+    type: object
+    additionalProperties: false
+    required:
+    - issue_id
+    - description
+    - owner
+    - blocking
+    - required_action
+    properties:
+      issue_id:
+        type: string
+        minLength: 1
+      description:
+        type: string
+        minLength: 1
+      owner:
+        enum:
+        - author
+        - project_owner
+        - router
+        - specialist
+        - verifier
+        - approver
+        - unknown
+      blocking:
+        type: boolean
+      required_action:
+        type: string
+        minLength: 1
+allOf:
+- if:
+    properties:
+      status:
+        const: complete
+    required:
+    - status
+  then:
+    properties:
+      unresolved_issues:
+        maxItems: 0
+    required:
+    - unresolved_issues
+- if:
+    properties:
+      status:
+        const: conditional
+    required:
+    - status
+  then:
+    properties:
+      unresolved_issues:
+        minItems: 1
+    required:
+    - unresolved_issues
+- if:
+    properties:
+      status:
+        const: human_input_required
+    required:
+    - status
+  then:
+    properties:
+      unresolved_issues:
+        minItems: 1
+      human_action_required:
+        const: true
+    required:
+    - unresolved_issues
+    - human_action_required
+- if:
+    properties:
+      status:
+        const: blocked
+    required:
+    - status
+  then:
+    properties:
+      unresolved_issues:
+        minItems: 1
+        contains:
+          type: object
+          properties:
+            blocking:
+              const: true
+          required:
+          - blocking
+        minContains: 1
+    required:
+    - unresolved_issues
+- if:
+    properties:
+      permission_status:
+        enum:
+        - restricted
+        - unknown
+    required:
+    - permission_status
+  then:
+    properties:
+      status:
+        not:
+          const: complete
+- if:
+    properties:
+      sample_assessment:
+        properties:
+          sufficiency:
+            enum:
+            - provisional
+            - insufficient
+        required:
+        - sufficiency
+    required:
+    - sample_assessment
+  then:
+    properties:
+      status:
+        not:
+          const: complete

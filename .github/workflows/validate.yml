@@ -9,83 +9,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: pip install pyyaml jsonschema
 
-      - name: Check specialist Skill depth
-        run: |
-          set -e
-          for skill in skills/*; do
-            test -f "$skill/SKILL.md"
-            test -f "$skill/agents/openai.yaml"
-            test -f "$skill/references/method.md"
-            test -f "$skill/references/quality-gate.md"
-            test -f "$skill/references/output-contract.yaml"
-            test -f "$skill/tests/cases.yaml"
-          done
+      - name: Install validation dependencies
+        run: pip install pyyaml jsonschema
 
-      - name: Validate Skill metadata, contracts and cases
-        run: |
-          python - <<'PY'
-          from pathlib import Path
-          import yaml
+      - name: Validate Skill suite
+        run: python scripts/validate_skill_suite.py
 
-          failures = []
-          for skill in sorted(Path('skills').iterdir()):
-              if not skill.is_dir():
-                  continue
-              name = skill.name
-              skill_text = (skill / 'SKILL.md').read_text(encoding='utf-8')
-              for required_reference in (
-                  'references/method.md',
-                  'references/quality-gate.md',
-                  'references/output-contract.yaml',
-                  'tests/cases.yaml',
-              ):
-                  if required_reference not in skill_text:
-                      failures.append(f'{name}: SKILL.md does not reference {required_reference}')
+      - name: Run contract fixture tests
+        run: python scripts/run_contract_tests.py
 
-              for relative in ('agents/openai.yaml', 'references/output-contract.yaml', 'tests/cases.yaml'):
-                  path = skill / relative
-                  try:
-                      data = yaml.safe_load(path.read_text(encoding='utf-8'))
-                  except Exception as exc:
-                      failures.append(f'{name}: invalid YAML in {relative}: {exc}')
-                      continue
-                  if not isinstance(data, dict) or not data:
-                      failures.append(f'{name}: {relative} must contain a non-empty mapping')
-
-              cases = yaml.safe_load((skill / 'tests/cases.yaml').read_text(encoding='utf-8'))
-              if not isinstance(cases.get('cases'), list) or len(cases['cases']) < 4:
-                  failures.append(f'{name}: tests/cases.yaml must define at least four calibrated cases')
-
-              method = (skill / 'references/method.md').read_text(encoding='utf-8').strip()
-              gate = (skill / 'references/quality-gate.md').read_text(encoding='utf-8').strip()
-              if len(method) < 500:
-                  failures.append(f'{name}: specialist method is too thin')
-              if len(gate) < 200:
-                  failures.append(f'{name}: quality gate is too thin')
-
-          if failures:
-              raise SystemExit('\n'.join(failures))
-          print('All Skills satisfy the repository capability-depth structure.')
-          PY
-
-      - name: Check Router references
-        run: |
-          set -e
-          for file in \
-            project-editorial-manifest.schema.yaml \
-            project-editorial-manifest.template.yaml \
-            manifest-guide.md \
-            default-manifest.md \
-            workflow-levels.md \
-            form-routing.md \
-            examples.md; do
-            test -f "skills/editorial-integrity-router/references/$file"
-          done
+      - name: Validate repository links and Skill resources
+        run: python scripts/check_repository_links.py
 
       - name: Validate project manifests
         run: |
@@ -94,12 +33,26 @@ jobs:
             python scripts/validate_manifest.py "$manifest"
           done
 
-      - name: Test packaging
+      - name: Run repository acceptance audit
+        run: python scripts/audit_repository.py
+
+      - name: Validate packaging
         run: |
           set -e
-          mkdir -p dist
+          rm -rf dist
           for skill in skills/*; do
-            rm -f dist/skill.zip
-            python scripts/package_skill.py "$skill" dist
-            test -s dist/skill.zip
+            name="$(basename "$skill")"
+            mkdir -p "dist/$name"
+            python scripts/package_skill.py "$skill" "dist/$name"
+            test -s "dist/$name/skill.zip"
+            python - "$name" "dist/$name/skill.zip" <<'PY'
+          import sys
+          import zipfile
+          skill, archive_path = sys.argv[1:]
+          with zipfile.ZipFile(archive_path) as archive:
+              required = {f"{skill}/SKILL.md", f"{skill}/agents/openai.yaml"}
+              missing = required - set(archive.namelist())
+              if missing:
+                  raise SystemExit(f"missing packaged files: {sorted(missing)}")
+          PY
           done

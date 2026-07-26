@@ -33,9 +33,11 @@ terminology or definitions
 current assignment material
 ```
 
-Validate the manifest before consequential use:
+Validate the suite, fixtures and manifest before consequential use:
 
 ```bash
+python scripts/validate_skill_suite.py
+python scripts/run_contract_tests.py
 python scripts/validate_manifest.py projects/<project>/project-editorial-manifest.yaml
 ```
 
@@ -65,15 +67,16 @@ python scripts/validate_manifest.py projects/<project>/project-editorial-manifes
 
 For simple work, it may return only the finished writing.
 
-For consequential work, expect some combination of:
+For consequential work, expect validated artefacts or explicit references to them, including:
 
-- finished or revised writing;
-- unresolved questions;
-- claims needing verification;
-- review findings;
-- a change summary;
-- release status;
-- required human decisions.
+- route declaration;
+- source pack, claim registry or voice profile;
+- editorial brief or draft output;
+- review, audit, edit or verification record;
+- gate decision;
+- unresolved issues with owners and required actions.
+
+Every specialist artefact uses `complete`, `conditional`, `human_input_required` or `blocked`. The Gate separately returns `ready`, `conditional`, `human_decision_required` or `blocked`. See [`ARTEFACTS-AND-HANDOFFS.md`](ARTEFACTS-AND-HANDOFFS.md).
 
 ## 4. Human approval
 

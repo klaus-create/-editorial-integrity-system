@@ -1,33 +1,37 @@
 ---
 name: authorship-capture
-description: Capture the human thesis, evidence, observations, experience, uncertainty, protected language and prohibited inventions before substantial AI-assisted writing. Use when source material is incomplete, scattered, contradictory or implicit, especially for consequential reports, proposals, presentations, articles and books.
+description: Capture the authorised human substance for consequential AI-assisted writing. Use when the thesis, claims, evidence, examples, experience, disagreement or uncertainty is scattered, implicit or incomplete, and downstream agents need a traceable source pack. Do not use it to beautify prose, manufacture missing experience, infer final voice rules or verify current external claims.
 ---
 
 # Authorship Capture
 
 ## Purpose
-Build an authorised source pack that distinguishes what the author knows, believes, recalls, infers and still needs to resolve.
+Turn supplied human thought and evidence into an authorised source pack without inventing, smoothing or prematurely drafting the piece.
 
-## Execution workflow
-1. Frame the assignment and accountable author.
-2. Inventory sources with owner, date, authority, sensitivity and permitted use.
-3. Elicit thesis, evidence, judgement, disagreement, uncertainty and reader effect.
-4. Atomise compound statements into testable claims.
-5. Classify epistemic and publication status.
-6. Preserve contradictions and identify decision owners.
-7. Test sufficiency and return source pack, claim seed and unresolved questions.
+## Required inputs
+- assignment and accountable author
+- notes, transcripts, drafts and supplied sources
+- known audience and intended reader effect
+- source permissions and confidentiality constraints
+- project manifest when applicable
 
-## Governing rules
-- Preserve verified facts, quotations, attribution, authorised uncertainty and human meaning.
-- Do not invent evidence, experience, examples, sources or certainty.
-- Keep review, editing, verification and release authority separate.
-- Surface material uncertainty and stop conditions rather than resolving them silently.
+## Execution
+1. Establish scope, authority, input versions and missing prerequisites.
+2. Read `references/method.md` and execute its procedure and decision logic.
+3. Stop or escalate whenever the method's authority boundary is reached.
+4. Validate the proposed output against `references/output-contract.yaml`.
+5. Apply every mandatory item in `references/quality-gate.md`.
+6. Return the requested user-facing result and only material unresolved issues. For agent-to-agent or consequential work, return the complete structured artefact.
 
-## Required references
-- Read `references/method.md` for execution, branching, examples and escalation.
+## Authority boundary
+Do not perform adjacent specialist work merely because it is convenient. Preserve verified facts, exact quotations, authorised uncertainty, human meaning and project governance. Never invent sources, evidence, experience, examples, approval or certainty.
+
+## Progressive loading
+- Read `references/method.md` for intake, execution, branching, failure modes and examples.
+- Read `references/elicitation-and-epistemic-classification.md` when eliciting an undeveloped position, classifying knowledge states, atomising claims, resolving contradictions or judging source sufficiency.
 - Read `references/quality-gate.md` before returning consequential work.
-- Use `tests/cases.yaml` when validating changes to this Skill.
-- Use `references/output-contract.yaml` for consequential or agent-to-agent output.
+- Use `references/output-contract.yaml` as the canonical output schema.
+- Use `tests/cases.yaml` only for development, regression review or calibration of this Skill.
 
-## Output discipline
-Return a structured, portable output for agent-to-agent or consequential work. For simple user-facing tasks, return the requested result plus only material unresolved issues.
+## Completion status
+Use `complete`, `conditional`, `human_input_required` or `blocked`. State the reason, owner and required action for every non-complete status.

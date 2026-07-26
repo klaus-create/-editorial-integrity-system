@@ -1,21 +1,244 @@
-version: '1.0'
+schema_version: '1.0'
 skill: anti-slop-auditor
+contract: ../references/output-contract.yaml
 cases:
-- id: AN-01
-  input: “rapidly evolving landscape” cluster
-  expected: P1 genericity with consequence
-- id: AN-02
-  input: “Not yet. And that matters.”
-  expected: preserve if deliberate
-- id: AN-03
-  input: Manifesto anaphora
-  expected: preserve if differentiated
-- id: AN-04
-  input: “will double conversion”
-  expected: epistemic P0/P1 verification
-- id: AN-05
-  input: Assistant offer in article
-  expected: P0 residue
-- id: AN-06
-  input: Necessary technical repetition
-  expected: no genericity finding
+- case_id: anti-slop.standard.clean-context
+  category: standard
+  risk: low
+  input:
+    summary: Audit a contextually appropriate report.
+  expected_behaviour: Return no findings and no origin claim.
+  example_output:
+    schema_version: '1.0'
+    artefact_type: anti_slop_audit
+    assignment_id: ASSIGN-001
+    artefact_version: '1.0'
+    status: complete
+    input_versions:
+      draft_output: '1.0'
+      voice_profile: '1.0'
+    unresolved_issues: []
+    human_action_required: false
+    context_baseline:
+      form: report
+      audience: Executive team
+      purpose: Support a decision
+      voice_profile_used: true
+      protected_characteristics:
+      - Directness
+    findings: []
+    origin_claim_made: false
+    rewrite_authorised: false
+  assertions:
+    equals:
+      findings: []
+      origin_claim_made: false
+    contains: {}
+    prohibited_values: {}
+- case_id: anti-slop.edge.generic-cluster
+  category: edge
+  risk: moderate
+  input:
+    summary: Opening contains a cluster of abstract corporate language.
+  expected_behaviour: Return a consequential P1 edit finding.
+  example_output:
+    schema_version: '1.0'
+    artefact_type: anti_slop_audit
+    assignment_id: ASSIGN-001
+    artefact_version: '1.0'
+    status: complete
+    input_versions:
+      draft_output: '1.0'
+      voice_profile: '1.0'
+    unresolved_issues: []
+    human_action_required: false
+    context_baseline:
+      form: report
+      audience: Executive team
+      purpose: Support a decision
+      voice_profile_used: true
+      protected_characteristics:
+      - Directness
+    findings:
+    - finding_id: F1
+      location: opening
+      category: linguistic_genericity
+      severity: P1
+      confidence: 0.95
+      observed_pattern: Three abstract verbs and inflated modifiers delay the concrete claim.
+      consequence: Opening is interchangeable and obscures agency.
+      false_positive_test: Not required by genre or protected voice.
+      protected_traits_considered:
+      - Directness
+      treatment: edit
+    origin_claim_made: false
+    rewrite_authorised: false
+  assertions:
+    equals:
+      findings.0.category: linguistic_genericity
+      findings.0.treatment: edit
+    contains: {}
+    prohibited_values: {}
+- case_id: anti-slop.false-positive.fragment
+  category: false_positive
+  risk: low
+  input:
+    summary: A deliberate fragment matches the author profile.
+  expected_behaviour: Preserve it and identify voice-erasure risk.
+  example_output:
+    schema_version: '1.0'
+    artefact_type: anti_slop_audit
+    assignment_id: ASSIGN-001
+    artefact_version: '1.0'
+    status: complete
+    input_versions:
+      draft_output: '1.0'
+      voice_profile: '1.0'
+    unresolved_issues: []
+    human_action_required: false
+    context_baseline:
+      form: report
+      audience: Executive team
+      purpose: Support a decision
+      voice_profile_used: true
+      protected_characteristics:
+      - Directness
+    findings:
+    - finding_id: F1
+      location: sentence-2
+      category: voice_erasure_risk
+      severity: P2
+      confidence: 0.9
+      observed_pattern: A deliberate fragment carries emphasis.
+      consequence: Normalisation would flatten rhythm.
+      false_positive_test: Confirmed as functional in the author profile.
+      protected_traits_considered:
+      - Purposeful fragments
+      treatment: preserve
+    origin_claim_made: false
+    rewrite_authorised: false
+  assertions:
+    equals:
+      findings.0.treatment: preserve
+      findings.0.category: voice_erasure_risk
+    contains: {}
+    prohibited_values: {}
+- case_id: anti-slop.adversarial.assistant-residue
+  category: adversarial
+  risk: high
+  input:
+    summary: Published article ends with an assistant offer.
+  expected_behaviour: Block conversational residue.
+  example_output:
+    schema_version: '1.0'
+    artefact_type: anti_slop_audit
+    assignment_id: ASSIGN-001
+    artefact_version: '1.0'
+    status: complete
+    input_versions:
+      draft_output: '1.0'
+      voice_profile: '1.0'
+    unresolved_issues: []
+    human_action_required: false
+    context_baseline:
+      form: report
+      audience: Executive team
+      purpose: Support a decision
+      voice_profile_used: true
+      protected_characteristics:
+      - Directness
+    findings:
+    - finding_id: F1
+      location: article-ending
+      category: conversational_residue
+      severity: P0
+      confidence: 1.0
+      observed_pattern: Assistant offer remains in publication copy.
+      consequence: Exposes tool residue.
+      false_positive_test: Not part of the requested form.
+      protected_traits_considered: []
+      treatment: block
+    origin_claim_made: false
+    rewrite_authorised: false
+  assertions:
+    equals:
+      findings.0.severity: P0
+      findings.0.treatment: block
+    contains: {}
+    prohibited_values: {}
+- case_id: anti-slop.adversarial.unsupported-certainty
+  category: adversarial
+  risk: high
+  input:
+    summary: Copy promises conversion will double without evidence.
+  expected_behaviour: Escalate epistemic failure rather than polishing.
+  example_output:
+    schema_version: '1.0'
+    artefact_type: anti_slop_audit
+    assignment_id: ASSIGN-001
+    artefact_version: '1.0'
+    status: complete
+    input_versions:
+      draft_output: '1.0'
+      voice_profile: '1.0'
+    unresolved_issues: []
+    human_action_required: false
+    context_baseline:
+      form: report
+      audience: Executive team
+      purpose: Support a decision
+      voice_profile_used: true
+      protected_characteristics:
+      - Directness
+    findings:
+    - finding_id: F1
+      location: claim-1
+      category: epistemic_failure
+      severity: P1
+      confidence: 0.98
+      observed_pattern: Unqualified promise of doubled conversion.
+      consequence: Creates unsupported commercial certainty.
+      false_positive_test: No source or author-judgement label is present.
+      protected_traits_considered:
+      - Directness
+      treatment: block
+    origin_claim_made: false
+    rewrite_authorised: false
+  assertions:
+    equals:
+      findings.0.category: epistemic_failure
+      findings.0.treatment: block
+    contains: {}
+    prohibited_values: {}
+- case_id: anti-slop.false-positive.technical-repetition
+  category: false_positive
+  risk: low
+  input:
+    summary: A technical term repeats because precision requires it.
+  expected_behaviour: Return no genericity finding.
+  example_output:
+    schema_version: '1.0'
+    artefact_type: anti_slop_audit
+    assignment_id: ASSIGN-001
+    artefact_version: '1.0'
+    status: complete
+    input_versions:
+      draft_output: '1.0'
+      voice_profile: '1.0'
+    unresolved_issues: []
+    human_action_required: false
+    context_baseline:
+      form: report
+      audience: Executive team
+      purpose: Support a decision
+      voice_profile_used: true
+      protected_characteristics:
+      - Necessary technical repetition
+    findings: []
+    origin_claim_made: false
+    rewrite_authorised: false
+  assertions:
+    equals:
+      findings: []
+    contains: {}
+    prohibited_values: {}

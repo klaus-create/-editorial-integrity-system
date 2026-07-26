@@ -1,19 +1,73 @@
 # Specialist Method
 
-## Edit ladder
-0 no change; 1 mechanical; 2 word/phrase; 3 sentence; 4 paragraph; 5 section; 6 whole regeneration. Levels 4-6 are material. Whole regeneration only by explicit authority or unusable architecture.
+## Scope and authority
+The Editor changes text only within explicit authority. It may repair mechanics, clarity, compression, expansion or structure as authorised. It cannot invent facts, examples or experiences, override verification, resolve an accountable thesis choice or conceal material transformation.
 
-## Preservation baseline
-Thesis and claims; exact quotes and terms; uncertainty and dissent; emotional stance; characteristic rhythm, variation and punctuation; genre irregularity; factual/attribution boundaries.
+## Required inputs and intake
+1. Confirm original version, requested outcome and editing scope.
+2. Determine maximum authorised edit level.
+3. Load brief, findings, verified claims, quotations and protected characteristics.
+4. Record exact spans that must remain unchanged.
+5. Identify unresolved issues that editing cannot solve.
 
-## Change justification
-What problem? Why is smaller change insufficient? What meaning/voice risk? What check controls it?
+## Execution procedure
+1. Establish the preservation baseline.
+2. For each proposed change, state the problem and consequence.
+3. Select the lowest sufficient level on the edit ladder.
+4. Apply local repairs before paragraph, section or whole-piece change.
+5. For compression, remove only non-functional setup, duplication or qualification.
+6. For expansion, use only authorised substance and reasoning.
+7. Preserve evidence limits, attribution, causal force and emotional stance.
+8. Compare original and revised propositions for material paragraphs.
+9. Run voice, factual and semantic drift checks.
+10. Return revised text plus stable edit IDs, a material change log and unresolved issues.
 
-## Compression
-Remove non-functional duplication, setup and low-value qualification. Do not remove evidence, material uncertainty, counterargument or distinctive rhythm.
+## Decision logic
+Edit ladder:
+- 0: preserve;
+- 1: mechanical correction;
+- 2: word or phrase repair;
+- 3: sentence repair;
+- 4: paragraph restructuring;
+- 5: section restructuring;
+- 6: whole-piece transformation.
 
-## Expansion
-Add explanation or explicit reasoning only from authorised substance; never new facts or experience.
+Levels 4 to 6 are material. Level 6 requires explicit transformation authority or demonstrably unusable architecture. A request to “polish” does not authorise level 6.
 
-## Drift checks
-Compare original/revised proposition, certainty, attribution, causal force, emotional distance, first-person stance and protected vocabulary.
+Preservation baseline:
+- thesis, claims and intended reader effect;
+- quotations, attributions and approved terminology;
+- uncertainty, dissent and evidence limits;
+- emotional distance and first-person stance;
+- characteristic rhythm, variation, punctuation and purposeful repetition;
+- genre-specific irregularity and protected language.
+
+Compression must not remove evidence, material limitation, counterargument or a necessary decision path. Expansion must not introduce new facts, experience, motives or examples.
+
+## Version and staleness
+Populate the canonical `input_versions` mapping with the exact identifier and version of every material upstream artefact.
+
+Record the original draft, brief, findings, voice profile and verification versions used. The edit record becomes stale if the revised text changes again; material edits must explicitly mark affected verification, review or Gate artefacts for re-entry.
+
+## Stop, escalation and re-entry
+Stop when the requested edit changes the thesis, requires new evidence, conflicts with verification, erases a protected characteristic or exceeds authorised level.
+
+Escalate logic to Argument Reviewer, claims to Verifier, missing substance to Capture and accountable transformation to the author or project owner.
+
+Re-edit only after upstream issues are resolved. Material edits invalidate downstream verification or gate artefacts that covered the earlier version.
+
+## Failure modes
+- Regeneration replaces authorship with model defaults.
+- “Clarity” can strengthen certainty or causality silently.
+- Shortening can remove limitations that make a claim accurate.
+- Expansion can invent explanation or examples.
+- Smoothing every irregularity destroys voice.
+
+## Examples and counterexamples
+Valid: replace a generic phrase with specific authorised evidence already present in the source pack.
+Invalid: add a statistic to make the sentence more persuasive.
+Valid: retain a deliberate fragment when it performs emphasis.
+Invalid: combine it solely because complete sentences are more conventional.
+
+## Output assembly
+Return an edit output conforming to `references/output-contract.yaml`, including editing mode, revised content, edit log with stable IDs, levels and justifications, preserved characteristics, drift checks, structured material changes and the downstream actions each material edit invalidates.

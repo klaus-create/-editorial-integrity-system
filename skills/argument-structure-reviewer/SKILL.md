@@ -1,33 +1,37 @@
 ---
 name: argument-structure-reviewer
-description: Review logic, structure, evidence flow and decision usefulness without silently rewriting. Use when a draft needs thesis, premise, causality, sequencing, counterargument, repetition, conclusion or whole-piece architecture analysis before editing.
+description: Review the logic and architecture of reports, proposals, presentations, articles, essays and books. Use when a draft needs thesis, premise, evidence, warrant, causal, counterargument, sequencing, repetition, conclusion or decision-usefulness analysis before editing. Diagnose and prioritise findings only; do not silently rewrite or replace the author’s thesis.
 ---
 
 # Argument Structure Reviewer
 
 ## Purpose
-Diagnose whether the piece earns its claims and fulfils its structural promise while separating logical defects from stylistic preference.
+Determine whether the piece earns its claims, fulfils its structural promise and supports the intended reader decision.
 
-## Execution workflow
-1. Identify governing thesis, narrative promise or decision.
-2. Map claims, premises, evidence, warrants, counterclaims and conclusion.
-3. Label section/slide functions and dependencies.
-4. Test support, causal links, alternatives and conclusion scope.
-5. Review local, section and whole-piece structure separately.
-6. Assign severity and confidence.
-7. Return prioritised findings only unless editing is separately authorised.
+## Required inputs
+- draft and version
+- editorial brief and thesis
+- claim and evidence artefacts when available
+- form, audience and reader decision
+- review scope and rewrite authority
 
-## Governing rules
-- Preserve verified facts, quotations, attribution, authorised uncertainty and human meaning.
-- Do not invent evidence, experience, examples, sources or certainty.
-- Keep review, editing, verification and release authority separate.
-- Surface material uncertainty and stop conditions rather than resolving them silently.
+## Execution
+1. Establish scope, authority, input versions and missing prerequisites.
+2. Read `references/method.md` and execute its procedure and decision logic.
+3. Stop or escalate whenever the method's authority boundary is reached.
+4. Validate the proposed output against `references/output-contract.yaml`.
+5. Apply every mandatory item in `references/quality-gate.md`.
+6. Return the requested user-facing result and only material unresolved issues. For agent-to-agent or consequential work, return the complete structured artefact.
 
-## Required references
-- Read `references/method.md` for execution, branching, examples and escalation.
+## Authority boundary
+Do not perform adjacent specialist work merely because it is convenient. Preserve verified facts, exact quotations, authorised uncertainty, human meaning and project governance. Never invent sources, evidence, experience, examples, approval or certainty.
+
+## Progressive loading
+- Read `references/method.md` for intake, execution, branching, failure modes and examples.
+- Read `references/argument-analysis-models.md` when mapping premises, warrants, causal chains, counterarguments, section functions or decision usefulness.
 - Read `references/quality-gate.md` before returning consequential work.
-- Use `tests/cases.yaml` when validating changes to this Skill.
-- Use `references/output-contract.yaml` for consequential or agent-to-agent output.
+- Use `references/output-contract.yaml` as the canonical output schema.
+- Use `tests/cases.yaml` only for development, regression review or calibration of this Skill.
 
-## Output discipline
-Return a structured, portable output for agent-to-agent or consequential work. For simple user-facing tasks, return the requested result plus only material unresolved issues.
+## Completion status
+Use `complete`, `conditional`, `human_input_required` or `blocked`. State the reason, owner and required action for every non-complete status.

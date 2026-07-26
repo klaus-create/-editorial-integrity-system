@@ -1,39 +1,377 @@
 $schema: https://json-schema.org/draft/2020-12/schema
-$title: Editorial Brief
-$type: object
-required: [objective, central_thesis, intended_reader_effect, output_requirements]
+$id: https://editorial-integrity.local/schemas/editorial_brief.schema.yaml
+title: Editorial Brief
+description: Portable execution contract for a governed writing assignment.
+type: object
+additionalProperties: false
+required:
+- schema_version
+- artefact_type
+- assignment_id
+- artefact_version
+- status
+- input_versions
+- unresolved_issues
+- human_action_required
+- objective
+- intended_reader_effect
+- central_thesis
+- audience
+- form
+- required_claims
+- evidence_duties
+- permitted_inferences
+- prohibited_moves
+- voice_and_register
+- structure_plan
+- required_modules
+- release_conditions
 properties:
-  objective: {type: string}
-  central_thesis: {type: string}
-  argument_sequence:
+  schema_version:
+    const: '1.0'
+  artefact_type:
+    const: editorial_brief
+  assignment_id:
+    type: string
+    minLength: 1
+  artefact_version:
+    type: string
+    pattern: ^\d+(?:\.\d+)*$
+  status:
+    enum:
+    - complete
+    - conditional
+    - human_input_required
+    - blocked
+    description: Execution status of the specialist task. It is distinct from publication risk or release
+      outcome.
+  input_versions:
+    type: object
+    additionalProperties:
+      type: string
+      minLength: 1
+    minProperties: 1
+  unresolved_issues:
     type: array
-    items: {type: string}
+    items:
+      $ref: '#/$defs/unresolved_issue'
+  human_action_required:
+    type: boolean
+  objective:
+    type: string
+    minLength: 1
+  intended_reader_effect:
+    type: string
+    minLength: 1
+  central_thesis:
+    type: object
+    additionalProperties: false
+    required:
+    - text
+    - status
+    properties:
+      text:
+        type:
+        - string
+        - 'null'
+      status:
+        enum:
+        - authorised
+        - proposed_for_confirmation
+        - unresolved
+  audience:
+    type: object
+    additionalProperties: false
+    required:
+    - primary
+    - knowledge_level
+    - decision_or_action
+    properties:
+      primary:
+        type: string
+        minLength: 1
+      knowledge_level:
+        enum:
+        - novice
+        - informed
+        - expert
+        - mixed
+      decision_or_action:
+        type: string
+        minLength: 1
+  form:
+    type: object
+    additionalProperties: false
+    required:
+    - type
+    - surface
+    - length_or_density
+    - architecture
+    properties:
+      type:
+        type: string
+        minLength: 1
+      surface:
+        type: string
+        minLength: 1
+      length_or_density:
+        type: string
+        minLength: 1
+      architecture:
+        type: array
+        items:
+          type: object
+          additionalProperties: false
+          required:
+          - unit_id
+          - function
+          - required_content
+          properties:
+            unit_id:
+              type: string
+              minLength: 1
+            function:
+              type: string
+              minLength: 1
+            required_content:
+              type: array
+              items:
+                type: string
+                minLength: 1
+        minItems: 1
   required_claims:
     type: array
-    items: {type: string}
+    items:
+      type: object
+      additionalProperties: false
+      required:
+      - claim_id
+      - required_status
+      properties:
+        claim_id:
+          type: string
+          minLength: 1
+        required_status:
+          enum:
+          - approved
+          - qualified
+          - attributed
+          - verified
+  evidence_duties:
+    type: array
+    items:
+      type: object
+      additionalProperties: false
+      required:
+      - claim_id
+      - duty
+      properties:
+        claim_id:
+          type: string
+          minLength: 1
+        duty:
+          type: string
+          minLength: 1
   permitted_inferences:
     type: array
-    items: {type: string}
-  evidence_requirements:
+    items:
+      type: string
+      minLength: 1
+  prohibited_moves:
     type: array
-    items: {type: string}
-  intended_reader_effect: {type: string}
-  voice_profile: {type: string}
-  register_profile: {type: string}
-  protected_characteristics:
-    type: array
-    items: {type: string}
-  protected_language:
-    type: array
-    items: {type: string}
-  prohibited_inventions:
-    type: array
-    items: {type: string}
-  unresolved_questions:
-    type: array
-    items: {type: string}
-  output_requirements:
+    items:
+      type: string
+      minLength: 1
+  voice_and_register:
     type: object
-  review_requirements:
+    additionalProperties: false
+    required:
+    - profile_refs
+    - piece_instructions
+    - protected_characteristics
+    properties:
+      profile_refs:
+        type: array
+        items:
+          type: string
+          minLength: 1
+      piece_instructions:
+        type: array
+        items:
+          type: string
+          minLength: 1
+      protected_characteristics:
+        type: array
+        items:
+          type: string
+          minLength: 1
+  structure_plan:
     type: array
-    items: {type: string}
+    items:
+      type: object
+      additionalProperties: false
+      required:
+      - unit_id
+      - reader_question
+      - claims
+      - evidence_refs
+      properties:
+        unit_id:
+          type: string
+          minLength: 1
+        reader_question:
+          type: string
+          minLength: 1
+        claims:
+          type: array
+          items:
+            type: string
+            minLength: 1
+        evidence_refs:
+          type: array
+          items:
+            type: string
+            minLength: 1
+    minItems: 1
+  required_modules:
+    type: array
+    items:
+      enum:
+      - authorship-capture
+      - voice-profile-builder
+      - source-grounded-drafter
+      - argument-structure-reviewer
+      - anti-slop-auditor
+      - voice-preserving-editor
+      - factual-verifier
+      - final-editorial-gate
+    uniqueItems: true
+  release_conditions:
+    type: array
+    items:
+      type: object
+      additionalProperties: false
+      required:
+      - condition_id
+      - description
+      - owner
+      - required_action
+      - blocking_before_release
+      properties:
+        condition_id:
+          type: string
+          minLength: 1
+        description:
+          type: string
+          minLength: 1
+        owner:
+          enum:
+          - author
+          - project_owner
+          - router
+          - specialist
+          - verifier
+          - approver
+          - unknown
+        required_action:
+          type: string
+          minLength: 1
+        blocking_before_release:
+          type: boolean
+$defs:
+  unresolved_issue:
+    type: object
+    additionalProperties: false
+    required:
+    - issue_id
+    - description
+    - owner
+    - blocking
+    - required_action
+    properties:
+      issue_id:
+        type: string
+        minLength: 1
+      description:
+        type: string
+        minLength: 1
+      owner:
+        enum:
+        - author
+        - project_owner
+        - router
+        - specialist
+        - verifier
+        - approver
+        - unknown
+      blocking:
+        type: boolean
+      required_action:
+        type: string
+        minLength: 1
+allOf:
+- if:
+    properties:
+      status:
+        const: complete
+    required:
+    - status
+  then:
+    properties:
+      central_thesis:
+        properties:
+          status:
+            const: authorised
+        required:
+        - status
+      unresolved_issues:
+        maxItems: 0
+    required:
+    - unresolved_issues
+- if:
+    properties:
+      status:
+        const: conditional
+    required:
+    - status
+  then:
+    properties:
+      unresolved_issues:
+        minItems: 1
+    required:
+    - unresolved_issues
+- if:
+    properties:
+      status:
+        const: human_input_required
+    required:
+    - status
+  then:
+    properties:
+      unresolved_issues:
+        minItems: 1
+      human_action_required:
+        const: true
+    required:
+    - unresolved_issues
+    - human_action_required
+- if:
+    properties:
+      status:
+        const: blocked
+    required:
+    - status
+  then:
+    properties:
+      unresolved_issues:
+        minItems: 1
+        contains:
+          type: object
+          properties:
+            blocking:
+              const: true
+          required:
+          - blocking
+        minContains: 1
+    required:
+    - unresolved_issues

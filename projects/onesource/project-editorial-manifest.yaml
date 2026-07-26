@@ -1,4 +1,4 @@
-manifest_version: "1.0"
+manifest_version: '1.0'
 project:
   name: OneSource
   project_id: onesource
@@ -7,14 +7,15 @@ project:
   status: active
   owner: OneSource Australia Pty Ltd
 editorial_system:
-  required_version: "0.1.1"
+  required_version: 0.1.3
   compatibility: foundation
-  canonical_repository: "https://github.com/klaus-create/-editorial-integrity-system"
+  canonical_repository: https://github.com/klaus-create/-editorial-integrity-system
 authorship:
   model: collaborative
   accountable_author: Klaus Germann
   accountable_editor: Klaus Germann
-  contributors: [OneSource founders and product team]
+  contributors:
+  - OneSource founders and product team
   disclosure_policy: situational
 defaults:
   language: en
@@ -22,67 +23,110 @@ defaults:
   spelling: Australian English
   voice_profile: onesource-product-strategy
   register_profile: product-technical-strategic
-  audience_profiles: [founders, product-team, investors, clients]
+  audience_profiles:
+  - founders
+  - product-team
+  - investors
+  - clients
   consequence_level: high
   workflow_level: full
 voice:
   desired_characteristics:
-    - deterministic clarity
-    - precise metric and scoring terminology
-    - commercially compelling without unsupported hype
+  - deterministic clarity
+  - precise metric and scoring terminology
+  - commercially compelling without unsupported hype
   protected_characteristics:
-    - distinction between live capability and roadmap
-    - explicit uncertainty around scoring and forecasting
-    - explanation that remains intelligible to non-technical decision-makers
+  - distinction between live capability and roadmap
+  - explicit uncertainty around scoring and forecasting
+  - explanation that remains intelligible to non-technical decision-makers
   discouraged_characteristics:
-    - unsupported AI claims
-    - vague claims of intelligence or automation
-    - presenting planned functionality as delivered
+  - unsupported AI claims
+  - vague claims of intelligence or automation
+  - presenting planned functionality as delivered
   context_dependent_characteristics:
-    - technical density
-    - investor compression
+  - technical density
+  - investor compression
   prohibited_imitation: []
 form_routing:
   product_specification:
     register_profile: technical-product
     workflow_level: full
-    required_modules: [editorial-integrity-router, authorship-capture, editorial-brief-compiler, source-grounded-drafter, argument-structure-reviewer, factual-verifier, final-editorial-gate]
-    output_requirements: [current versus planned status, deterministic logic, edge cases]
+    required_modules:
+    - editorial-integrity-router
+    - authorship-capture
+    - editorial-brief-compiler
+    - source-grounded-drafter
+    - argument-structure-reviewer
+    - factual-verifier
+    - final-editorial-gate
+    output_requirements:
+    - current versus planned status
+    - deterministic logic
+    - edge cases
   investor_material:
     register_profile: investor
     workflow_level: full
-    required_modules: [editorial-integrity-router, authorship-capture, editorial-brief-compiler, source-grounded-drafter, argument-structure-reviewer, anti-slop-auditor, voice-preserving-editor, factual-verifier, final-editorial-gate]
-    output_requirements: [compressed thesis, evidence-backed claims, explicit assumptions]
+    required_modules:
+    - editorial-integrity-router
+    - authorship-capture
+    - editorial-brief-compiler
+    - source-grounded-drafter
+    - argument-structure-reviewer
+    - anti-slop-auditor
+    - voice-preserving-editor
+    - factual-verifier
+    - final-editorial-gate
+    output_requirements:
+    - compressed thesis
+    - evidence-backed claims
+    - explicit assumptions
   jira_ticket:
     register_profile: delivery
     workflow_level: standard
-    required_modules: [editorial-integrity-router, editorial-brief-compiler, voice-preserving-editor, final-editorial-gate]
-    output_requirements: [clear acceptance criteria, edge states, no app logic hidden in configuration]
+    required_modules:
+    - editorial-integrity-router
+    - editorial-brief-compiler
+    - voice-preserving-editor
+    - final-editorial-gate
+    output_requirements:
+    - clear acceptance criteria
+    - edge states
+    - no app logic hidden in configuration
 factual_integrity:
   verification_default: full
   current_claims_require_web: true
-  source_priority: [product source of truth, approved technical documentation, current repository, official platform documentation]
+  source_priority:
+  - product source of truth
+  - approved technical documentation
+  - current repository
+  - official platform documentation
   prohibited_claim_behaviours:
-    - inventing facts, quotations, examples, or experience
-    - presenting inference as verified fact
-    - presenting roadmap functionality as live
-    - overstating AI capability or deterministic coverage
+  - inventing facts, quotations, examples, or experience
+  - presenting inference as verified fact
+  - presenting roadmap functionality as live
+  - overstating AI capability or deterministic coverage
   uncertainty_treatment: preserve and label
 terminology:
-  preferred: [Node, Roll-up, Lode, Performance Score, ROI Score, deterministic insight statement]
+  preferred:
+  - Node
+  - Roll-up
+  - Lode
+  - Performance Score
+  - ROI Score
+  - deterministic insight statement
   prohibited: []
-  definitions_file: ""
+  definitions_file: ''
 required_skills:
-  - editorial-integrity-router
-  - authorship-capture
-  - voice-profile-builder
-  - editorial-brief-compiler
-  - source-grounded-drafter
-  - argument-structure-reviewer
-  - anti-slop-auditor
-  - voice-preserving-editor
-  - factual-verifier
-  - final-editorial-gate
+- editorial-integrity-router
+- authorship-capture
+- voice-profile-builder
+- editorial-brief-compiler
+- source-grounded-drafter
+- argument-structure-reviewer
+- anti-slop-auditor
+- voice-preserving-editor
+- factual-verifier
+- final-editorial-gate
 optional_skills: []
 source_locations: []
 governance:
@@ -94,9 +138,13 @@ governance:
   privacy: private project workspace
   unresolved_issue_policy: block_release
 project_exceptions:
-  - rule: Never present planned functionality as live.
-    rationale: Product trust depends on precise representation of current capability.
-    applies_to: [all]
-  - rule: Preserve explicit uncertainty around scoring, forecasting and model performance.
-    rationale: Uncertainty is a material part of product and investor truthfulness.
-    applies_to: [product_specification, investor_material, client_material]
+- rule: Never present planned functionality as live.
+  rationale: Product trust depends on precise representation of current capability.
+  applies_to:
+  - all
+- rule: Preserve explicit uncertainty around scoring, forecasting and model performance.
+  rationale: Uncertainty is a material part of product and investor truthfulness.
+  applies_to:
+  - product_specification
+  - investor_material
+  - client_material
