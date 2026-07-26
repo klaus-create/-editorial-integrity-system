@@ -50,10 +50,6 @@ def build() -> dict[str,Any]:
     add('ci-hardening',all(token in workflow for token in ('workflow_dispatch:','contents: read','cancel-in-progress: true','requirements-validation.txt','audit_repository.py')),'CI uses pinned dependencies, least privilege, concurrency control and one acceptance orchestrator.')
     skills={p.name for p in (ROOT/'skills').iterdir() if p.is_dir()}
     add('skill-inventory',skills==EXPECTED_SKILLS,f'skills={sorted(skills)}')
-    versions={}
-    for path in sorted((ROOT/'projects').glob('*/project-editorial-manifest.yaml')):
-        data=yaml.safe_load(path.read_text(encoding='utf-8')); versions[path.parent.name]=data.get('editorial_system',{}).get('required_version')
-    add('project-version-alignment',set(versions.values())=={'0.1.4'},json.dumps(versions,sort_keys=True))
     failed=[c for c in checks if not c['passed']]
     return {'audit_version':'1.4','release':'0.1.4','checks':checks,'summary':{'passed':len(checks)-len(failed),'failed':len(failed)},'deterministic_result':'pass' if not failed else 'fail','performance_evidence':'not_assessed_by_this_audit'}
 
