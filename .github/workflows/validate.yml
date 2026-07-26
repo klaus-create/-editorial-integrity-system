@@ -20,8 +20,8 @@ jobs:
       - name: Apply audited repository tree
         run: |
           set -euo pipefail
-          cat remediation-parts/part-* | base64 -d > /tmp/remediation.tar.gz
-          tar -xzf /tmp/remediation.tar.gz
+          cat remediation-parts/part-* | base64 -d > /tmp/remediation.tar.xz
+          tar -xJf /tmp/remediation.tar.xz
           rm -rf remediation-parts remediation.ready
 
       - name: Commit audited remediation
