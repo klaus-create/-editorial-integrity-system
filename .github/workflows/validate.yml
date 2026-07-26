@@ -27,5 +27,23 @@ jobs:
       - name: Install validation dependencies
         run: pip install --requirement requirements-validation.txt
 
-      - name: Run complete repository acceptance audit
+      - name: Validate Skill suite
+        run: python scripts/validate_skill_suite.py
+
+      - name: Validate contract fixtures
+        run: python scripts/run_contract_tests.py
+
+      - name: Validate repository links
+        run: python scripts/check_repository_links.py
+
+      - name: Validate project manifests
+        run: |
+          for manifest in projects/*/project-editorial-manifest.yaml; do
+            python scripts/validate_manifest.py "$manifest"
+          done
+
+      - name: Validate extracted packages
+        run: python scripts/validate_packages.py --prevalidated
+
+      - name: Verify release acceptance report
         run: python scripts/audit_repository.py
