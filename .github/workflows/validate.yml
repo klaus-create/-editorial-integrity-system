@@ -1,11 +1,11 @@
-name: Diagnose editorial integrity validation
+name: Validate editorial integrity system
 
 on:
   push:
   pull_request:
 
 jobs:
-  diagnose:
+  validate:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -17,22 +17,42 @@ jobs:
       - name: Install validation dependencies
         run: pip install pyyaml jsonschema
 
-      - name: Capture Skill validation output
-        id: skill_validation
-        continue-on-error: true
+      - name: Validate Skill suite
+        run: python scripts/validate_skill_suite.py
+
+      - name: Run contract fixture tests
+        run: python scripts/run_contract_tests.py
+
+      - name: Validate repository links and Skill resources
+        run: python scripts/check_repository_links.py
+
+      - name: Validate project manifests
         run: |
-          set -o pipefail
-          python scripts/validate_skill_suite.py 2>&1 | tee skill-validation.log
+          set -e
+          for manifest in projects/*/project-editorial-manifest.yaml; do
+            python scripts/validate_manifest.py "$manifest"
+          done
 
-      - name: Upload Skill validation diagnostic
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: skill-validation-diagnostic
-          path: skill-validation.log
-          retention-days: 1
-          if-no-files-found: error
+      - name: Run repository acceptance audit
+        run: python scripts/audit_repository.py
 
-      - name: Preserve validation failure
-        if: steps.skill_validation.outcome == 'failure'
-        run: exit 1
+      - name: Validate packaging
+        run: |
+          set -e
+          rm -rf dist
+          for skill in skills/*; do
+            name="$(basename "$skill")"
+            mkdir -p "dist/$name"
+            python scripts/package_skill.py "$skill" "dist/$name"
+            test -s "dist/$name/skill.zip"
+            python - "$name" "dist/$name/skill.zip" <<'PY'
+          import sys
+          import zipfile
+          skill, archive_path = sys.argv[1:]
+          with zipfile.ZipFile(archive_path) as archive:
+              required = {f"{skill}/SKILL.md", f"{skill}/agents/openai.yaml"}
+              missing = required - set(archive.namelist())
+              if missing:
+                  raise SystemExit(f"missing packaged files: {sorted(missing)}")
+          PY
+          done
