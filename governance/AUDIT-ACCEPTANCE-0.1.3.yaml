@@ -1,0 +1,260 @@
+audit_version: '1.3'
+release_candidate: 0.1.3
+checks:
+- check_id: validate_skill_suite.py
+  passed: true
+  evidence: 'PASS: 10 Skill(s) satisfy the capability-depth structure and contract
+    rules.'
+- check_id: run_contract_tests.py
+  passed: true
+  evidence: 'PASS: 60 contract fixtures, 220 schema rejection checks and 40 semantic
+    rejection checks validated across 10 Skill(s), with unique scenario outputs.'
+- check_id: check_repository_links.py
+  passed: true
+  evidence: 'PASS: 93 local documentation and Skill resource references resolve.'
+- check_id: project-manifest-validation
+  passed: true
+  evidence: '{"book-manuscript": "VALID: Long-Form Book Manuscript (manifest 1.0)",
+    "onesource": "VALID: OneSource (manifest 1.0)", "social-marketer": "VALID: Social
+    Marketer (manifest 1.0)"}'
+- check_id: current-release
+  passed: true
+  evidence: README and roadmap identify the corrective release candidate.
+- check_id: release-0.1.2-retracted
+  passed: true
+  evidence: 0.1.2 explicitly retracts its maturity claim.
+- check_id: release-boundary
+  passed: true
+  evidence: Current documentation separates deterministic acceptance from live performance
+    evidence.
+- check_id: capability-standard-depth
+  passed: true
+  evidence: Capability standard lines=284.
+- check_id: handoff-specification
+  passed: true
+  evidence: Common fields, producer/consumer ownership, status semantics and re-entry
+    rules exist.
+- check_id: ci-uses-repository-scripts
+  passed: true
+  evidence: CI invokes the maintained repository validators, audit and packager.
+- check_id: ci-no-temporary-audit-export
+  passed: true
+  evidence: Temporary private repository export has been removed.
+- check_id: ci-no-length-proxy
+  passed: true
+  evidence: CI does not use inline character-count proxies as acceptance evidence.
+- check_id: skill-inventory
+  passed: true
+  evidence: skills=['anti-slop-auditor', 'argument-structure-reviewer', 'authorship-capture',
+    'editorial-brief-compiler', 'editorial-integrity-router', 'factual-verifier',
+    'final-editorial-gate', 'source-grounded-drafter', 'voice-preserving-editor',
+    'voice-profile-builder']
+- check_id: project-version-alignment
+  passed: true
+  evidence: '{"book-manuscript": "0.1.3", "onesource": "0.1.3", "social-marketer":
+    "0.1.3"}'
+- check_id: metadata-completeness
+  passed: true
+  evidence: Reviewed 10 complete short descriptions.
+- check_id: schema-integrity
+  passed: true
+  evidence: Eleven valid schemas with unique IDs.
+- check_id: specialist-guide-depth
+  passed: true
+  evidence: '{"anti-slop-auditor": {"lines": 158, "referenced": true, "sections":
+    12}, "argument-structure-reviewer": {"lines": 177, "referenced": true, "sections":
+    11}, "authorship-capture": {"lines": 161, "referenced": true, "sections": 11},
+    "editorial-brief-compiler": {"lines": 171, "referenced": true, "sections": 13},
+    "editorial-integrity-router": {"lines": 172, "referenced": true, "sections": 9},
+    "factual-verifier": {"lines": 181, "referenced": true, "sections": 16}, "final-editorial-gate":
+    {"lines": 180, "referenced": true, "sections": 10}, "source-grounded-drafter":
+    {"lines": 172, "referenced": true, "sections": 16}, "voice-preserving-editor":
+    {"lines": 166, "referenced": true, "sections": 11}, "voice-profile-builder": {"lines":
+    154, "referenced": true, "sections": 11}}'
+- check_id: fixture-coverage
+  passed: true
+  evidence: fixtures=60; categories=['adversarial', 'edge', 'false_positive', 'standard'];
+    semantic diversity and negative checks are executed by run_contract_tests.py
+- check_id: per-skill-acceptance-matrix
+  passed: true
+  evidence: Each Skill records method, specialist guide, quality gate, fixture and
+    contract evidence.
+- check_id: obsolete-baseline-removed
+  passed: true
+  evidence: The pre-remediation baseline findings file is not shipped as current evidence.
+skills:
+  anti-slop-auditor:
+    entrypoint_lines: 37
+    metadata_description_characters: 129
+    method_lines: 74
+    method_sections: 9
+    specialist_guide: calibration-taxonomy.md
+    specialist_guide_lines: 158
+    specialist_guide_sections: 12
+    quality_gate_checks: 14
+    fixture_count: 6
+    fixture_categories:
+    - adversarial
+    - edge
+    - false_positive
+    - standard
+    schema_id: https://editorial-integrity.local/schemas/anti_slop_audit.schema.yaml
+    deterministic_acceptance: pass
+  argument-structure-reviewer:
+    entrypoint_lines: 37
+    metadata_description_characters: 121
+    method_lines: 68
+    method_sections: 9
+    specialist_guide: argument-analysis-models.md
+    specialist_guide_lines: 177
+    specialist_guide_sections: 11
+    quality_gate_checks: 14
+    fixture_count: 6
+    fixture_categories:
+    - adversarial
+    - edge
+    - false_positive
+    - standard
+    schema_id: https://editorial-integrity.local/schemas/argument_review.schema.yaml
+    deterministic_acceptance: pass
+  authorship-capture:
+    entrypoint_lines: 37
+    metadata_description_characters: 126
+    method_lines: 68
+    method_sections: 9
+    specialist_guide: elicitation-and-epistemic-classification.md
+    specialist_guide_lines: 161
+    specialist_guide_sections: 11
+    quality_gate_checks: 14
+    fixture_count: 6
+    fixture_categories:
+    - adversarial
+    - edge
+    - false_positive
+    - standard
+    schema_id: https://editorial-integrity.local/schemas/authorship_source_pack.schema.yaml
+    deterministic_acceptance: pass
+  editorial-brief-compiler:
+    entrypoint_lines: 38
+    metadata_description_characters: 111
+    method_lines: 77
+    method_sections: 9
+    specialist_guide: form-brief-patterns.md
+    specialist_guide_lines: 171
+    specialist_guide_sections: 13
+    quality_gate_checks: 14
+    fixture_count: 6
+    fixture_categories:
+    - adversarial
+    - edge
+    - false_positive
+    - standard
+    schema_id: https://editorial-integrity.local/schemas/editorial_brief.schema.yaml
+    deterministic_acceptance: pass
+  editorial-integrity-router:
+    entrypoint_lines: 38
+    metadata_description_characters: 128
+    method_lines: 79
+    method_sections: 10
+    specialist_guide: risk-and-routing-matrix.md
+    specialist_guide_lines: 172
+    specialist_guide_sections: 9
+    quality_gate_checks: 14
+    fixture_count: 6
+    fixture_categories:
+    - adversarial
+    - edge
+    - false_positive
+    - standard
+    schema_id: https://editorial-integrity.local/schemas/route_declaration.schema.yaml
+    deterministic_acceptance: pass
+  factual-verifier:
+    entrypoint_lines: 38
+    metadata_description_characters: 140
+    method_lines: 74
+    method_sections: 9
+    specialist_guide: claim-verification-playbooks.md
+    specialist_guide_lines: 181
+    specialist_guide_sections: 16
+    quality_gate_checks: 16
+    fixture_count: 6
+    fixture_categories:
+    - adversarial
+    - edge
+    - false_positive
+    - standard
+    schema_id: https://editorial-integrity.local/schemas/verification_record.schema.yaml
+    deterministic_acceptance: pass
+  final-editorial-gate:
+    entrypoint_lines: 38
+    metadata_description_characters: 133
+    method_lines: 66
+    method_sections: 9
+    specialist_guide: release-decision-matrix.md
+    specialist_guide_lines: 180
+    specialist_guide_sections: 10
+    quality_gate_checks: 15
+    fixture_count: 6
+    fixture_categories:
+    - adversarial
+    - edge
+    - false_positive
+    - standard
+    schema_id: https://editorial-integrity.local/schemas/gate_decision.schema.yaml
+    deterministic_acceptance: pass
+  source-grounded-drafter:
+    entrypoint_lines: 38
+    metadata_description_characters: 127
+    method_lines: 77
+    method_sections: 9
+    specialist_guide: form-drafting-playbooks.md
+    specialist_guide_lines: 172
+    specialist_guide_sections: 16
+    quality_gate_checks: 14
+    fixture_count: 6
+    fixture_categories:
+    - adversarial
+    - edge
+    - false_positive
+    - standard
+    schema_id: https://editorial-integrity.local/schemas/draft_output.schema.yaml
+    deterministic_acceptance: pass
+  voice-preserving-editor:
+    entrypoint_lines: 38
+    metadata_description_characters: 128
+    method_lines: 73
+    method_sections: 9
+    specialist_guide: edit-ladder-and-drift.md
+    specialist_guide_lines: 166
+    specialist_guide_sections: 11
+    quality_gate_checks: 14
+    fixture_count: 6
+    fixture_categories:
+    - adversarial
+    - edge
+    - false_positive
+    - standard
+    schema_id: https://editorial-integrity.local/schemas/edit_output.schema.yaml
+    deterministic_acceptance: pass
+  voice-profile-builder:
+    entrypoint_lines: 37
+    metadata_description_characters: 123
+    method_lines: 66
+    method_sections: 9
+    specialist_guide: voice-analysis-and-sampling.md
+    specialist_guide_lines: 154
+    specialist_guide_sections: 11
+    quality_gate_checks: 14
+    fixture_count: 6
+    fixture_categories:
+    - adversarial
+    - edge
+    - false_positive
+    - standard
+    schema_id: https://editorial-integrity.local/schemas/voice_profile.schema.yaml
+    deterministic_acceptance: pass
+summary:
+  passed: 20
+  failed: 0
+deterministic_result: pass
+performance_evidence: not_assessed_by_this_audit

@@ -1,18 +1,290 @@
-version: '1.0'
+schema_version: '1.0'
 skill: voice-preserving-editor
+contract: ../references/output-contract.yaml
 cases:
-- id: VO-01
-  input: Generic phrase with specific source evidence
-  expected: local concrete replacement
-- id: VO-02
-  input: Deliberate fragment
-  expected: preserve unless harmful
-- id: VO-03
-  input: Shortening removes limitation
-  expected: restore evidence boundary
-- id: VO-04
-  input: May contribute -> caused
-  expected: flag causal drift
-- id: VO-05
-  input: Broken architecture
-  expected: escalate or level 5 only if authorised
+- case_id: editor.standard.local-repair
+  category: standard
+  risk: low
+  input:
+    summary: Remove generic setup without changing proposition.
+  expected_behaviour: Use a local phrase-level repair.
+  example_output:
+    schema_version: '1.0'
+    artefact_type: edit_output
+    assignment_id: ASSIGN-001
+    artefact_version: '1.0'
+    status: complete
+    input_versions:
+      draft_output: '1.0'
+      review_findings: '1.0'
+    unresolved_issues: []
+    human_action_required: false
+    editing_mode: light
+    revised_text: The evidence supports a limited next step.
+    edit_log:
+    - edit_id: EDIT-001
+      location: opening phrase
+      edit_level: 2
+      problem: Generic setup delays the existing claim.
+      justification: Delete only the generic setup; retain the proposition.
+      semantic_change_authorised: false
+      before_proposition: The evidence supports a limited next step.
+      after_proposition: The evidence supports a limited next step.
+    preserved_characteristics:
+    - Direct governing claim
+    drift_checks:
+      certainty: preserved
+      causality: preserved
+      attribution: preserved
+      emotional_stance: preserved
+      first_person: preserved
+      protected_language: preserved
+    material_changes: []
+  assertions:
+    equals:
+      editing_mode: light
+      edit_log.0.edit_level: 2
+      drift_checks.certainty: preserved
+    contains: {}
+    prohibited_values: {}
+- case_id: editor.edge.authorised-paragraph
+  category: edge
+  risk: moderate
+  input:
+    summary: Paragraph structure is broken and level 4 is authorised.
+  expected_behaviour: Disclose the material paragraph edit.
+  example_output:
+    schema_version: '1.0'
+    artefact_type: edit_output
+    assignment_id: ASSIGN-001
+    artefact_version: '1.0'
+    status: complete
+    input_versions:
+      draft_output: '1.0'
+      review_findings: '1.0'
+    unresolved_issues: []
+    human_action_required: false
+    editing_mode: substantive
+    revised_text: The evidence supports a limited next step. The recommendation follows
+      from that evidence.
+    edit_log:
+    - edit_id: EDIT-001
+      location: paragraphs 2-3
+      edit_level: 4
+      problem: Evidence and implication are sequenced in reverse.
+      justification: Reorder the two authorised paragraphs without changing either
+        proposition.
+      semantic_change_authorised: false
+      before_proposition: Evidence follows the recommendation.
+      after_proposition: Evidence precedes the recommendation.
+    preserved_characteristics:
+    - Direct governing claim
+    drift_checks:
+      certainty: preserved
+      causality: preserved
+      attribution: preserved
+      emotional_stance: preserved
+      first_person: preserved
+      protected_language: preserved
+    material_changes:
+    - edit_id: EDIT-001
+      description: Paragraph order changed under explicit substantive-edit authority.
+      downstream_actions:
+      - reverify
+      - regate
+  assertions:
+    equals:
+      editing_mode: substantive
+      edit_log.0.edit_level: 4
+      material_changes.0.edit_id: EDIT-001
+    contains:
+      material_changes.0.description: Paragraph order
+    prohibited_values: {}
+- case_id: editor.adversarial.causal-drift
+  category: adversarial
+  risk: high
+  input:
+    summary: Requested polish changes “may contribute” to “caused”.
+  expected_behaviour: Detect drift and require human input.
+  example_output:
+    schema_version: '1.0'
+    artefact_type: edit_output
+    assignment_id: ASSIGN-001
+    artefact_version: '1.0'
+    status: human_input_required
+    input_versions:
+      draft_output: '1.0'
+      review_findings: '1.0'
+    unresolved_issues:
+    - issue_id: ISS-001
+      description: The requested edit would strengthen association into an unsupported
+        causal claim.
+      owner: author
+      blocking: true
+      required_action: Approve evidence-consistent association wording or provide
+        causal evidence for verification.
+    human_action_required: true
+    editing_mode: light
+    revised_text: The result followed the intervention.
+    edit_log:
+    - edit_id: EDIT-001
+      location: sentence 1
+      edit_level: 2
+      problem: The requested wording would convert association into causality.
+      justification: Do not apply the stronger wording without evidence and author
+        authority.
+      semantic_change_authorised: false
+      before_proposition: The result followed the intervention.
+      after_proposition: The intervention caused the result.
+    preserved_characteristics:
+    - Direct governing claim
+    drift_checks:
+      certainty: preserved
+      causality: drift_detected
+      attribution: preserved
+      emotional_stance: preserved
+      first_person: preserved
+      protected_language: preserved
+    material_changes: []
+  assertions:
+    equals:
+      status: human_input_required
+      drift_checks.causality: drift_detected
+    contains: {}
+    prohibited_values: {}
+- case_id: editor.false-positive.fragment
+  category: false_positive
+  risk: low
+  input:
+    summary: Deliberate fragment is unusual but functional.
+  expected_behaviour: Use edit level 0 and preserve it.
+  example_output:
+    schema_version: '1.0'
+    artefact_type: edit_output
+    assignment_id: ASSIGN-001
+    artefact_version: '1.0'
+    status: complete
+    input_versions:
+      draft_output: '1.0'
+      review_findings: '1.0'
+    unresolved_issues: []
+    human_action_required: false
+    editing_mode: light
+    revised_text: Not yet. And that matters.
+    edit_log:
+    - edit_id: EDIT-001
+      location: sentence 1
+      edit_level: 0
+      problem: No material defect; the fragment is a protected emphasis device.
+      justification: Preserve the wording unchanged.
+      semantic_change_authorised: false
+      before_proposition: Not yet. And that matters.
+      after_proposition: Not yet. And that matters.
+    preserved_characteristics:
+    - Direct governing claim
+    drift_checks:
+      certainty: preserved
+      causality: preserved
+      attribution: preserved
+      emotional_stance: preserved
+      first_person: preserved
+      protected_language: preserved
+    material_changes: []
+  assertions:
+    equals:
+      edit_log.0.edit_level: 0
+      revised_text: Not yet. And that matters.
+    contains: {}
+    prohibited_values: {}
+- case_id: editor.adversarial.missing-story
+  category: adversarial
+  risk: high
+  input:
+    summary: Expansion requests a personal story not supplied.
+  expected_behaviour: Block invention and return to author.
+  example_output:
+    schema_version: '1.0'
+    artefact_type: edit_output
+    assignment_id: ASSIGN-001
+    artefact_version: '1.0'
+    status: blocked
+    input_versions:
+      draft_output: '1.0'
+      review_findings: '1.0'
+    unresolved_issues:
+    - issue_id: ISS-001
+      description: The requested personal story was not supplied by the author.
+      owner: author
+      blocking: true
+      required_action: Supply an authorised story or remove the request.
+    human_action_required: true
+    editing_mode: light
+    revised_text: The evidence supports a limited next step.
+    edit_log:
+    - edit_id: EDIT-001
+      location: requested new section
+      edit_level: 0
+      problem: No authorised personal story was supplied.
+      justification: Do not create an edit that would invent first-person experience.
+      semantic_change_authorised: false
+      before_proposition: null
+      after_proposition: null
+    preserved_characteristics:
+    - Direct governing claim
+    drift_checks:
+      certainty: preserved
+      causality: preserved
+      attribution: preserved
+      emotional_stance: preserved
+      first_person: preserved
+      protected_language: preserved
+    material_changes: []
+  assertions:
+    equals:
+      status: blocked
+      human_action_required: true
+    contains: {}
+    prohibited_values: {}
+- case_id: editor.edge.minimality
+  category: edge
+  risk: low
+  input:
+    summary: A sentence is already effective.
+  expected_behaviour: Return no material changes rather than rewriting for variation.
+  example_output:
+    schema_version: '1.0'
+    artefact_type: edit_output
+    assignment_id: ASSIGN-001
+    artefact_version: '1.0'
+    status: complete
+    input_versions:
+      draft_output: '1.0'
+      review_findings: '1.0'
+    unresolved_issues: []
+    human_action_required: false
+    editing_mode: light
+    revised_text: The evidence supports a limited next step.
+    edit_log:
+    - edit_id: EDIT-001
+      location: whole piece
+      edit_level: 0
+      problem: The draft already satisfies the requested clarity and voice constraints.
+      justification: Return it unchanged rather than rewriting for variation.
+      semantic_change_authorised: false
+      before_proposition: The evidence supports a limited next step.
+      after_proposition: The evidence supports a limited next step.
+    preserved_characteristics:
+    - Direct governing claim
+    drift_checks:
+      certainty: preserved
+      causality: preserved
+      attribution: preserved
+      emotional_stance: preserved
+      first_person: preserved
+      protected_language: preserved
+    material_changes: []
+  assertions:
+    equals:
+      material_changes: []
+    contains: {}
+    prohibited_values: {}

@@ -1,21 +1,275 @@
-version: '1.0'
+schema_version: '1.0'
 skill: factual-verifier
+contract: ../references/output-contract.yaml
 cases:
-- id: FA-01
-  input: 10 to 12 described as 2%
-  expected: correct to 20% or 2 units
-- id: FA-02
-  input: Roadmap feature as live
-  expected: qualify/block
-- id: FA-03
-  input: Correlation as causality
-  expected: association only unless supported
-- id: FA-04
-  input: Secondary paraphrase in quotes
-  expected: remove quotes/find original
-- id: FA-05
-  input: Vendor calls itself market leader
-  expected: interested-party claim
-- id: FA-06
-  input: Current office-holder from memory
-  expected: current official verification
+- case_id: verifier.standard.numeric-check
+  category: standard
+  risk: high
+  input:
+    summary: Verify a measured 20 per cent reduction.
+  expected_behaviour: Record source, arithmetic and verified status.
+  example_output:
+    schema_version: '1.0'
+    artefact_type: verification_record
+    assignment_id: ASSIGN-001
+    artefact_version: '1.0'
+    status: complete
+    input_versions:
+      draft_output: '3.1'
+      claim_registry: '1.0'
+    unresolved_issues: []
+    human_action_required: false
+    draft_version: '3.1'
+    claims:
+    - claim_id: CLM-001
+      claim_text: Processing time fell by 20 per cent.
+      claim_class: numerical
+      materiality: high
+      sources:
+      - source_id: SRC-001
+        reference: Approved measurement report
+        authority: strong
+        proximity: primary
+        independence: independent
+        freshness: current
+        accessed_on: '2026-07-26'
+      checks_performed:
+      - Confirmed period, denominator, unit and arithmetic.
+      status: verified
+      action: Publish within the measured scope.
+      correction: null
+      current_as_of: '2026-07-26'
+    overall_release_risk: low
+    scope_limitations: []
+  assertions:
+    equals:
+      claims.0.status: verified
+      overall_release_risk: low
+    contains: {}
+    prohibited_values: {}
+- case_id: verifier.adversarial.percentage-error
+  category: adversarial
+  risk: high
+  input:
+    summary: 10 to 12 is described as two per cent.
+  expected_behaviour: Contradict and correct the arithmetic.
+  example_output:
+    schema_version: '1.0'
+    artefact_type: verification_record
+    assignment_id: ASSIGN-001
+    artefact_version: '1.0'
+    status: complete
+    input_versions:
+      draft_output: '3.1'
+      claim_registry: '1.0'
+    unresolved_issues: []
+    human_action_required: false
+    draft_version: '3.1'
+    claims:
+    - claim_id: CLM-001
+      claim_text: Processing time rose from 10 to 12, a 2 per cent increase.
+      claim_class: numerical
+      materiality: high
+      sources:
+      - source_id: SRC-001
+        reference: Approved measurement report
+        authority: strong
+        proximity: primary
+        independence: independent
+        freshness: current
+        accessed_on: '2026-07-26'
+      checks_performed:
+      - Confirmed period, denominator, unit and arithmetic.
+      status: contradicted
+      action: Correct the percentage to 20 per cent or state two units.
+      correction: Processing time rose by 20 per cent.
+      current_as_of: '2026-07-26'
+    overall_release_risk: blocked
+    scope_limitations: []
+  assertions:
+    equals:
+      claims.0.status: contradicted
+      overall_release_risk: blocked
+    contains:
+      claims.0.correction: 20 per cent
+    prohibited_values: {}
+- case_id: verifier.adversarial.roadmap-live
+  category: adversarial
+  risk: high
+  input:
+    summary: A roadmap feature is described as live.
+  expected_behaviour: Block or qualify the capability.
+  example_output:
+    schema_version: '1.0'
+    artefact_type: verification_record
+    assignment_id: ASSIGN-001
+    artefact_version: '1.0'
+    status: complete
+    input_versions:
+      draft_output: '3.1'
+      claim_registry: '1.0'
+    unresolved_issues: []
+    human_action_required: false
+    draft_version: '3.1'
+    claims:
+    - claim_id: CLM-001
+      claim_text: The roadmap feature is live.
+      claim_class: product_capability
+      materiality: high
+      sources:
+      - source_id: SRC-001
+        reference: Approved measurement report
+        authority: strong
+        proximity: primary
+        independence: independent
+        freshness: current
+        accessed_on: '2026-07-26'
+      checks_performed:
+      - Confirmed period, denominator, unit and arithmetic.
+      status: unsupported
+      action: Label as planned or provide current live evidence.
+      correction: The feature is planned.
+      current_as_of: '2026-07-26'
+    overall_release_risk: blocked
+    scope_limitations: []
+  assertions:
+    equals:
+      status: complete
+      claims.0.status: unsupported
+    contains: {}
+    prohibited_values: {}
+- case_id: verifier.false-positive.association
+  category: false_positive
+  risk: high
+  input:
+    summary: Sessions rise during a campaign without causal evidence.
+  expected_behaviour: Use association language, not causal certainty.
+  example_output:
+    schema_version: '1.0'
+    artefact_type: verification_record
+    assignment_id: ASSIGN-001
+    artefact_version: '1.0'
+    status: complete
+    input_versions:
+      draft_output: '3.1'
+      claim_registry: '1.0'
+    unresolved_issues: []
+    human_action_required: false
+    draft_version: '3.1'
+    claims:
+    - claim_id: CLM-001
+      claim_text: Website sessions rose because the campaign worked.
+      claim_class: causal
+      materiality: high
+      sources:
+      - source_id: SRC-001
+        reference: Approved measurement report
+        authority: strong
+        proximity: primary
+        independence: independent
+        freshness: current
+        accessed_on: '2026-07-26'
+      checks_performed:
+      - Confirmed period, denominator, unit and arithmetic.
+      status: qualified
+      action: Use association language unless causal evidence is supplied.
+      correction: Website sessions rose during the campaign period.
+      current_as_of: '2026-07-26'
+    overall_release_risk: moderate
+    scope_limitations: []
+  assertions:
+    equals:
+      claims.0.status: qualified
+    contains:
+      claims.0.action: association
+    prohibited_values: {}
+- case_id: verifier.edge.quote-original
+  category: edge
+  risk: high
+  input:
+    summary: A secondary paraphrase appears in quotation marks.
+  expected_behaviour: Require original wording or remove quotation marks.
+  example_output:
+    schema_version: '1.0'
+    artefact_type: verification_record
+    assignment_id: ASSIGN-001
+    artefact_version: '1.0'
+    status: complete
+    input_versions:
+      draft_output: '3.1'
+      claim_registry: '1.0'
+    unresolved_issues: []
+    human_action_required: false
+    draft_version: '3.1'
+    claims:
+    - claim_id: CLM-001
+      claim_text: “We transformed the market.”
+      claim_class: quotation
+      materiality: high
+      sources:
+      - source_id: SRC-001
+        reference: Approved measurement report
+        authority: strong
+        proximity: primary
+        independence: independent
+        freshness: current
+        accessed_on: '2026-07-26'
+      checks_performed:
+      - Confirmed period, denominator, unit and arithmetic.
+      status: unverifiable
+      action: Find the original or remove quotation marks.
+      correction: null
+      current_as_of: '2026-07-26'
+    overall_release_risk: blocked
+    scope_limitations: []
+  assertions:
+    equals:
+      claims.0.status: unverifiable
+      overall_release_risk: blocked
+    contains: {}
+    prohibited_values: {}
+- case_id: verifier.edge.vendor-leadership
+  category: edge
+  risk: moderate
+  input:
+    summary: Vendor calls itself market leader.
+  expected_behaviour: Treat as attributed interested-party claim.
+  example_output:
+    schema_version: '1.0'
+    artefact_type: verification_record
+    assignment_id: ASSIGN-001
+    artefact_version: '1.0'
+    status: complete
+    input_versions:
+      draft_output: '3.1'
+      claim_registry: '1.0'
+    unresolved_issues: []
+    human_action_required: false
+    draft_version: '3.1'
+    claims:
+    - claim_id: CLM-001
+      claim_text: The vendor is the market leader.
+      claim_class: comparative
+      materiality: high
+      sources:
+      - source_id: SRC-001
+        reference: Approved measurement report
+        authority: strong
+        proximity: primary
+        independence: independent
+        freshness: current
+        accessed_on: '2026-07-26'
+      checks_performed:
+      - Confirmed period, denominator, unit and arithmetic.
+      status: attributed
+      action: Attribute the claim to the vendor or obtain independent comparison.
+      correction: The vendor describes itself as a market leader.
+      current_as_of: '2026-07-26'
+    overall_release_risk: moderate
+    scope_limitations: []
+  assertions:
+    equals:
+      claims.0.status: attributed
+    contains:
+      claims.0.action: Attribute
+    prohibited_values: {}

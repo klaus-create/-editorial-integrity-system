@@ -1,18 +1,368 @@
-version: '1.0'
+schema_version: '1.0'
 skill: editorial-integrity-router
+contract: ../references/output-contract.yaml
 cases:
-- id: ED-01
-  input: Simple wording correction
-  expected: lightweight; editor only
-- id: ED-02
-  input: Investor report with current claims
-  expected: full; verifier and gate mandatory
-- id: ED-03
-  input: Audit-only request
-  expected: may_edit false
-- id: ED-04
-  input: Draft changed after verification
-  expected: mark verification stale
-- id: ED-05
-  input: Book chapter with no thesis
-  expected: capture or human input; no full draft
+- case_id: router.standard.full-current-claims
+  category: standard
+  risk: high
+  input:
+    summary: Investor report contains current claims.
+  expected_behaviour: Route to Drafter, Verifier and Gate at full level.
+  example_output:
+    schema_version: '1.0'
+    artefact_type: route_declaration
+    assignment_id: ASSIGN-001
+    artefact_version: '1.0'
+    status: complete
+    input_versions:
+      assignment: '1.0'
+      manifest: '1.0'
+    unresolved_issues: []
+    human_action_required: false
+    task_type: create
+    form: report
+    workflow_level: full
+    risk_dimensions:
+      consequence: high
+      factual: high
+      privacy: low
+      voice: moderate
+      continuity: low
+    modules:
+    - name: source-grounded-drafter
+      reason: New substantive writing is required.
+      may_retrieve: false
+      may_edit: true
+      may_release: false
+      expected_artefact: draft_output
+      stop_conditions:
+      - Stop if the thesis is unauthorised.
+      downstream_consumers: &id001
+      - argument-structure-reviewer
+      - factual-verifier
+    - name: factual-verifier
+      reason: Material current claims require verification.
+      may_retrieve: true
+      may_edit: false
+      may_release: false
+      expected_artefact: verification_record
+      stop_conditions:
+      - Stop if source authority is inadequate.
+      downstream_consumers: &id002
+      - final-editorial-gate
+    - name: final-editorial-gate
+      reason: External consequential release requires a gate decision.
+      may_retrieve: false
+      may_edit: false
+      may_release: true
+      expected_artefact: gate_decision
+      stop_conditions:
+      - Stop if mandatory approval is missing.
+      downstream_consumers: &id003
+      - human_approver
+      - calling_agent
+    required_inputs:
+    - authorised brief
+    - approved sources
+    stale_artefacts: []
+    approval:
+      required: true
+      approver: Project owner
+  assertions:
+    equals:
+      workflow_level: full
+      modules.1.name: factual-verifier
+      approval.required: true
+    contains: {}
+    prohibited_values: {}
+- case_id: router.edge.local-wording
+  category: edge
+  risk: low
+  input:
+    summary: Correct one private wording error without changing meaning.
+  expected_behaviour: Use a lightweight editor-only route.
+  example_output:
+    schema_version: '1.0'
+    artefact_type: route_declaration
+    assignment_id: ASSIGN-001
+    artefact_version: '1.0'
+    status: complete
+    input_versions:
+      assignment: '1.0'
+      manifest: '1.0'
+    unresolved_issues: []
+    human_action_required: false
+    task_type: edit
+    form: chat_message
+    workflow_level: lightweight
+    risk_dimensions:
+      consequence: low
+      factual: low
+      privacy: low
+      voice: low
+      continuity: low
+    modules:
+    - name: voice-preserving-editor
+      reason: Only a local wording repair is requested.
+      may_retrieve: false
+      may_edit: true
+      may_release: false
+      expected_artefact: edit_output
+      stop_conditions:
+      - Stop if the change alters meaning.
+      downstream_consumers:
+      - factual-verifier
+      - calling_agent
+    required_inputs:
+    - authorised brief
+    - approved sources
+    stale_artefacts: []
+    approval:
+      required: false
+      approver: null
+  assertions:
+    equals:
+      workflow_level: lightweight
+      modules.0.name: voice-preserving-editor
+      modules.0.may_edit: true
+    contains: {}
+    prohibited_values: {}
+- case_id: router.adversarial.stale-verification
+  category: adversarial
+  risk: high
+  input:
+    summary: Draft changed after verification.
+  expected_behaviour: Mark verification stale and prevent false release confidence.
+  example_output:
+    schema_version: '1.0'
+    artefact_type: route_declaration
+    assignment_id: ASSIGN-001
+    artefact_version: '1.0'
+    status: conditional
+    input_versions:
+      assignment: '1.0'
+      manifest: '1.0'
+    unresolved_issues:
+    - issue_id: ISS-001
+      description: Verification record 1.0 does not cover the changed draft.
+      owner: verifier
+      blocking: true
+      required_action: Re-run verification against the final draft version.
+    human_action_required: false
+    task_type: create
+    form: report
+    workflow_level: full
+    risk_dimensions:
+      consequence: high
+      factual: high
+      privacy: low
+      voice: moderate
+      continuity: low
+    modules:
+    - name: source-grounded-drafter
+      reason: New substantive writing is required.
+      may_retrieve: false
+      may_edit: true
+      may_release: false
+      expected_artefact: draft_output
+      stop_conditions:
+      - Stop if the thesis is unauthorised.
+      downstream_consumers: *id001
+    - name: factual-verifier
+      reason: Material current claims require verification.
+      may_retrieve: true
+      may_edit: false
+      may_release: false
+      expected_artefact: verification_record
+      stop_conditions:
+      - Stop if source authority is inadequate.
+      downstream_consumers: *id002
+    - name: final-editorial-gate
+      reason: External consequential release requires a gate decision.
+      may_retrieve: false
+      may_edit: false
+      may_release: true
+      expected_artefact: gate_decision
+      stop_conditions:
+      - Stop if mandatory approval is missing.
+      downstream_consumers: *id003
+    required_inputs:
+    - authorised brief
+    - approved sources
+    stale_artefacts:
+    - artefact_type: verification_record
+      version: '1.0'
+      reason: Draft changed after verification.
+    approval:
+      required: true
+      approver: Project owner
+  assertions:
+    equals:
+      status: conditional
+      stale_artefacts.0.artefact_type: verification_record
+    contains: {}
+    prohibited_values: {}
+- case_id: router.false-positive.audit-only
+  category: false_positive
+  risk: moderate
+  input:
+    summary: User asks for an audit, not a rewrite.
+  expected_behaviour: Select Auditor with editing authority false.
+  example_output:
+    schema_version: '1.0'
+    artefact_type: route_declaration
+    assignment_id: ASSIGN-001
+    artefact_version: '1.0'
+    status: complete
+    input_versions:
+      assignment: '1.0'
+      manifest: '1.0'
+    unresolved_issues: []
+    human_action_required: false
+    task_type: review
+    form: report
+    workflow_level: full
+    risk_dimensions:
+      consequence: high
+      factual: high
+      privacy: low
+      voice: moderate
+      continuity: low
+    modules:
+    - name: anti-slop-auditor
+      reason: Diagnosis only.
+      may_retrieve: false
+      may_edit: false
+      may_release: false
+      expected_artefact: anti_slop_audit
+      stop_conditions:
+      - Stop if the full piece is unavailable.
+      downstream_consumers:
+      - voice-preserving-editor
+      - calling_agent
+    required_inputs:
+    - authorised brief
+    - approved sources
+    stale_artefacts: []
+    approval:
+      required: false
+      approver: null
+  assertions:
+    equals:
+      task_type: review
+      modules.0.may_edit: false
+    contains: {}
+    prohibited_values: {}
+- case_id: router.edge.missing-approver
+  category: edge
+  risk: high
+  input:
+    summary: High-risk release has no approval owner.
+  expected_behaviour: Require human input and do not execute release.
+  example_output:
+    schema_version: '1.0'
+    artefact_type: route_declaration
+    assignment_id: ASSIGN-001
+    artefact_version: '1.0'
+    status: human_input_required
+    input_versions:
+      assignment: '1.0'
+      manifest: '1.0'
+    unresolved_issues:
+    - issue_id: ISS-001
+      description: No accountable approver is assigned for the high-risk release.
+      owner: project_owner
+      blocking: true
+      required_action: Assign an approver before execution.
+    human_action_required: true
+    task_type: create
+    form: report
+    workflow_level: full
+    risk_dimensions:
+      consequence: high
+      factual: high
+      privacy: low
+      voice: moderate
+      continuity: low
+    modules: []
+    required_inputs:
+    - authorised brief
+    - approved sources
+    stale_artefacts: []
+    approval:
+      required: true
+      approver: null
+  assertions:
+    equals:
+      status: human_input_required
+      approval.approver: null
+      human_action_required: true
+    contains: {}
+    prohibited_values: {}
+- case_id: router.adversarial.short-high-risk
+  category: adversarial
+  risk: high
+  input:
+    summary: One investor slide contains a market-leadership claim.
+  expected_behaviour: Do not downgrade because the output is short.
+  example_output:
+    schema_version: '1.0'
+    artefact_type: route_declaration
+    assignment_id: ASSIGN-001
+    artefact_version: '1.0'
+    status: complete
+    input_versions:
+      assignment: '1.0'
+      manifest: '1.0'
+    unresolved_issues: []
+    human_action_required: false
+    task_type: create
+    form: single investor slide
+    workflow_level: full
+    risk_dimensions:
+      consequence: high
+      factual: high
+      privacy: low
+      voice: moderate
+      continuity: low
+    modules:
+    - name: source-grounded-drafter
+      reason: New substantive writing is required.
+      may_retrieve: false
+      may_edit: true
+      may_release: false
+      expected_artefact: draft_output
+      stop_conditions:
+      - Stop if the thesis is unauthorised.
+      downstream_consumers: *id001
+    - name: factual-verifier
+      reason: Material current claims require verification.
+      may_retrieve: true
+      may_edit: false
+      may_release: false
+      expected_artefact: verification_record
+      stop_conditions:
+      - Stop if source authority is inadequate.
+      downstream_consumers: *id002
+    - name: final-editorial-gate
+      reason: External consequential release requires a gate decision.
+      may_retrieve: false
+      may_edit: false
+      may_release: true
+      expected_artefact: gate_decision
+      stop_conditions:
+      - Stop if mandatory approval is missing.
+      downstream_consumers: *id003
+    required_inputs:
+    - authorised brief
+    - approved sources
+    stale_artefacts: []
+    approval:
+      required: true
+      approver: Project owner
+  assertions:
+    equals:
+      workflow_level: full
+      form: single investor slide
+    contains: {}
+    prohibited_values: {}

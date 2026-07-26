@@ -6,19 +6,20 @@ It is organised by outcomes, not merely by files or features. Each stage states 
 
 ## Current position
 
-**Current release:** `v0.1.1-foundation-alignment`
+**Current release candidate:** `v0.1.3-audit-remediation`
 
-The foundation now includes:
+The corrective candidate now includes:
 
 - a shared editorial constitution;
-- ten modular Skills;
-- a canonical Project Editorial Manifest schema;
+- ten reviewed modular Skills with explicit authority boundaries and domain-specific professional playbooks;
+- eleven enforceable self-contained output schemas and canonical shared contracts;
+- sixty distinct executable contract fixtures across standard, edge, adversarial and false-positive cases;
+- 220 generated schema-rejection checks and 40 semantic-contradiction checks;
 - project manifests for Social Marketer, OneSource and long-form books;
-- validation, packaging and CI;
-- initial regression fixtures;
-- documented user and agent interaction paths.
+- suite, contract, manifest and packaging validation;
+- documented user, agent, artefact, stale-work and human-decision paths.
 
-The current release is suitable for controlled project use and structured testing. It is not yet a production 1.0 release because performance thresholds, human preference evidence, cross-platform installation tests and mature provenance controls remain incomplete.
+Release 0.1.2 was merged before its maturity claim survived a full audit. Release 0.1.3 is eligible for controlled pilot evaluation only after corrective validation and review. It is not yet pilot-tested, measured or production-ready.
 
 ## Delivery principles
 
@@ -58,6 +59,40 @@ The current release is suitable for controlled project use and structured testin
 - Router references resolve to real files.
 - CI validates all manifests and packages all Skills.
 - Inputs, outputs, hand-offs and human decision points are documented.
+
+---
+
+## Stage 0.5: Capability audit remediation
+
+**Target release:** `v0.1.3`
+
+**Outcome:** Every Skill is method-ready and contract-valid, with no claim that deterministic validation proves live expertise.
+
+**Primary users:** System owner, Skill maintainer, integration developer, pilot reviewer.
+
+### Delivered in the corrective candidate
+
+- Full audit record and retraction of the 0.1.2 maturity claim.
+- Expanded capability-depth acceptance standard.
+- Eleven enforceable self-contained output schemas, including the embedded Claim Registry contract.
+- Ten mandatory domain-specific playbooks beyond the common method files.
+- Canonical artefact envelope and status vocabulary.
+- Cross-Skill producer, consumer and stale-artefact specification.
+- Sixty schema-valid, semantically distinct fixture outputs with machine-checkable assertions.
+- Generated schema and semantic rejection checks that prove contradictory outputs are rejected.
+- Repository suite and contract-test scripts.
+- Validation before packaging.
+
+### Exit criteria
+
+- Zero deterministic P0 or P1 audit findings.
+- All output schemas pass Draft 2020-12 validation.
+- Packaged contracts match canonical shared schemas.
+- All sixty fixture outputs and assertions pass.
+- All project manifests pass.
+- All ten Skills pass entrypoint validation and package successfully.
+- Temporary audit-export mechanisms are removed.
+- Release wording remains limited to method-ready and contract-valid.
 
 ---
 
@@ -139,10 +174,10 @@ The current release is suitable for controlled project use and structured testin
 
 #### 3. Automated evaluation support
 
-- Machine-readable test fixtures.
-- Expected finding and prohibited-change fields.
-- Diff and scoring utilities.
-- Human adjudication record.
+- Live benchmark execution against governed and ungoverned baselines.
+- Expected finding, prohibited-change and human-adjudication records.
+- Diff, scoring and semantic-drift utilities.
+- Versioned evaluator agreement and disagreement records.
 
 ### Dependencies
 

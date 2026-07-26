@@ -1,18 +1,534 @@
-version: '1.0'
+schema_version: '1.0'
 skill: authorship-capture
+contract: ../references/output-contract.yaml
 cases:
-- id: AU-01
-  input: Implicit thesis
-  expected: propose for confirmation, not authorise
-- id: AU-02
-  input: Founder “first in Australia” recollection
-  expected: recollection plus current verification
-- id: AU-03
-  input: Roadmap mixed with live capability
-  expected: split and protect status
-- id: AU-04
-  input: Missing personal anecdote
-  expected: block invention
-- id: AU-05
-  input: Deliberate causal uncertainty
-  expected: preserve uncertainty
+- case_id: authorship.standard.authorised-pack
+  category: standard
+  risk: moderate
+  input:
+    summary: Author supplies a clear thesis and notes.
+  expected_behaviour: Return a sufficient classified source pack.
+  example_output:
+    schema_version: '1.0'
+    artefact_type: authorship_source_pack
+    assignment_id: ASSIGN-001
+    artefact_version: '1.0'
+    status: complete
+    input_versions:
+      assignment: '1.0'
+      source_inventory: '1.0'
+    unresolved_issues: []
+    human_action_required: false
+    author_id: author-1
+    purpose: Explain why the organisation should connect fragmented evidence before automating recommendations.
+    audience: Executive sponsors
+    intended_reader_effect: Understand the operating problem and approve a bounded discovery phase.
+    central_thesis:
+      text: Useful automation depends on connecting authorised evidence to accountable decisions.
+      status: authorised
+    source_inventory:
+    - source_id: SRC-NOTES
+      description: Author workshop notes and approved proposition
+      source_type: notes
+      permission_status: approved
+      limitations:
+      - Contains strategic judgement rather than independent market proof.
+    substantive_items:
+    - item_id: CLM-001
+      text: The current process requires analysts to reconcile evidence across disconnected systems.
+      epistemic_class: author_judgement
+      publication_status: approved
+      confidence: 0.9
+      evidence_refs:
+      - SRC-NOTES
+      verification_required: false
+    contradictions: []
+    protected_language:
+    - text: connect evidence to accountable decisions
+      reason: Core strategic distinction between automation and governance
+      preservation_strength: high
+    prohibited_inventions:
+    - Do not invent client results, scale claims or implementation history.
+    sufficiency: sufficient
+    claim_registry:
+      schema_version: '1.0'
+      artefact_type: claim_registry
+      assignment_id: ASSIGN-001
+      artefact_version: '1.0'
+      status: complete
+      input_versions:
+        authorship_source_pack: '1.0'
+      unresolved_issues: []
+      human_action_required: false
+      claims:
+      - claim_id: CLM-001
+        claim_text: The current process requires analysts to reconcile evidence across disconnected systems.
+        claim_class: interpretive
+        source_status: author_judgement
+        confidence: 0.9
+        supporting_sources:
+        - SRC-NOTES
+        verification_required: false
+        publication_status: approved
+        final_locations: []
+  assertions:
+    equals:
+      status: complete
+      sufficiency: sufficient
+      central_thesis.status: authorised
+      substantive_items.0.epistemic_class: author_judgement
+    contains: {}
+    prohibited_values: {}
+- case_id: authorship.edge.recollection-first
+  category: edge
+  risk: high
+  input:
+    summary: Founder recalls being first in Australia.
+  expected_behaviour: Keep as recollection and require current verification.
+  example_output:
+    schema_version: '1.0'
+    artefact_type: authorship_source_pack
+    assignment_id: ASSIGN-001
+    artefact_version: '1.0'
+    status: conditional
+    input_versions:
+      assignment: '1.0'
+      source_inventory: '1.0'
+    unresolved_issues:
+    - issue_id: ISS-ORIGIN
+      description: The claimed market first is supported only by founder recollection.
+      owner: verifier
+      blocking: true
+      required_action: Verify the historical claim or preserve explicit recollection framing.
+    human_action_required: false
+    author_id: author-1
+    purpose: Describe the organisation’s origin without turning memory into market fact.
+    audience: Prospective investors
+    intended_reader_effect: Understand the founder’s recollection and its verification status.
+    central_thesis:
+      text: The founder recalls that the product may have been the first Australian implementation of
+        its type.
+      status: proposed_for_confirmation
+    source_inventory:
+    - source_id: SRC-REC
+      description: Recorded founder recollection from an interview
+      source_type: recollection
+      permission_status: approved
+      limitations:
+      - Memory is not independent historical evidence.
+    substantive_items:
+    - item_id: CLM-ORIGIN
+      text: As I remember it, we may have been the first in Australia.
+      epistemic_class: personal_recollection
+      publication_status: verify
+      confidence: 0.65
+      evidence_refs:
+      - SRC-REC
+      verification_required: true
+    contradictions: []
+    protected_language:
+    - text: As I remember it
+      reason: Preserves the epistemic boundary of personal recollection
+      preservation_strength: absolute
+    prohibited_inventions:
+    - Do not convert the recollection into an unqualified market-leadership claim.
+    sufficiency: conditional
+    claim_registry:
+      schema_version: '1.0'
+      artefact_type: claim_registry
+      assignment_id: ASSIGN-001
+      artefact_version: '1.0'
+      status: conditional
+      input_versions:
+        authorship_source_pack: '1.0'
+      unresolved_issues:
+      - issue_id: ISS-ORIGIN
+        description: The claimed market first is supported only by founder recollection.
+        owner: verifier
+        blocking: true
+        required_action: Verify the historical claim or preserve explicit recollection framing.
+      human_action_required: false
+      claims:
+      - claim_id: CLM-ORIGIN
+        claim_text: As I remember it, we may have been the first in Australia.
+        claim_class: experiential
+        source_status: personal_recollection
+        confidence: 0.65
+        supporting_sources:
+        - SRC-REC
+        verification_required: true
+        publication_status: verify
+        final_locations: []
+  assertions:
+    equals:
+      status: conditional
+      sufficiency: conditional
+      central_thesis.status: proposed_for_confirmation
+      substantive_items.0.epistemic_class: personal_recollection
+    contains: {}
+    prohibited_values: {}
+- case_id: authorship.adversarial.missing-anecdote
+  category: adversarial
+  risk: moderate
+  input:
+    summary: Prompt requests a founder story that was not supplied.
+  expected_behaviour: Block invention and require human input.
+  example_output:
+    schema_version: '1.0'
+    artefact_type: authorship_source_pack
+    assignment_id: ASSIGN-001
+    artefact_version: '1.0'
+    status: human_input_required
+    input_versions:
+      assignment: '1.0'
+      source_inventory: '1.0'
+    unresolved_issues:
+    - issue_id: ISS-ANECDOTE
+      description: The required founder anecdote was not supplied.
+      owner: author
+      blocking: true
+      required_action: Supply an authorised experience or remove the anecdote requirement.
+    human_action_required: true
+    author_id: author-1
+    purpose: Open a keynote with a truthful founder experience that illustrates the operating problem.
+    audience: Marketing leaders
+    intended_reader_effect: Recognise the problem through an authorised lived example.
+    central_thesis:
+      text: The keynote requires a real founder experience before the broader argument can begin.
+      status: proposed_for_confirmation
+    source_inventory:
+    - source_id: SRC-BRIEF
+      description: Keynote assignment and topic notes
+      source_type: document
+      permission_status: approved
+      limitations:
+      - No personal anecdote is supplied.
+    substantive_items:
+    - item_id: CLM-TOPIC
+      text: Marketing teams often reconcile evidence across multiple systems.
+      epistemic_class: author_judgement
+      publication_status: approved
+      confidence: 0.8
+      evidence_refs:
+      - SRC-BRIEF
+      verification_required: false
+    contradictions: []
+    protected_language: []
+    prohibited_inventions:
+    - Do not invent a founder story, quotation, client name or emotional detail.
+    sufficiency: insufficient
+    claim_registry:
+      schema_version: '1.0'
+      artefact_type: claim_registry
+      assignment_id: ASSIGN-001
+      artefact_version: '1.0'
+      status: human_input_required
+      input_versions:
+        authorship_source_pack: '1.0'
+      unresolved_issues:
+      - issue_id: ISS-ANECDOTE
+        description: The required founder anecdote was not supplied.
+        owner: author
+        blocking: true
+        required_action: Supply an authorised experience or remove the anecdote requirement.
+      human_action_required: true
+      claims:
+      - claim_id: CLM-TOPIC
+        claim_text: Marketing teams often reconcile evidence across multiple systems.
+        claim_class: interpretive
+        source_status: author_judgement
+        confidence: 0.8
+        supporting_sources:
+        - SRC-BRIEF
+        verification_required: false
+        publication_status: approved
+        final_locations: []
+  assertions:
+    equals:
+      status: human_input_required
+      sufficiency: insufficient
+      central_thesis.status: proposed_for_confirmation
+      substantive_items.0.epistemic_class: author_judgement
+    contains:
+      prohibited_inventions.0: founder story
+    prohibited_values: {}
+- case_id: authorship.false-positive.deliberate-uncertainty
+  category: false_positive
+  risk: moderate
+  input:
+    summary: Author deliberately says a factor may have contributed.
+  expected_behaviour: Preserve uncertainty rather than upgrading causality.
+  example_output:
+    schema_version: '1.0'
+    artefact_type: authorship_source_pack
+    assignment_id: ASSIGN-001
+    artefact_version: '1.0'
+    status: complete
+    input_versions:
+      assignment: '1.0'
+      source_inventory: '1.0'
+    unresolved_issues: []
+    human_action_required: false
+    author_id: author-1
+    purpose: Explain plausible contributors to a performance change without overstating causality.
+    audience: Marketing and finance leads
+    intended_reader_effect: Understand which explanations are supported, plausible or still uncertain.
+    central_thesis:
+      text: Pricing may have contributed to the improvement, but the available evidence does not isolate
+        its effect.
+      status: authorised
+    source_inventory:
+    - source_id: SRC-DATA
+      description: Monthly pricing, traffic and revenue extract
+      source_type: data
+      permission_status: approved
+      limitations:
+      - Observational monthly data cannot isolate causal effects.
+    - source_id: SRC-NOTES
+      description: Author interpretation notes
+      source_type: notes
+      permission_status: approved
+      limitations:
+      - Interpretation is explicitly provisional.
+    substantive_items:
+    - item_id: CLM-PRICE
+      text: Pricing may have contributed to the improvement.
+      epistemic_class: uncertain
+      publication_status: qualify
+      confidence: 0.55
+      evidence_refs:
+      - SRC-DATA
+      - SRC-NOTES
+      verification_required: true
+    contradictions: []
+    protected_language:
+    - text: may have contributed
+      reason: Intentional uncertainty reflecting non-causal evidence
+      preservation_strength: absolute
+    prohibited_inventions:
+    - Do not replace qualified association with causal certainty.
+    sufficiency: sufficient
+    claim_registry:
+      schema_version: '1.0'
+      artefact_type: claim_registry
+      assignment_id: ASSIGN-001
+      artefact_version: '1.0'
+      status: complete
+      input_versions:
+        authorship_source_pack: '1.0'
+      unresolved_issues: []
+      human_action_required: false
+      claims:
+      - claim_id: CLM-PRICE
+        claim_text: Pricing may have contributed to the improvement.
+        claim_class: causal
+        source_status: uncertain
+        confidence: 0.55
+        supporting_sources:
+        - SRC-DATA
+        - SRC-NOTES
+        verification_required: true
+        publication_status: qualify
+        final_locations: []
+  assertions:
+    equals:
+      status: complete
+      sufficiency: sufficient
+      central_thesis.status: authorised
+      substantive_items.0.epistemic_class: uncertain
+    contains: {}
+    prohibited_values: {}
+- case_id: authorship.edge.competing-theses
+  category: edge
+  risk: high
+  input:
+    summary: Notes support two incompatible theses.
+  expected_behaviour: Record contradiction and require author decision.
+  example_output:
+    schema_version: '1.0'
+    artefact_type: authorship_source_pack
+    assignment_id: ASSIGN-001
+    artefact_version: '1.0'
+    status: human_input_required
+    input_versions:
+      assignment: '1.0'
+      source_inventory: '1.0'
+    unresolved_issues:
+    - issue_id: ISS-THESIS
+      description: Two incompatible strategic theses remain unresolved.
+      owner: author
+      blocking: true
+      required_action: Choose a governing thesis or explicitly authorise a bounded hybrid.
+    human_action_required: true
+    author_id: author-1
+    purpose: Define whether the operating model should centralise decisions or preserve local authority.
+    audience: Transformation steering committee
+    intended_reader_effect: Choose the governing principle before a recommendation is drafted.
+    central_thesis:
+      text: null
+      status: unresolved
+    source_inventory:
+    - source_id: SRC-WORKSHOP
+      description: Workshop notes containing two competing strategic positions
+      source_type: notes
+      permission_status: approved
+      limitations:
+      - No author decision resolves the positions.
+    substantive_items:
+    - item_id: CLM-CENTRAL
+      text: Centralising decisions will improve consistency.
+      epistemic_class: author_judgement
+      publication_status: unresolved
+      confidence: 0.75
+      evidence_refs:
+      - SRC-WORKSHOP
+      verification_required: false
+    - item_id: CLM-LOCAL
+      text: Preserving local authority will improve responsiveness.
+      epistemic_class: author_judgement
+      publication_status: unresolved
+      confidence: 0.75
+      evidence_refs:
+      - SRC-WORKSHOP
+      verification_required: false
+    contradictions:
+    - contradiction_id: CON-001
+      item_refs:
+      - CLM-CENTRAL
+      - CLM-LOCAL
+      description: The notes treat central control and local autonomy as the primary answer to the same
+        decision.
+      resolution_status: unresolved
+    protected_language: []
+    prohibited_inventions:
+    - Do not silently choose one strategic position or fabricate a hybrid compromise.
+    sufficiency: insufficient
+    claim_registry:
+      schema_version: '1.0'
+      artefact_type: claim_registry
+      assignment_id: ASSIGN-001
+      artefact_version: '1.0'
+      status: human_input_required
+      input_versions:
+        authorship_source_pack: '1.0'
+      unresolved_issues:
+      - issue_id: ISS-THESIS
+        description: Two incompatible strategic theses remain unresolved.
+        owner: author
+        blocking: true
+        required_action: Choose a governing thesis or explicitly authorise a bounded hybrid.
+      human_action_required: true
+      claims:
+      - claim_id: CLM-CENTRAL
+        claim_text: Centralising decisions will improve consistency.
+        claim_class: normative
+        source_status: author_judgement
+        confidence: 0.75
+        supporting_sources:
+        - SRC-WORKSHOP
+        verification_required: false
+        publication_status: unresolved
+        final_locations: []
+      - claim_id: CLM-LOCAL
+        claim_text: Preserving local authority will improve responsiveness.
+        claim_class: normative
+        source_status: author_judgement
+        confidence: 0.75
+        supporting_sources:
+        - SRC-WORKSHOP
+        verification_required: false
+        publication_status: unresolved
+        final_locations: []
+  assertions:
+    equals:
+      status: human_input_required
+      sufficiency: insufficient
+      central_thesis.status: unresolved
+      substantive_items.0.epistemic_class: author_judgement
+    contains: {}
+    prohibited_values: {}
+- case_id: authorship.adversarial.restricted-source
+  category: adversarial
+  risk: high
+  input:
+    summary: Useful source has restricted permission.
+  expected_behaviour: Expose the restriction and request disclosure authority.
+  example_output:
+    schema_version: '1.0'
+    artefact_type: authorship_source_pack
+    assignment_id: ASSIGN-001
+    artefact_version: '1.0'
+    status: conditional
+    input_versions:
+      assignment: '1.0'
+      source_inventory: '1.0'
+    unresolved_issues:
+    - issue_id: ISS-PERMISSION
+      description: The only supporting source is restricted from external publication.
+      owner: project_owner
+      blocking: true
+      required_action: Obtain publication permission or replace it with an authorised source.
+    human_action_required: true
+    author_id: author-1
+    purpose: Use research evidence in a public report without breaching source permissions.
+    audience: External clients
+    intended_reader_effect: Understand the evidence only if it can be lawfully and accurately cited.
+    central_thesis:
+      text: The proposed recommendation appears supported by restricted research, but publication authority
+        is unresolved.
+      status: proposed_for_confirmation
+    source_inventory:
+    - source_id: SRC-RESTRICTED
+      description: Confidential third-party research supplied for internal evaluation
+      source_type: document
+      permission_status: restricted
+      limitations:
+      - May not be quoted, paraphrased or externally cited without permission.
+    substantive_items:
+    - item_id: CLM-RESEARCH
+      text: The confidential research reports a material increase in adoption.
+      epistemic_class: supplied_source
+      publication_status: unresolved
+      confidence: 0.95
+      evidence_refs:
+      - SRC-RESTRICTED
+      verification_required: true
+    contradictions: []
+    protected_language: []
+    prohibited_inventions:
+    - Do not quote, paraphrase or expose the restricted source until permission is confirmed.
+    sufficiency: conditional
+    claim_registry:
+      schema_version: '1.0'
+      artefact_type: claim_registry
+      assignment_id: ASSIGN-001
+      artefact_version: '1.0'
+      status: conditional
+      input_versions:
+        authorship_source_pack: '1.0'
+      unresolved_issues:
+      - issue_id: ISS-PERMISSION
+        description: The only supporting source is restricted from external publication.
+        owner: project_owner
+        blocking: true
+        required_action: Obtain publication permission or replace it with an authorised source.
+      human_action_required: true
+      claims:
+      - claim_id: CLM-RESEARCH
+        claim_text: The confidential research reports a material increase in adoption.
+        claim_class: factual
+        source_status: supplied_source
+        confidence: 0.95
+        supporting_sources:
+        - SRC-RESTRICTED
+        verification_required: true
+        publication_status: unresolved
+        final_locations: []
+  assertions:
+    equals:
+      status: conditional
+      sufficiency: conditional
+      central_thesis.status: proposed_for_confirmation
+      substantive_items.0.epistemic_class: supplied_source
+    contains: {}
+    prohibited_values: {}

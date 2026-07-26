@@ -1,3 +1,5 @@
+> **Historical review.** This document was superseded by [`governance/AUDIT-2026-07-26.md`](../governance/AUDIT-2026-07-26.md), which identified additional release blockers and corrected the maturity claim.
+
 # Repository Review: 25 July 2026
 
 ## Scope

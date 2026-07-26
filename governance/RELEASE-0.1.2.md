@@ -2,70 +2,40 @@
 
 ## Status
 
-Method-complete release candidate for controlled pilot use.
+**Superseded and retracted as a maturity claim.**
 
-This release does not claim that the Skills are proven expert systems. It moves them from architectural scaffolds to specialist methods that can now be meaningfully tested.
+The release was merged on 25 July 2026 and described the suite as method-complete. A full second-pass audit found that this claim was premature.
 
-## Why this release exists
+## What the release added
 
-The repository review found that the capability boundaries and governing philosophy were strong, but most Skills contained only broad workflows and safeguards. They did not yet encode enough branching logic, professional method, calibrated examples, stop conditions or testable output contracts.
+Release 0.1.2 introduced:
 
-## Included changes
+- specialist method files;
+- quality-gate files;
+- per-Skill output-contract files;
+- per-Skill case files;
+- stronger structural CI checks.
 
-Every core Skill now contains:
+These additions were directionally valuable and formed the basis for the remediation release.
 
-- explicit intake and sufficiency logic;
-- specialist operating method;
-- branching, stop and escalation rules;
-- bounded authority and hand-off behaviour;
-- calibrated positive, negative and false-positive cases;
-- a quality gate and self-check;
-- a structured output contract;
-- at least four adversarial or edge-case tests.
+## Why the maturity claim was retracted
 
-The ten deepened Skills are:
+The audit identified release blockers:
 
-1. Editorial Integrity Router
-2. Authorship Capture
-3. Voice Profile Builder
-4. Editorial Brief Compiler
-5. Source-Grounded Drafter
-6. Argument and Structure Reviewer
-7. Anti-Slop Auditor
-8. Voice-Preserving Editor
-9. Factual Verifier
-10. Final Editorial Gate
+- several user-facing metadata descriptions were truncated;
+- output contracts were sample YAML objects rather than enforceable JSON Schemas;
+- shared schemas used ineffective `$type` and `$title` keys;
+- packaged and shared contracts conflicted;
+- the Final Gate used different outcome vocabularies across files;
+- test cases were descriptive examples rather than executable fixtures;
+- quality gates were short prose paragraphs rather than auditable checklists;
+- CI relied on file presence, YAML parsing and character counts;
+- the capability-depth standard was too short to govern acceptance.
 
-## Repository safeguards
+## Corrective action
 
-CI now requires each Skill to contain and reference:
+Release 0.1.3 replaces the contracts, fixtures, validation and maturity standard. The 0.1.2 methods were also reviewed and expanded.
 
-- `SKILL.md`
-- `agents/openai.yaml`
-- `references/method.md`
-- `references/quality-gate.md`
-- `references/output-contract.yaml`
-- `tests/cases.yaml`
+## Historical use
 
-CI parses the YAML contracts and cases, requires at least four calibrated cases per Skill, checks minimum method and quality-gate substance, validates project manifests and packages every Skill.
-
-## Local validation
-
-Before publication, all ten Skills passed the official Skill validator and were packaged successfully with the official Skill packaging utility. Each package remained well below the 25 MB limit.
-
-## Maturity boundary
-
-The Skills are now **method-complete**.
-
-They are not yet:
-
-- pilot-tested across representative real assignments;
-- measured against baseline model behaviour;
-- validated through accepted and rejected human edits;
-- calibrated to quantified semantic-drift or false-positive thresholds;
-- proven consistent across supported AI environments;
-- production-ready.
-
-## Next required stage
-
-Run controlled pilots across Social Marketer, OneSource and a long-form book project. Record routes, artefacts, outputs, accepted edits, rejected edits, verification outcomes and gate decisions. Use that evidence to refine the methods before declaring the suite pilot-tested.
+Do not cite 0.1.2 as method-complete, pilot-tested or production-ready. Treat it as the first capability-depth scaffold.

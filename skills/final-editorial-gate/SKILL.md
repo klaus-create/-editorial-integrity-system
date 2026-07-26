@@ -1,34 +1,38 @@
 ---
 name: final-editorial-gate
-description: Perform the final release-readiness review before submission, publication or external circulation. Use to verify required upstream artefacts, meaning, claims, attribution, voice, form, uncertainty, privacy and human approval. Decide release status without silently rewriting.
+description: Perform the final release-readiness review for consequential AI-assisted writing. Use immediately before submission, publication or external circulation to confirm the actual final version preserves authorised meaning, factual boundaries, voice, form, disclosure and required human accountability. Do not rewrite the piece, waive missing evidence silently or pass polished prose that lacks mandatory artefacts.
 ---
 
 # Final Editorial Gate
 
 ## Purpose
-Issue a traceable release decision based on required evidence and governance, not prose polish or intuition.
+Decide whether the final version is ready, conditional, requires a human decision or is blocked, without performing uncontrolled repair.
 
-## Execution workflow
-1. Determine required artefacts from workflow level, consequence and manifest.
-2. Confirm artefacts exist, are current and cover the final draft.
-3. Test thesis and meaning preservation.
-4. Test facts, attribution, privacy and disclosure.
-5. Test argument, voice, register, form and protected characteristics.
-6. Review unresolved P0/P1 findings and material post-verification changes.
-7. Apply release matrix.
-8. Return ready, conditional, human decision required or blocked with evidence and next action.
+## Required inputs
+- final draft and version
+- workflow level and route declaration
+- brief, manifest and relevant profiles
+- review findings and resolution records
+- verification record and source status
+- approval, privacy and disclosure requirements
 
-## Governing rules
-- Preserve verified facts, quotations, attribution, authorised uncertainty and human meaning.
-- Do not invent evidence, experience, examples, sources or certainty.
-- Keep review, editing, verification and release authority separate.
-- Surface material uncertainty and stop conditions rather than resolving them silently.
+## Execution
+1. Establish scope, authority, input versions and missing prerequisites.
+2. Read `references/method.md` and execute its procedure and decision logic.
+3. Stop or escalate whenever the method's authority boundary is reached.
+4. Validate the proposed output against `references/output-contract.yaml`.
+5. Apply every mandatory item in `references/quality-gate.md`.
+6. Return the requested user-facing result and only material unresolved issues. For agent-to-agent or consequential work, return the complete structured artefact.
 
-## Required references
-- Read `references/method.md` for execution, branching, examples and escalation.
+## Authority boundary
+Do not perform adjacent specialist work merely because it is convenient. Preserve verified facts, exact quotations, authorised uncertainty, human meaning and project governance. Never invent sources, evidence, experience, examples, approval or certainty.
+
+## Progressive loading
+- Read `references/method.md` for intake, execution, branching, failure modes and examples.
+- Read `references/release-decision-matrix.md` when determining required artefacts, release blockers, conditional release, waivers, stale inputs or return paths.
 - Read `references/quality-gate.md` before returning consequential work.
-- Use `tests/cases.yaml` when validating changes to this Skill.
-- Use `references/output-contract.yaml` for consequential or agent-to-agent output.
+- Use `references/output-contract.yaml` as the canonical output schema.
+- Use `tests/cases.yaml` only for development, regression review or calibration of this Skill.
 
-## Output discipline
-Return a structured, portable output for agent-to-agent or consequential work. For simple user-facing tasks, return the requested result plus only material unresolved issues.
+## Completion status
+Use `complete`, `conditional`, `human_input_required` or `blocked`. State the reason, owner and required action for every non-complete status.

@@ -1,35 +1,493 @@
 $schema: https://json-schema.org/draft/2020-12/schema
-$title: Authorship Source Pack
+$id: https://editorial-integrity.local/schemas/authorship_source_pack.schema.yaml
+title: Authorship Source Pack
+description: Authorised human substance, evidence status and prohibited invention record.
 type: object
-required: [assignment_id, purpose, central_thesis, intended_reader_effect, claims]
+additionalProperties: false
+required:
+- schema_version
+- artefact_type
+- assignment_id
+- artefact_version
+- status
+- input_versions
+- unresolved_issues
+- human_action_required
+- author_id
+- purpose
+- audience
+- intended_reader_effect
+- central_thesis
+- source_inventory
+- substantive_items
+- contradictions
+- protected_language
+- prohibited_inventions
+- sufficiency
+- claim_registry
 properties:
-  assignment_id: {type: string}
-  author_id: {type: [string, 'null']}
-  purpose: {type: string}
-  central_thesis: {type: string}
-  intended_reader_effect: {type: string}
-  claims:
+  schema_version:
+    const: '1.0'
+  artefact_type:
+    const: authorship_source_pack
+  assignment_id:
+    type: string
+    minLength: 1
+  artefact_version:
+    type: string
+    pattern: ^\d+(?:\.\d+)*$
+  status:
+    enum:
+    - complete
+    - conditional
+    - human_input_required
+    - blocked
+    description: Execution status of the specialist task. It is distinct from publication risk or release
+      outcome.
+  input_versions:
+    type: object
+    additionalProperties:
+      type: string
+      minLength: 1
+    minProperties: 1
+  unresolved_issues:
+    type: array
+    items:
+      $ref: '#/$defs/unresolved_issue'
+  human_action_required:
+    type: boolean
+  author_id:
+    type:
+    - string
+    - 'null'
+  purpose:
+    type: string
+    minLength: 1
+  audience:
+    type: string
+    minLength: 1
+  intended_reader_effect:
+    type: string
+    minLength: 1
+  central_thesis:
+    type: object
+    additionalProperties: false
+    required:
+    - text
+    - status
+    properties:
+      text:
+        type:
+        - string
+        - 'null'
+      status:
+        enum:
+        - authorised
+        - proposed_for_confirmation
+        - unresolved
+  source_inventory:
     type: array
     items:
       type: object
-      required: [claim_id, claim, claim_type, source_status, confidence]
+      additionalProperties: false
+      required:
+      - source_id
+      - description
+      - source_type
+      - permission_status
+      - limitations
       properties:
-        claim_id: {type: string}
-        claim: {type: string}
-        claim_type:
-          enum: [factual, numerical, causal, comparative, predictive, interpretive, normative, experiential, attributed, rhetorical]
-        source_status:
-          enum: [verified_fact, supplied_source, attributed_view, author_judgement, personal_recollection, inference, contested, uncertain, unsupported]
-        confidence: {type: number, minimum: 0, maximum: 1}
-        source_reference: {type: [string, 'null']}
-        may_be_strengthened: {type: boolean, default: false}
-        must_be_qualified: {type: boolean, default: false}
-  observations: {type: array, items: {type: object}}
-  experiences: {type: array, items: {type: object}}
-  examples: {type: array, items: {type: object}}
-  disagreements: {type: array, items: {type: object}}
-  uncertainties: {type: array, items: {type: object}}
-  protected_language: {type: array, items: {type: object}}
-  prohibited_inventions: {type: array, items: {type: string}}
-  missing_inputs: {type: array, items: {type: object}}
-additionalProperties: false
+        source_id:
+          type: string
+          minLength: 1
+        description:
+          type: string
+          minLength: 1
+        source_type:
+          enum:
+          - document
+          - transcript
+          - notes
+          - data
+          - recollection
+          - external_source
+          - other
+        permission_status:
+          enum:
+          - approved
+          - restricted
+          - unknown
+        limitations:
+          type: array
+          items:
+            type: string
+            minLength: 1
+  substantive_items:
+    type: array
+    items:
+      type: object
+      additionalProperties: false
+      required:
+      - item_id
+      - text
+      - epistemic_class
+      - publication_status
+      - confidence
+      - evidence_refs
+      - verification_required
+      properties:
+        item_id:
+          type: string
+          minLength: 1
+        text:
+          type: string
+          minLength: 1
+        epistemic_class:
+          enum:
+          - verified_fact
+          - supplied_source
+          - attributed_view
+          - author_judgement
+          - personal_recollection
+          - inference
+          - contested
+          - uncertain
+          - unsupported
+        publication_status:
+          enum:
+          - approved
+          - qualify
+          - attribute
+          - verify
+          - query
+          - remove
+          - unresolved
+        confidence:
+          type: number
+          minimum: 0
+          maximum: 1
+        evidence_refs:
+          type: array
+          items:
+            type: string
+            minLength: 1
+        verification_required:
+          type: boolean
+    minItems: 1
+  contradictions:
+    type: array
+    items:
+      type: object
+      additionalProperties: false
+      required:
+      - contradiction_id
+      - item_refs
+      - description
+      - resolution_status
+      properties:
+        contradiction_id:
+          type: string
+          minLength: 1
+        item_refs:
+          type: array
+          items:
+            type: string
+            minLength: 1
+          minItems: 2
+          uniqueItems: true
+        description:
+          type: string
+          minLength: 1
+        resolution_status:
+          enum:
+          - unresolved
+          - author_resolved
+          - source_resolved
+          - preserve_disagreement
+  protected_language:
+    type: array
+    items:
+      type: object
+      additionalProperties: false
+      required:
+      - text
+      - reason
+      - preservation_strength
+      properties:
+        text:
+          type: string
+          minLength: 1
+        reason:
+          type: string
+          minLength: 1
+        preservation_strength:
+          enum:
+          - low
+          - medium
+          - high
+          - absolute
+  prohibited_inventions:
+    type: array
+    items:
+      type: string
+      minLength: 1
+  sufficiency:
+    enum:
+    - sufficient
+    - conditional
+    - insufficient
+  claim_registry:
+    type: object
+    additionalProperties: false
+    required:
+    - schema_version
+    - artefact_type
+    - assignment_id
+    - artefact_version
+    - status
+    - input_versions
+    - unresolved_issues
+    - human_action_required
+    - claims
+    properties:
+      schema_version:
+        const: '1.0'
+      artefact_type:
+        const: claim_registry
+      assignment_id:
+        type: string
+        minLength: 1
+      artefact_version:
+        type: string
+        pattern: ^\d+(?:\.\d+)*$
+      status:
+        enum:
+        - complete
+        - conditional
+        - human_input_required
+        - blocked
+        description: Execution status of the specialist task. It is distinct from publication risk or
+          release outcome.
+      input_versions:
+        type: object
+        additionalProperties:
+          type: string
+          minLength: 1
+      unresolved_issues:
+        type: array
+        items:
+          $ref: '#/$defs/unresolved_issue'
+      human_action_required:
+        type: boolean
+      claims:
+        type: array
+        items:
+          type: object
+          additionalProperties: false
+          required:
+          - claim_id
+          - claim_text
+          - claim_class
+          - source_status
+          - confidence
+          - supporting_sources
+          - verification_required
+          - publication_status
+          - final_locations
+          properties:
+            claim_id:
+              type: string
+              minLength: 1
+            claim_text:
+              type: string
+              minLength: 1
+            claim_class:
+              enum:
+              - factual
+              - numerical
+              - causal
+              - comparative
+              - predictive
+              - quotation
+              - scientific
+              - legal_adjacent
+              - product_capability
+              - current_status
+              - interpretive
+              - normative
+              - experiential
+              - attributed
+              - rhetorical
+            source_status:
+              enum:
+              - verified_fact
+              - supplied_source
+              - attributed_view
+              - author_judgement
+              - personal_recollection
+              - inference
+              - contested
+              - uncertain
+              - unsupported
+            confidence:
+              type: number
+              minimum: 0
+              maximum: 1
+            supporting_sources:
+              type: array
+              items:
+                type: string
+                minLength: 1
+            verification_required:
+              type: boolean
+            publication_status:
+              enum:
+              - approved
+              - qualify
+              - attribute
+              - verify
+              - query
+              - remove
+              - unresolved
+            final_locations:
+              type: array
+              items:
+                type: string
+                minLength: 1
+    $defs:
+      unresolved_issue:
+        type: object
+        additionalProperties: false
+        required:
+        - issue_id
+        - description
+        - owner
+        - blocking
+        - required_action
+        properties:
+          issue_id:
+            type: string
+            minLength: 1
+          description:
+            type: string
+            minLength: 1
+          owner:
+            enum:
+            - author
+            - project_owner
+            - router
+            - specialist
+            - verifier
+            - approver
+            - unknown
+          blocking:
+            type: boolean
+          required_action:
+            type: string
+            minLength: 1
+$defs:
+  unresolved_issue:
+    type: object
+    additionalProperties: false
+    required:
+    - issue_id
+    - description
+    - owner
+    - blocking
+    - required_action
+    properties:
+      issue_id:
+        type: string
+        minLength: 1
+      description:
+        type: string
+        minLength: 1
+      owner:
+        enum:
+        - author
+        - project_owner
+        - router
+        - specialist
+        - verifier
+        - approver
+        - unknown
+      blocking:
+        type: boolean
+      required_action:
+        type: string
+        minLength: 1
+allOf:
+- if:
+    properties:
+      status:
+        const: complete
+    required:
+    - status
+  then:
+    properties:
+      sufficiency:
+        const: sufficient
+      unresolved_issues:
+        maxItems: 0
+    required:
+    - sufficiency
+    - unresolved_issues
+- if:
+    properties:
+      status:
+        const: conditional
+    required:
+    - status
+  then:
+    properties:
+      sufficiency:
+        const: conditional
+    required:
+    - sufficiency
+- if:
+    properties:
+      status:
+        const: conditional
+    required:
+    - status
+  then:
+    properties:
+      unresolved_issues:
+        minItems: 1
+    required:
+    - unresolved_issues
+- if:
+    properties:
+      status:
+        const: human_input_required
+    required:
+    - status
+  then:
+    properties:
+      unresolved_issues:
+        minItems: 1
+      human_action_required:
+        const: true
+    required:
+    - unresolved_issues
+    - human_action_required
+- if:
+    properties:
+      status:
+        const: blocked
+    required:
+    - status
+  then:
+    properties:
+      unresolved_issues:
+        minItems: 1
+        contains:
+          type: object
+          properties:
+            blocking:
+              const: true
+          required:
+          - blocking
+        minContains: 1
+    required:
+    - unresolved_issues

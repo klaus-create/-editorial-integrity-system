@@ -1,15 +1,16 @@
-manifest_version: "1.0"
+manifest_version: '1.0'
 project:
   name: Long-Form Book Manuscript
   project_id: book-manuscript
   project_type: book
-  description: Long-form authored work requiring continuity, cumulative argument, motif and voice protection across manuscript levels.
+  description: Long-form authored work requiring continuity, cumulative argument, motif and voice protection across manuscript
+    levels.
   status: active
   owner: Klaus Germann
 editorial_system:
-  required_version: "0.1.1"
+  required_version: 0.1.3
   compatibility: foundation
-  canonical_repository: "https://github.com/klaus-create/-editorial-integrity-system"
+  canonical_repository: https://github.com/klaus-create/-editorial-integrity-system
 authorship:
   model: literary
   accountable_author: Klaus Germann
@@ -22,64 +23,92 @@ defaults:
   spelling: Australian English
   voice_profile: author-core
   register_profile: reflective-practical
-  audience_profiles: [general-reader]
+  audience_profiles:
+  - general-reader
   consequence_level: extended
   workflow_level: extended
 voice:
   desired_characteristics:
-    - cumulative argument across chapters
-    - serious, reflective and practical
-    - compressed but not mechanically concise
+  - cumulative argument across chapters
+  - serious, reflective and practical
+  - compressed but not mechanically concise
   protected_characteristics:
-    - deliberate rhythm and irregularity
-    - recurring motifs and terminology
-    - authorial uncertainty where intentional
-    - structural repetition that performs thematic work
+  - deliberate rhythm and irregularity
+  - recurring motifs and terminology
+  - authorial uncertainty where intentional
+  - structural repetition that performs thematic work
   discouraged_characteristics:
-    - generic uplift
-    - local optimisation that damages the manuscript whole
-    - flattening every paragraph into the same cadence
+  - generic uplift
+  - local optimisation that damages the manuscript whole
+  - flattening every paragraph into the same cadence
   context_dependent_characteristics:
-    - fragments
-    - repetition
-    - metaphor
-    - shifts between reflective and practical registers
+  - fragments
+  - repetition
+  - metaphor
+  - shifts between reflective and practical registers
   prohibited_imitation: []
 form_routing:
   chapter_draft:
     register_profile: reflective-practical
     workflow_level: extended
-    required_modules: [editorial-integrity-router, authorship-capture, voice-profile-builder, editorial-brief-compiler, source-grounded-drafter, argument-structure-reviewer, anti-slop-auditor, voice-preserving-editor, factual-verifier, final-editorial-gate]
-    output_requirements: [chapter role in manuscript, continuity with prior chapters, unresolved motifs and claims]
+    required_modules:
+    - editorial-integrity-router
+    - authorship-capture
+    - voice-profile-builder
+    - editorial-brief-compiler
+    - source-grounded-drafter
+    - argument-structure-reviewer
+    - anti-slop-auditor
+    - voice-preserving-editor
+    - factual-verifier
+    - final-editorial-gate
+    output_requirements:
+    - chapter role in manuscript
+    - continuity with prior chapters
+    - unresolved motifs and claims
   manuscript_review:
     register_profile: editorial
     workflow_level: extended
-    required_modules: [editorial-integrity-router, argument-structure-reviewer, anti-slop-auditor, factual-verifier, final-editorial-gate]
-    output_requirements: [sentence, paragraph, section, chapter, part and manuscript-level findings]
+    required_modules:
+    - editorial-integrity-router
+    - argument-structure-reviewer
+    - anti-slop-auditor
+    - factual-verifier
+    - final-editorial-gate
+    output_requirements:
+    - sentence
+    - paragraph
+    - section
+    - chapter
+    - part and manuscript-level findings
 factual_integrity:
   verification_default: all_external_claims
   current_claims_require_web: true
-  source_priority: [authorised manuscript sources, primary sources, peer-reviewed research, authoritative references]
+  source_priority:
+  - authorised manuscript sources
+  - primary sources
+  - peer-reviewed research
+  - authoritative references
   prohibited_claim_behaviours:
-    - inventing facts, quotations, examples, or experience
-    - presenting inference as verified fact
-    - fictionalising personal experience without explicit author direction
+  - inventing facts, quotations, examples, or experience
+  - presenting inference as verified fact
+  - fictionalising personal experience without explicit author direction
   uncertainty_treatment: preserve and label
 terminology:
   preferred: []
   prohibited: []
-  definitions_file: ""
+  definitions_file: ''
 required_skills:
-  - editorial-integrity-router
-  - authorship-capture
-  - voice-profile-builder
-  - editorial-brief-compiler
-  - source-grounded-drafter
-  - argument-structure-reviewer
-  - anti-slop-auditor
-  - voice-preserving-editor
-  - factual-verifier
-  - final-editorial-gate
+- editorial-integrity-router
+- authorship-capture
+- voice-profile-builder
+- editorial-brief-compiler
+- source-grounded-drafter
+- argument-structure-reviewer
+- anti-slop-auditor
+- voice-preserving-editor
+- factual-verifier
+- final-editorial-gate
 optional_skills: []
 source_locations: []
 governance:
@@ -91,12 +120,17 @@ governance:
   privacy: private project workspace
   unresolved_issue_policy: human_decision
 project_exceptions:
-  - rule: Do not optimise every sentence for compression.
-    rationale: Long-form rhythm and cumulative argument require variation and space.
-    applies_to: [all]
-  - rule: Do not remove repetition that performs structural or thematic work.
-    rationale: Repetition may be an intentional manuscript device rather than redundancy.
-    applies_to: [chapter_draft, manuscript_review]
-  - rule: Assess sentence, paragraph, section, chapter, part and manuscript levels separately.
-    rationale: Local improvement must not damage the architecture of the whole work.
-    applies_to: [chapter_draft, manuscript_review]
+- rule: Do not optimise every sentence for compression.
+  rationale: Long-form rhythm and cumulative argument require variation and space.
+  applies_to:
+  - all
+- rule: Do not remove repetition that performs structural or thematic work.
+  rationale: Repetition may be an intentional manuscript device rather than redundancy.
+  applies_to:
+  - chapter_draft
+  - manuscript_review
+- rule: Assess sentence, paragraph, section, chapter, part and manuscript levels separately.
+  rationale: Local improvement must not damage the architecture of the whole work.
+  applies_to:
+  - chapter_draft
+  - manuscript_review

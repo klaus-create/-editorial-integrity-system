@@ -9,6 +9,23 @@ from pathlib import Path
 import yaml
 from jsonschema import Draft202012Validator
 
+class UniqueKeyLoader(yaml.SafeLoader):
+    """Safe YAML loader that rejects duplicate keys."""
+
+
+def _construct_unique_mapping(loader, node, deep=False):
+    mapping = {}
+    for key_node, value_node in node.value:
+        key = loader.construct_object(key_node, deep=deep)
+        if key in mapping:
+            raise ValueError(f"duplicate key {key!r} at line {key_node.start_mark.line + 1}")
+        mapping[key] = loader.construct_object(value_node, deep=deep)
+    return mapping
+
+
+UniqueKeyLoader.add_constructor(yaml.resolver.BaseResolver.DEFAULT_MAPPING_TAG, _construct_unique_mapping)
+
+
 SCHEMA_PATH = (
     Path(__file__).resolve().parents[1]
     / "skills"
@@ -25,7 +42,7 @@ def fail(message: str) -> None:
 
 def load_yaml(path: Path) -> object:
     try:
-        return yaml.safe_load(path.read_text(encoding="utf-8"))
+        return yaml.load(path.read_text(encoding="utf-8"), Loader=UniqueKeyLoader)
     except Exception as exc:
         fail(f"cannot parse YAML in {path}: {exc}")
 

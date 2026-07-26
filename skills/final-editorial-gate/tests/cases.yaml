@@ -1,18 +1,492 @@
-version: '1.0'
+schema_version: '1.0'
 skill: final-editorial-gate
+contract: ../references/output-contract.yaml
 cases:
-- id: FI-01
-  input: Strong prose, unsupported claim
-  expected: blocked
-- id: FI-02
-  input: New statistic after verification
-  expected: stale; return to verifier
-- id: FI-03
-  input: Two defensible strategic choices
-  expected: human decision required
-- id: FI-04
-  input: Literary fragments and motifs
-  expected: do not block if functional
-- id: FI-05
-  input: Missing required approval
-  expected: blocked
+- case_id: gate.standard.ready
+  category: standard
+  risk: high
+  input:
+    summary: All mandatory artefacts cover the final version.
+  expected_behaviour: Return ready with traceable evidence.
+  example_output:
+    schema_version: '1.0'
+    artefact_type: gate_decision
+    assignment_id: ASSIGN-001
+    artefact_version: '1.0'
+    status: complete
+    input_versions:
+      draft_output: '4.0'
+      editorial_brief: '2.0'
+      verification_record: '1.0'
+    unresolved_issues: []
+    human_action_required: false
+    draft_version: '4.0'
+    release_surface: Client PDF
+    workflow_level: full
+    artefacts_reviewed:
+    - artefact_type: editorial_brief
+      version: '2.0'
+      required: true
+      status: present
+      stale: false
+      reason: Covers the final assignment.
+    - artefact_type: verification_record
+      version: '1.0'
+      required: true
+      status: present
+      stale: false
+      reason: Covers draft 4.0.
+    check_results:
+      authority:
+        result: pass
+        evidence: Required evidence was reviewed.
+      factual_integrity:
+        result: pass
+        evidence: Required evidence was reviewed.
+      human_meaning:
+        result: pass
+        evidence: Required evidence was reviewed.
+      privacy_and_disclosure:
+        result: pass
+        evidence: Required evidence was reviewed.
+      argument_and_structure:
+        result: pass
+        evidence: Required evidence was reviewed.
+      voice_and_form:
+        result: pass
+        evidence: Required evidence was reviewed.
+      surface_quality:
+        result: pass
+        evidence: Required evidence was reviewed.
+      approval:
+        result: pass
+        evidence: Required evidence was reviewed.
+    outcome: ready
+    material_reasons:
+    - Mandatory checks completed.
+    blocking_issues: []
+    conditions_for_release: []
+    approval:
+      required: true
+      approver: Project owner
+      status: approved
+      waivers: []
+    verification_status: complete
+    disclosure_status: not_required
+    return_paths: []
+  assertions:
+    equals:
+      outcome: ready
+      verification_status: complete
+    contains: {}
+    prohibited_values: {}
+- case_id: gate.adversarial.polished-unsupported
+  category: adversarial
+  risk: high
+  input:
+    summary: Strong prose contains a critical unsupported claim.
+  expected_behaviour: Block despite surface quality.
+  example_output:
+    schema_version: '1.0'
+    artefact_type: gate_decision
+    assignment_id: ASSIGN-001
+    artefact_version: '1.0'
+    status: complete
+    input_versions:
+      draft_output: '4.0'
+      editorial_brief: '2.0'
+      verification_record: '1.0'
+    unresolved_issues: []
+    human_action_required: false
+    draft_version: '4.0'
+    release_surface: Client PDF
+    workflow_level: full
+    artefacts_reviewed:
+    - artefact_type: editorial_brief
+      version: '2.0'
+      required: true
+      status: present
+      stale: false
+      reason: Covers the final assignment.
+    - artefact_type: verification_record
+      version: '1.0'
+      required: true
+      status: present
+      stale: false
+      reason: Covers draft 4.0.
+    check_results:
+      authority:
+        result: conditional
+        evidence: Required evidence was reviewed.
+      factual_integrity:
+        result: fail
+        evidence: A critical claim remains unsupported.
+      human_meaning:
+        result: conditional
+        evidence: Required evidence was reviewed.
+      privacy_and_disclosure:
+        result: conditional
+        evidence: Required evidence was reviewed.
+      argument_and_structure:
+        result: conditional
+        evidence: Required evidence was reviewed.
+      voice_and_form:
+        result: conditional
+        evidence: Required evidence was reviewed.
+      surface_quality:
+        result: conditional
+        evidence: Required evidence was reviewed.
+      approval:
+        result: conditional
+        evidence: Required evidence was reviewed.
+    outcome: blocked
+    material_reasons:
+    - Factual integrity failed.
+    blocking_issues:
+    - issue_id: BLK-1
+      description: Critical unsupported claim.
+      owner: verifier
+      required_action: Resolve the blocker and return through the recorded path.
+    conditions_for_release: []
+    approval:
+      required: true
+      approver: Project owner
+      status: pending
+      waivers: []
+    verification_status: complete
+    disclosure_status: not_required
+    return_paths: []
+  assertions:
+    equals:
+      outcome: blocked
+      check_results.factual_integrity.result: fail
+    contains: {}
+    prohibited_values: {}
+- case_id: gate.edge.pending-disclosure
+  category: edge
+  risk: moderate
+  input:
+    summary: Only an approved disclosure remains to be inserted.
+  expected_behaviour: Return conditional with named release condition.
+  example_output:
+    schema_version: '1.0'
+    artefact_type: gate_decision
+    assignment_id: ASSIGN-001
+    artefact_version: '1.0'
+    status: complete
+    input_versions:
+      draft_output: '4.0'
+      editorial_brief: '2.0'
+      verification_record: '1.0'
+    unresolved_issues: []
+    human_action_required: true
+    draft_version: '4.0'
+    release_surface: Client PDF
+    workflow_level: full
+    artefacts_reviewed:
+    - artefact_type: editorial_brief
+      version: '2.0'
+      required: true
+      status: present
+      stale: false
+      reason: Covers the final assignment.
+    - artefact_type: verification_record
+      version: '1.0'
+      required: true
+      status: present
+      stale: false
+      reason: Covers draft 4.0.
+    check_results:
+      authority:
+        result: conditional
+        evidence: Required evidence was reviewed.
+      factual_integrity:
+        result: conditional
+        evidence: Required evidence was reviewed.
+      human_meaning:
+        result: conditional
+        evidence: Required evidence was reviewed.
+      privacy_and_disclosure:
+        result: conditional
+        evidence: Required evidence was reviewed.
+      argument_and_structure:
+        result: conditional
+        evidence: Required evidence was reviewed.
+      voice_and_form:
+        result: conditional
+        evidence: Required evidence was reviewed.
+      surface_quality:
+        result: conditional
+        evidence: Required evidence was reviewed.
+      approval:
+        result: conditional
+        evidence: Required evidence was reviewed.
+    outcome: conditional
+    material_reasons:
+    - Mandatory checks completed.
+    blocking_issues: []
+    conditions_for_release:
+    - issue_id: CON-1
+      description: Add the approved disclosure before circulation.
+      owner: project_owner
+      required_action: Complete the condition before release.
+    approval:
+      required: true
+      approver: Project owner
+      status: pending
+      waivers: []
+    verification_status: complete
+    disclosure_status: pending
+    return_paths: []
+  assertions:
+    equals:
+      outcome: conditional
+      disclosure_status: pending
+    contains: {}
+    prohibited_values: {}
+- case_id: gate.edge.accountable-choice
+  category: edge
+  risk: high
+  input:
+    summary: Two defensible strategic framings remain.
+  expected_behaviour: Require a human decision rather than selecting one.
+  example_output:
+    schema_version: '1.0'
+    artefact_type: gate_decision
+    assignment_id: ASSIGN-001
+    artefact_version: '1.0'
+    status: complete
+    input_versions:
+      draft_output: '4.0'
+      editorial_brief: '2.0'
+      verification_record: '1.0'
+    unresolved_issues: []
+    human_action_required: true
+    draft_version: '4.0'
+    release_surface: Client PDF
+    workflow_level: full
+    artefacts_reviewed:
+    - artefact_type: editorial_brief
+      version: '2.0'
+      required: true
+      status: present
+      stale: false
+      reason: Covers the final assignment.
+    - artefact_type: verification_record
+      version: '1.0'
+      required: true
+      status: present
+      stale: false
+      reason: Covers draft 4.0.
+    check_results:
+      authority:
+        result: conditional
+        evidence: Required evidence was reviewed.
+      factual_integrity:
+        result: conditional
+        evidence: Required evidence was reviewed.
+      human_meaning:
+        result: conditional
+        evidence: Required evidence was reviewed.
+      privacy_and_disclosure:
+        result: conditional
+        evidence: Required evidence was reviewed.
+      argument_and_structure:
+        result: conditional
+        evidence: Required evidence was reviewed.
+      voice_and_form:
+        result: conditional
+        evidence: Required evidence was reviewed.
+      surface_quality:
+        result: conditional
+        evidence: Required evidence was reviewed.
+      approval:
+        result: conditional
+        evidence: Required evidence was reviewed.
+    outcome: human_decision_required
+    material_reasons:
+    - Two evidence-consistent strategic framings remain.
+    blocking_issues: []
+    conditions_for_release:
+    - issue_id: CON-1
+      description: Approver selects the framing.
+      owner: approver
+      required_action: Complete the condition before release.
+    approval:
+      required: true
+      approver: Project owner
+      status: pending
+      waivers: []
+    verification_status: complete
+    disclosure_status: not_required
+    return_paths: []
+  assertions:
+    equals:
+      outcome: human_decision_required
+      human_action_required: true
+    contains: {}
+    prohibited_values: {}
+- case_id: gate.adversarial.stale-verification
+  category: adversarial
+  risk: high
+  input:
+    summary: A statistic changed after verification.
+  expected_behaviour: Block and return to Verifier.
+  example_output:
+    schema_version: '1.0'
+    artefact_type: gate_decision
+    assignment_id: ASSIGN-001
+    artefact_version: '1.0'
+    status: complete
+    input_versions:
+      draft_output: '4.0'
+      editorial_brief: '2.0'
+      verification_record: '1.0'
+    unresolved_issues: []
+    human_action_required: false
+    draft_version: '4.0'
+    release_surface: Client PDF
+    workflow_level: full
+    artefacts_reviewed:
+    - artefact_type: editorial_brief
+      version: '2.0'
+      required: true
+      status: present
+      stale: false
+      reason: Covers the final assignment.
+    - artefact_type: verification_record
+      version: '1.0'
+      required: true
+      status: present
+      stale: true
+      reason: Covers draft 4.0.
+    check_results:
+      authority:
+        result: conditional
+        evidence: Required evidence was reviewed.
+      factual_integrity:
+        result: conditional
+        evidence: Required evidence was reviewed.
+      human_meaning:
+        result: conditional
+        evidence: Required evidence was reviewed.
+      privacy_and_disclosure:
+        result: conditional
+        evidence: Required evidence was reviewed.
+      argument_and_structure:
+        result: conditional
+        evidence: Required evidence was reviewed.
+      voice_and_form:
+        result: conditional
+        evidence: Required evidence was reviewed.
+      surface_quality:
+        result: conditional
+        evidence: Required evidence was reviewed.
+      approval:
+        result: conditional
+        evidence: Required evidence was reviewed.
+    outcome: blocked
+    material_reasons:
+    - Mandatory checks completed.
+    blocking_issues:
+    - issue_id: BLK-1
+      description: Verification does not cover draft 4.0.
+      owner: verifier
+      required_action: Resolve the blocker and return through the recorded path.
+    conditions_for_release: []
+    approval:
+      required: true
+      approver: Project owner
+      status: pending
+      waivers: []
+    verification_status: stale
+    disclosure_status: not_required
+    return_paths:
+    - issue: Verification is stale.
+      target: factual-verifier
+      required_action: Verify draft 4.0.
+  assertions:
+    equals:
+      verification_status: stale
+      outcome: blocked
+      return_paths.0.target: factual-verifier
+    contains: {}
+    prohibited_values: {}
+- case_id: gate.false-positive.literary-irregularity
+  category: false_positive
+  risk: low
+  input:
+    summary: Fragments and motifs are deliberate and functional.
+  expected_behaviour: Do not block legitimate literary irregularity.
+  example_output:
+    schema_version: '1.0'
+    artefact_type: gate_decision
+    assignment_id: ASSIGN-001
+    artefact_version: '1.0'
+    status: complete
+    input_versions:
+      draft_output: '4.0'
+      editorial_brief: '2.0'
+      verification_record: '1.0'
+    unresolved_issues: []
+    human_action_required: false
+    draft_version: '4.0'
+    release_surface: Client PDF
+    workflow_level: full
+    artefacts_reviewed:
+    - artefact_type: editorial_brief
+      version: '2.0'
+      required: true
+      status: present
+      stale: false
+      reason: Covers the final assignment.
+    - artefact_type: verification_record
+      version: '1.0'
+      required: true
+      status: present
+      stale: false
+      reason: Covers draft 4.0.
+    check_results:
+      authority:
+        result: pass
+        evidence: Required evidence was reviewed.
+      factual_integrity:
+        result: pass
+        evidence: Required evidence was reviewed.
+      human_meaning:
+        result: pass
+        evidence: Required evidence was reviewed.
+      privacy_and_disclosure:
+        result: pass
+        evidence: Required evidence was reviewed.
+      argument_and_structure:
+        result: pass
+        evidence: Required evidence was reviewed.
+      voice_and_form:
+        result: pass
+        evidence: Literary fragments and motifs are functional and protected.
+      surface_quality:
+        result: pass
+        evidence: Required evidence was reviewed.
+      approval:
+        result: pass
+        evidence: Required evidence was reviewed.
+    outcome: ready
+    material_reasons:
+    - Mandatory checks completed.
+    blocking_issues: []
+    conditions_for_release: []
+    approval:
+      required: true
+      approver: Project owner
+      status: approved
+      waivers: []
+    verification_status: complete
+    disclosure_status: not_required
+    return_paths: []
+  assertions:
+    equals:
+      outcome: ready
+      check_results.voice_and_form.result: pass
+    contains: {}
+    prohibited_values: {}

@@ -1,18 +1,288 @@
-version: '1.0'
+schema_version: '1.0'
 skill: source-grounded-drafter
+contract: ../references/output-contract.yaml
 cases:
-- id: SO-01
-  input: Source-poor report
-  expected: conditional outline and gaps, no filler
-- id: SO-02
-  input: Report to slides
-  expected: one decision idea per slide
-- id: SO-03
-  input: Sequence written as causality
-  expected: qualify
-- id: SO-04
-  input: Book repetition
-  expected: preserve if functional
-- id: SO-05
-  input: Missing founder anecdote
-  expected: author marker, no invention
+- case_id: drafter.standard.grounded-report
+  category: standard
+  risk: moderate
+  input:
+    summary: Draft a report from an authorised brief and source.
+  expected_behaviour: Return a complete source-traced draft.
+  example_output:
+    schema_version: '1.0'
+    artefact_type: draft_output
+    assignment_id: ASSIGN-001
+    artefact_version: '1.0'
+    status: complete
+    input_versions:
+      editorial_brief: '1.0'
+      authorship_source_pack: '1.0'
+    unresolved_issues: []
+    human_action_required: false
+    form: report
+    draft: The first pilot reduced median processing time by 18 per cent in one team. That result supports
+      a second bounded test, not organisation-wide rollout.
+    source_trace:
+    - location: paragraph-1-sentence-1
+      claim_ids:
+      - CLM-PILOT
+      source_refs:
+      - SRC-PILOT-DATA
+      evidence_move: direct_evidence
+    - location: paragraph-1-sentence-2
+      claim_ids:
+      - CLM-NEXT-STEP
+      source_refs:
+      - SRC-AUTHOR-NOTES
+      evidence_move: author_judgement
+    gap_markers: []
+    integrity_summary:
+      invented_material_detected: false
+      claim_trace_complete: true
+      conclusion_within_scope: true
+  assertions:
+    equals:
+      status: complete
+      form: report
+      integrity_summary.invented_material_detected: false
+      integrity_summary.claim_trace_complete: true
+    contains: {}
+    prohibited_values: {}
+- case_id: drafter.edge.source-gap
+  category: edge
+  risk: moderate
+  input:
+    summary: One supporting source is missing.
+  expected_behaviour: Return a conditional draft with a standard marker.
+  example_output:
+    schema_version: '1.0'
+    artefact_type: draft_output
+    assignment_id: ASSIGN-001
+    artefact_version: '1.0'
+    status: conditional
+    input_versions:
+      editorial_brief: '1.0'
+      authorship_source_pack: '1.0'
+    unresolved_issues:
+    - issue_id: ISS-SOURCE
+      description: No authorised source supports the proposed scale claim.
+      owner: verifier
+      blocking: true
+      required_action: Supply and verify a source or remove the scale claim.
+    human_action_required: false
+    form: report
+    draft: The supplied notes identify a potential retention opportunity. [SOURCE REQUIRED] before the
+      scale of that opportunity can be stated.
+    source_trace:
+    - location: sentence-1
+      claim_ids:
+      - CLM-OPPORTUNITY
+      source_refs:
+      - SRC-AUTHOR-NOTES
+      evidence_move: author_judgement
+    - location: sentence-2
+      claim_ids:
+      - CLM-SCALE
+      source_refs: []
+      evidence_move: not_applicable
+    gap_markers:
+    - marker: SOURCE_REQUIRED
+      location: sentence-2
+      owner: verifier
+    integrity_summary:
+      invented_material_detected: false
+      claim_trace_complete: false
+      conclusion_within_scope: true
+  assertions:
+    equals:
+      status: conditional
+      form: report
+      integrity_summary.invented_material_detected: false
+      integrity_summary.claim_trace_complete: false
+    contains: {}
+    prohibited_values: {}
+- case_id: drafter.adversarial.missing-anecdote
+  category: adversarial
+  risk: moderate
+  input:
+    summary: Prompt requests an unsupplied founder anecdote.
+  expected_behaviour: Use an example-required marker and request the author.
+  example_output:
+    schema_version: '1.0'
+    artefact_type: draft_output
+    assignment_id: ASSIGN-001
+    artefact_version: '1.0'
+    status: human_input_required
+    input_versions:
+      editorial_brief: '1.0'
+      authorship_source_pack: '1.0'
+    unresolved_issues:
+    - issue_id: ISS-ANECDOTE
+      description: The requested founder anecdote is absent from the authorised source pack.
+      owner: author
+      blocking: true
+      required_action: Supply an authorised anecdote or remove the opening requirement.
+    human_action_required: true
+    form: keynote opening
+    draft: '[EXAMPLE REQUIRED]'
+    source_trace:
+    - location: opening
+      claim_ids: []
+      source_refs: []
+      evidence_move: not_applicable
+    gap_markers:
+    - marker: EXAMPLE_REQUIRED
+      location: opening
+      owner: author
+    integrity_summary:
+      invented_material_detected: false
+      claim_trace_complete: false
+      conclusion_within_scope: true
+  assertions:
+    equals:
+      status: human_input_required
+      form: keynote opening
+      integrity_summary.invented_material_detected: false
+      integrity_summary.claim_trace_complete: false
+    contains: {}
+    prohibited_values: {}
+- case_id: drafter.false-positive.sequence
+  category: false_positive
+  risk: high
+  input:
+    summary: Events occur in sequence without causal evidence.
+  expected_behaviour: State association and avoid causal force.
+  example_output:
+    schema_version: '1.0'
+    artefact_type: draft_output
+    assignment_id: ASSIGN-001
+    artefact_version: '1.0'
+    status: complete
+    input_versions:
+      editorial_brief: '1.0'
+      authorship_source_pack: '1.0'
+    unresolved_issues: []
+    human_action_required: false
+    form: analysis note
+    draft: Sessions and revenue rose after launch. The sequence is observable, but it does not establish
+      that the launch caused the revenue change.
+    source_trace:
+    - location: sentence-1
+      claim_ids:
+      - CLM-SEQUENCE
+      source_refs:
+      - SRC-MONTHLY-DATA
+      evidence_move: direct_evidence
+    - location: sentence-2
+      claim_ids:
+      - CLM-CAUSAL-LIMIT
+      source_refs:
+      - SRC-METHOD-NOTE
+      evidence_move: labelled_inference
+    gap_markers: []
+    integrity_summary:
+      invented_material_detected: false
+      claim_trace_complete: true
+      conclusion_within_scope: true
+  assertions:
+    equals:
+      status: complete
+      form: analysis note
+      integrity_summary.invented_material_detected: false
+      integrity_summary.claim_trace_complete: true
+    contains: {}
+    prohibited_values: {}
+- case_id: drafter.edge.report-to-slides
+  category: edge
+  risk: moderate
+  input:
+    summary: Convert a report section to a presentation.
+  expected_behaviour: Use one idea job per slide rather than shrinking prose.
+  example_output:
+    schema_version: '1.0'
+    artefact_type: draft_output
+    assignment_id: ASSIGN-001
+    artefact_version: '1.0'
+    status: complete
+    input_versions:
+      editorial_brief: '1.0'
+      authorship_source_pack: '1.0'
+    unresolved_issues: []
+    human_action_required: false
+    form: presentation
+    draft:
+    - slide_id: S1
+      headline: The pilot created a credible signal, not a rollout case.
+      body:
+      - Median processing time fell 18 per cent in one team.
+    - slide_id: S2
+      headline: Run a second bounded test before scaling.
+      body:
+      - Test transferability across two additional teams.
+    source_trace:
+    - location: S1
+      claim_ids:
+      - CLM-PILOT
+      source_refs:
+      - SRC-PILOT-DATA
+      evidence_move: direct_evidence
+    - location: S2
+      claim_ids:
+      - CLM-RECOMMENDATION
+      source_refs:
+      - SRC-AUTHOR-NOTES
+      evidence_move: author_judgement
+    gap_markers: []
+    integrity_summary:
+      invented_material_detected: false
+      claim_trace_complete: true
+      conclusion_within_scope: true
+  assertions:
+    equals:
+      status: complete
+      form: presentation
+      integrity_summary.invented_material_detected: false
+      integrity_summary.claim_trace_complete: true
+    contains: {}
+    prohibited_values: {}
+- case_id: drafter.false-positive.book-recurrence
+  category: false_positive
+  risk: low
+  input:
+    summary: A phrase recurs at a deliberate chapter threshold.
+  expected_behaviour: Preserve functional recurrence.
+  example_output:
+    schema_version: '1.0'
+    artefact_type: draft_output
+    assignment_id: ASSIGN-001
+    artefact_version: '1.0'
+    status: complete
+    input_versions:
+      editorial_brief: '1.0'
+      authorship_source_pack: '1.0'
+    unresolved_issues: []
+    human_action_required: false
+    form: book chapter
+    draft: The threshold returns, but not unchanged. Earlier it marked a limit imposed from outside; here
+      it marks a responsibility the reader must choose to carry.
+    source_trace:
+    - location: paragraph-4
+      claim_ids:
+      - CLM-MOTIF-FUNCTION
+      source_refs:
+      - SRC-MANUSCRIPT-PLAN
+      evidence_move: author_judgement
+    gap_markers: []
+    integrity_summary:
+      invented_material_detected: false
+      claim_trace_complete: true
+      conclusion_within_scope: true
+  assertions:
+    equals:
+      status: complete
+      form: book chapter
+      integrity_summary.invented_material_detected: false
+      integrity_summary.claim_trace_complete: true
+    contains:
+      draft: threshold returns
+    prohibited_values: {}

@@ -16,11 +16,11 @@ It supports emails, messages, social and marketing copy, reports, proposals, pre
 
 ## Current status
 
-**Release:** `v0.1.1-foundation-alignment`
+**Release candidate:** `v0.1.3-audit-remediation`
 
-The foundation is suitable for controlled project use and structured testing. It includes ten modular Skills, canonical schemas, project manifests, validation, packaging, regression fixtures and governance.
+Release 0.1.2 was merged prematurely and its “method-complete” claim has been retracted. The 0.1.3 corrective release candidate contains ten reviewed Skills, mandatory domain-specific playbooks, eleven enforceable Draft 2020-12 contracts, sixty distinct executable fixtures, canonical hand-offs, 220 schema rejection checks, 40 semantic contradiction checks, strengthened validation and pre-package checks.
 
-This is not yet a production 1.0 release. Production confidence requires broader benchmark coverage, human preference testing, cross-platform installation tests and measured false-positive and semantic-drift thresholds.
+The candidate is **method-ready for controlled pilots only after the corrective pull request passes and is merged**. It is not yet pilot-tested, measured or production-ready. Live performance, human preference, semantic-drift, false-positive and cross-platform evidence remain required.
 
 ## Start here
 
@@ -29,10 +29,13 @@ This is not yet a production 1.0 release. Production confidence requires broader
 | Understand what the system does | This README |
 | Use it on a writing task | [`docs/QUICKSTART.md`](docs/QUICKSTART.md) |
 | Understand user and agent journeys | [`docs/USE-CASES-AND-INTERACTION-FLOWS.md`](docs/USE-CASES-AND-INTERACTION-FLOWS.md) |
+| Understand artefacts and hand-offs | [`docs/ARTEFACTS-AND-HANDOFFS.md`](docs/ARTEFACTS-AND-HANDOFFS.md) |
 | Configure a project | [`skills/editorial-integrity-router/references/manifest-guide.md`](skills/editorial-integrity-router/references/manifest-guide.md) |
 | Review delivery priorities | [`ROADMAP.md`](ROADMAP.md) |
 | Understand governing rules | [`constitution/editorial-constitution.md`](constitution/editorial-constitution.md) |
-| Review the release boundary | [`governance/RELEASE-0.1.1.md`](governance/RELEASE-0.1.1.md) |
+| Review capability acceptance | [`governance/CAPABILITY-DEPTH-STANDARD.md`](governance/CAPABILITY-DEPTH-STANDARD.md) |
+| Review the corrective release boundary | [`governance/RELEASE-0.1.3.md`](governance/RELEASE-0.1.3.md) |
+| Review the full audit | [`governance/AUDIT-2026-07-26.md`](governance/AUDIT-2026-07-26.md) |
 
 ## Who interacts with the system
 
@@ -140,7 +143,7 @@ Best for automated or multi-agent workflows. Agents must exchange explicit artef
 - unresolved-issues list;
 - change or audit record where required.
 
-The specific input and output contract for each Skill is documented in [`docs/USE-CASES-AND-INTERACTION-FLOWS.md`](docs/USE-CASES-AND-INTERACTION-FLOWS.md).
+Every consequential specialist output uses the canonical artefact envelope and a self-contained JSON Schema. The complete producer, consumer, version and stale-work rules are documented in [`docs/ARTEFACTS-AND-HANDOFFS.md`](docs/ARTEFACTS-AND-HANDOFFS.md).
 
 ## Architecture
 
@@ -195,9 +198,11 @@ The canonical schema is:
 skills/editorial-integrity-router/references/project-editorial-manifest.schema.yaml
 ```
 
-Validate a manifest with:
+Validate the suite and a project manifest with:
 
 ```bash
+python scripts/validate_skill_suite.py
+python scripts/run_contract_tests.py
 python scripts/validate_manifest.py projects/<project>/project-editorial-manifest.yaml
 ```
 
@@ -242,7 +247,7 @@ For first use, install the Router and the specialist Skills required by the proj
 
 ## Roadmap
 
-The roadmap is outcome-based and distinguishes completed foundation work from the next maturity stages. See [`ROADMAP.md`](ROADMAP.md).
+The roadmap now separates deterministic contract readiness from live pilot evidence. See [`ROADMAP.md`](ROADMAP.md).
 
 ## Repository visibility and naming
 

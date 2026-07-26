@@ -1,3 +1,5 @@
+> **Historical release record.** Current maturity and release status are defined by `RELEASE-0.1.3.md`.
+
 # Release 0.1: Foundation
 
 ## Status

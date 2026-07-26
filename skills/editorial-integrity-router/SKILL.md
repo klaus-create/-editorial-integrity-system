@@ -1,33 +1,38 @@
 ---
 name: editorial-integrity-router
-description: Route writing and editorial tasks through the minimum adequate governed workflow. Use for creation, review, editing, verification and release across emails, reports, proposals, presentations, articles, scripts and books when project rules, specialist hand-offs, artefact versions and human approval boundaries must remain explicit.
+description: Classify and orchestrate AI-assisted editorial work across creation, review, editing, verification and release. Use when a task may require more than one editorial capability, when project governance or factual risk affects the route, or when agents need explicit hand-offs, stale-artefact detection and human approval points. Do not use it to perform specialist drafting, editing, verification or release decisions itself.
 ---
 
 # Editorial Integrity Router
 
 ## Purpose
-Classify, route, track and assemble. Do not absorb specialist work or hide unresolved authority decisions.
+Select the minimum adequate workflow, declare authority and assemble specialist outputs without becoming a generic super-Skill.
 
-## Execution workflow
-1. Parse the assignment contract and load the active project manifest.
-2. Classify task type, form, consequence, factual risk, source sensitivity, authorship model and requested output.
-3. Select the lowest adequate workflow level using the routing matrix.
-4. Declare modules, order, artefacts, authority, stop conditions and human approvals.
-5. Invoke bounded specialist Skills and track artefact versions.
-6. Re-route when later changes invalidate verification, review or gate status.
-7. Return the requested output package plus material unresolved issues.
+## Required inputs
+- assignment request and intended output
+- project manifest when one governs the work
+- available artefacts and their versions
+- form, audience, purpose and consequence
+- factual, privacy, voice and continuity risks
+- approval owner or unresolved ownership
 
-## Governing rules
-- Preserve verified facts, quotations, attribution, authorised uncertainty and human meaning.
-- Do not invent evidence, experience, examples, sources or certainty.
-- Keep review, editing, verification and release authority separate.
-- Surface material uncertainty and stop conditions rather than resolving them silently.
+## Execution
+1. Establish scope, authority, input versions and missing prerequisites.
+2. Read `references/method.md` and execute its procedure and decision logic.
+3. Stop or escalate whenever the method's authority boundary is reached.
+4. Validate the proposed output against `references/output-contract.yaml`.
+5. Apply every mandatory item in `references/quality-gate.md`.
+6. Return the requested user-facing result and only material unresolved issues. For agent-to-agent or consequential work, return the complete structured artefact.
 
-## Required references
-- Read `references/method.md` for execution, branching, examples and escalation.
+## Authority boundary
+Do not perform adjacent specialist work merely because it is convenient. Preserve verified facts, exact quotations, authorised uncertainty, human meaning and project governance. Never invent sources, evidence, experience, examples, approval or certainty.
+
+## Progressive loading
+- Read `references/method.md` for intake, execution, branching, failure modes and examples.
+- Read `references/risk-and-routing-matrix.md` when classifying consequence, factual risk, authority, workflow depth, staleness or downstream consumers.
 - Read `references/quality-gate.md` before returning consequential work.
-- Use `tests/cases.yaml` when validating changes to this Skill.
-- Use `references/output-contract.yaml` for consequential or agent-to-agent output.
+- Use `references/output-contract.yaml` as the canonical output schema.
+- Use `tests/cases.yaml` only for development, regression review or calibration of this Skill.
 
-## Output discipline
-Return a structured, portable output for agent-to-agent or consequential work. For simple user-facing tasks, return the requested result plus only material unresolved issues.
+## Completion status
+Use `complete`, `conditional`, `human_input_required` or `blocked`. State the reason, owner and required action for every non-complete status.

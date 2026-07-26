@@ -49,7 +49,7 @@ Makes decisions the system is not authorised to make, including accepting unreso
 | Draft | Drafter or user | Reviewers, Editor, Verifier | Working authored output |
 | Editorial Findings | Reviewers or Auditor | Editor, user, Gate | Diagnoses issues without silently rewriting |
 | Verification Record | Factual Verifier | Gate and approver | Records supported, qualified, unresolved and blocked claims |
-| Gate Decision | Final Editorial Gate | User, approver, calling agent | Returns ready, conditional or blocked status |
+| Gate Decision | Final Editorial Gate | User, approver, calling agent | Returns ready, conditional, human-decision-required or blocked release status |
 | Output Package | Router | User or calling agent | Bundles finished work and material governance notes |
 
 ## Entry paths
@@ -163,7 +163,7 @@ Claims
 Draft + artefacts
   -> Final Editorial Gate
   -> check meaning, claims, voice, form, protected traits and unresolved issues
-  -> ready / conditional / blocked
+  -> `ready` / `conditional` / `human_decision_required` / `blocked`
   -> Human approver when required
 ```
 
@@ -220,7 +220,7 @@ Calling agent
 **Output contract**
 
 ```yaml
-status: ready | conditional | blocked
+status: complete | conditional | human_input_required | blocked
 workflow_level: lightweight | standard | full | extended
 modules_run: []
 artefacts:
@@ -283,7 +283,7 @@ Material changes should trigger the relevant downstream checks again.
 | Anti-Slop Auditor | Draft, profile and context | Prioritised findings | Ban stylistic devices by default |
 | Voice-Preserving Editor | Draft, findings and profiles | Locally revised draft and material change note | Flatten voice or change meaning casually |
 | Factual Verifier | Draft or claims and source access | Verification record and factual corrections | Treat inference as verified fact |
-| Final Editorial Gate | Final draft and required artefacts | Ready, conditional or blocked decision | Rewrite or waive required approval |
+| Final Editorial Gate | Final draft and required artefacts | Ready, conditional, human-decision-required or blocked decision | Rewrite or waive required approval |
 
 ## Failure and escalation paths
 

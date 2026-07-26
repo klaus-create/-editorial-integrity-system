@@ -1,18 +1,644 @@
-version: '1.0'
+schema_version: '1.0'
 skill: voice-profile-builder
+contract: ../references/output-contract.yaml
 cases:
-- id: VO-01
-  input: Three social posts and one report
-  expected: provisional; separate registers
-- id: VO-02
-  input: Unknown heavy editor
-  expected: downgrade confidence
-- id: VO-03
-  input: Fragments only in social
-  expected: register-specific
-- id: VO-04
-  input: Technical nouns recur
-  expected: test domain necessity
-- id: VO-05
-  input: Living-author mimicry request
-  expected: high-level traits only
+- case_id: voice.standard.multi-register
+  category: standard
+  risk: moderate
+  input:
+    summary: Six known-author samples across reports and social.
+  expected_behaviour: Create an adequate profile with separated registers.
+  example_output:
+    schema_version: '1.0'
+    artefact_type: voice_profile
+    assignment_id: ASSIGN-001
+    artefact_version: '1.0'
+    status: complete
+    input_versions:
+      sample_set: '1.0'
+      permission_record: '1.0'
+    unresolved_issues: []
+    human_action_required: false
+    profile_id: VOICE-001
+    owner: Author
+    permission_status: confirmed
+    sample_inventory:
+    - sample_id: S1
+      form: report
+      date: '2026-01-15'
+      authorship_confidence: high
+      editing_history: none_known
+      inclusion_status: included
+      limitation: null
+    - sample_id: S2
+      form: social
+      date: '2026-02-15'
+      authorship_confidence: high
+      editing_history: none_known
+      inclusion_status: included
+      limitation: null
+    - sample_id: S3
+      form: report
+      date: '2026-03-15'
+      authorship_confidence: high
+      editing_history: light
+      inclusion_status: included
+      limitation: null
+    - sample_id: S4
+      form: social
+      date: '2026-04-15'
+      authorship_confidence: high
+      editing_history: none_known
+      inclusion_status: included
+      limitation: null
+    - sample_id: S5
+      form: report
+      date: '2026-05-15'
+      authorship_confidence: high
+      editing_history: none_known
+      inclusion_status: included
+      limitation: null
+    - sample_id: S6
+      form: social
+      date: '2026-06-15'
+      authorship_confidence: high
+      editing_history: light
+      inclusion_status: included
+      limitation: null
+    sample_assessment:
+      sufficiency: adequate
+      sample_count: 6
+      estimated_word_count: 4200
+      registers:
+      - report
+      - social
+      authorship_confidence: high
+      limitations: []
+    enduring_traits:
+    - trait_id: TR-001
+      behaviour: States the governing claim early, then narrows scope before implications.
+      scope: enduring
+      confidence: high
+      evidence_refs:
+      - S1
+      - S3
+      counterevidence: []
+      writing_instruction: Lead with the governing proposition and qualify its boundary before implications.
+      anti_pattern: Do not delay the point with generic scene-setting.
+    register_profiles:
+      social:
+      - trait_id: TR-002
+        behaviour: Uses occasional fragments for emphasis.
+        scope: register_specific
+        confidence: moderate
+        evidence_refs:
+        - S2
+        - S4
+        counterevidence:
+        - Formal reports use complete syntax.
+        writing_instruction: Allow fragments only at genuine emphasis points.
+        anti_pattern: Do not scatter fragments mechanically.
+    protected_characteristics:
+    - characteristic: Purposeful fragments in social writing
+      reason: Carries emphasis and pace
+      preservation_strength: high
+      editing_implication: Query before normalising.
+    discouraged_characteristics:
+    - Generic consultant uplift.
+    imitation_boundaries:
+    - Do not copy signature phrases from samples.
+  assertions:
+    equals:
+      status: complete
+      sample_assessment.sufficiency: adequate
+    contains: {}
+    prohibited_values: {}
+- case_id: voice.edge.minimum-samples
+  category: edge
+  risk: low
+  input:
+    summary: Only three substantial samples are available.
+  expected_behaviour: Return a provisional profile and candidate traits.
+  example_output:
+    schema_version: '1.0'
+    artefact_type: voice_profile
+    assignment_id: ASSIGN-001
+    artefact_version: '1.0'
+    status: conditional
+    input_versions:
+      sample_set: '1.0'
+      permission_record: '1.0'
+    unresolved_issues:
+    - issue_id: ISS-001
+      description: The voice profile is provisional because only three confirmed samples are available.
+      owner: project_owner
+      blocking: false
+      required_action: Use it only for low-risk work and add confirmed samples before broader use.
+    human_action_required: true
+    profile_id: VOICE-001
+    owner: Author
+    permission_status: confirmed
+    sample_inventory:
+    - sample_id: S1
+      form: report
+      date: '2026-01-15'
+      authorship_confidence: high
+      editing_history: none_known
+      inclusion_status: included
+      limitation: null
+    - sample_id: S2
+      form: social
+      date: '2026-02-15'
+      authorship_confidence: high
+      editing_history: none_known
+      inclusion_status: included
+      limitation: null
+    - sample_id: S3
+      form: report
+      date: '2026-03-15'
+      authorship_confidence: high
+      editing_history: light
+      inclusion_status: included
+      limitation: null
+    sample_assessment:
+      sufficiency: provisional
+      sample_count: 3
+      estimated_word_count: 1500
+      registers:
+      - report
+      - social
+      authorship_confidence: high
+      limitations: []
+    enduring_traits:
+    - trait_id: TR-001
+      behaviour: States the governing claim early, then narrows scope before implications.
+      scope: candidate
+      confidence: moderate
+      evidence_refs:
+      - S1
+      - S3
+      counterevidence: []
+      writing_instruction: Lead with the governing proposition and qualify its boundary before implications.
+      anti_pattern: Do not delay the point with generic scene-setting.
+    register_profiles:
+      social:
+      - trait_id: TR-002
+        behaviour: Uses occasional fragments for emphasis.
+        scope: register_specific
+        confidence: moderate
+        evidence_refs:
+        - S2
+        - S3
+        counterevidence:
+        - Formal reports use complete syntax.
+        writing_instruction: Allow fragments only at genuine emphasis points.
+        anti_pattern: Do not scatter fragments mechanically.
+    protected_characteristics:
+    - characteristic: Purposeful fragments in social writing
+      reason: Carries emphasis and pace
+      preservation_strength: high
+      editing_implication: Query before normalising.
+    discouraged_characteristics:
+    - Generic consultant uplift.
+    imitation_boundaries:
+    - Do not copy signature phrases from samples.
+  assertions:
+    equals:
+      status: conditional
+      sample_assessment.sufficiency: provisional
+    contains: {}
+    prohibited_values: {}
+- case_id: voice.adversarial.unknown-editor
+  category: adversarial
+  risk: high
+  input:
+    summary: Samples may have been heavily edited by an unknown party.
+  expected_behaviour: Require ownership input and do not claim stable traits.
+  example_output:
+    schema_version: '1.0'
+    artefact_type: voice_profile
+    assignment_id: ASSIGN-001
+    artefact_version: '1.0'
+    status: human_input_required
+    input_versions:
+      sample_set: '1.0'
+      permission_record: '1.0'
+    unresolved_issues:
+    - issue_id: ISS-001
+      description: The editing provenance of the supplied samples is unknown.
+      owner: project_owner
+      blocking: true
+      required_action: Confirm authorship and editing history or exclude the affected samples.
+    human_action_required: true
+    profile_id: VOICE-001
+    owner: Author
+    permission_status: unknown
+    sample_inventory:
+    - sample_id: S1
+      form: report
+      date: '2026-01-15'
+      authorship_confidence: low
+      editing_history: unknown
+      inclusion_status: excluded
+      limitation: Editing provenance is unknown.
+    - sample_id: S2
+      form: social
+      date: '2026-02-15'
+      authorship_confidence: low
+      editing_history: unknown
+      inclusion_status: excluded
+      limitation: Editing provenance is unknown.
+    - sample_id: S3
+      form: report
+      date: '2026-03-15'
+      authorship_confidence: low
+      editing_history: unknown
+      inclusion_status: excluded
+      limitation: Editing provenance is unknown.
+    - sample_id: S4
+      form: social
+      date: '2026-04-15'
+      authorship_confidence: low
+      editing_history: unknown
+      inclusion_status: excluded
+      limitation: Editing provenance is unknown.
+    - sample_id: S5
+      form: report
+      date: '2026-05-15'
+      authorship_confidence: low
+      editing_history: unknown
+      inclusion_status: excluded
+      limitation: Editing provenance is unknown.
+    - sample_id: S6
+      form: social
+      date: '2026-06-15'
+      authorship_confidence: low
+      editing_history: unknown
+      inclusion_status: excluded
+      limitation: Editing provenance is unknown.
+    sample_assessment:
+      sufficiency: insufficient
+      sample_count: 6
+      estimated_word_count: 4200
+      registers:
+      - report
+      - social
+      authorship_confidence: low
+      limitations:
+      - Editing provenance and author ownership are unconfirmed.
+    enduring_traits: []
+    register_profiles: {}
+    protected_characteristics: []
+    discouraged_characteristics: []
+    imitation_boundaries:
+    - Do not copy signature phrases from samples.
+  assertions:
+    equals:
+      status: human_input_required
+      sample_assessment.sufficiency: insufficient
+    contains: {}
+    prohibited_values: {}
+- case_id: voice.false-positive.context-variation
+  category: false_positive
+  risk: moderate
+  input:
+    summary: One register delays the thesis for legal context.
+  expected_behaviour: Treat the trait as context-dependent rather than inconsistent.
+  example_output:
+    schema_version: '1.0'
+    artefact_type: voice_profile
+    assignment_id: ASSIGN-001
+    artefact_version: '1.0'
+    status: complete
+    input_versions:
+      sample_set: '1.0'
+      permission_record: '1.0'
+    unresolved_issues: []
+    human_action_required: false
+    profile_id: VOICE-001
+    owner: Author
+    permission_status: confirmed
+    sample_inventory:
+    - sample_id: S1
+      form: report
+      date: '2026-01-15'
+      authorship_confidence: high
+      editing_history: none_known
+      inclusion_status: included
+      limitation: null
+    - sample_id: S2
+      form: social
+      date: '2026-02-15'
+      authorship_confidence: high
+      editing_history: none_known
+      inclusion_status: included
+      limitation: null
+    - sample_id: S3
+      form: report
+      date: '2026-03-15'
+      authorship_confidence: high
+      editing_history: light
+      inclusion_status: included
+      limitation: null
+    - sample_id: S4
+      form: social
+      date: '2026-04-15'
+      authorship_confidence: high
+      editing_history: none_known
+      inclusion_status: included
+      limitation: null
+    - sample_id: S5
+      form: report
+      date: '2026-05-15'
+      authorship_confidence: high
+      editing_history: none_known
+      inclusion_status: included
+      limitation: null
+    - sample_id: S6
+      form: social
+      date: '2026-06-15'
+      authorship_confidence: high
+      editing_history: light
+      inclusion_status: included
+      limitation: null
+    sample_assessment:
+      sufficiency: adequate
+      sample_count: 6
+      estimated_word_count: 4200
+      registers:
+      - report
+      - social
+      authorship_confidence: high
+      limitations: []
+    enduring_traits:
+    - trait_id: TR-001
+      behaviour: Usually states the governing proposition early, except where legal context requires a
+        qualification frame.
+      scope: context_dependent
+      confidence: high
+      evidence_refs:
+      - S1
+      - S3
+      counterevidence:
+      - A formal legal-adjacent sample delays the claim for context.
+      writing_instruction: Lead with the governing proposition and qualify its boundary before implications.
+      anti_pattern: Do not delay the point with generic scene-setting.
+    register_profiles:
+      legal-adjacent:
+      - trait_id: REG-LEGAL-001
+        behaviour: Delays the thesis until the governing qualification is stated.
+        scope: register_specific
+        confidence: high
+        evidence_refs:
+        - S5
+        - S6
+        counterevidence:
+        - Reports S1 and S2 state the thesis early.
+        writing_instruction: State the legal qualification before the thesis only when consequence requires
+          it.
+        anti_pattern: Do not infer general scene-setting from legally necessary qualification.
+    protected_characteristics:
+    - characteristic: Legal qualification before proposition
+      reason: Controls certainty and consequence in legal-adjacent work
+      preservation_strength: high
+      editing_implication: Do not move the thesis ahead of the qualification without review.
+    discouraged_characteristics:
+    - Generic consultant uplift.
+    imitation_boundaries:
+    - Do not copy signature phrases from samples.
+  assertions:
+    equals:
+      status: complete
+      sample_assessment.sufficiency: adequate
+      register_profiles.legal-adjacent.0.scope: register_specific
+    contains: {}
+    prohibited_values: {}
+- case_id: voice.edge.social-fragments
+  category: edge
+  risk: moderate
+  input:
+    summary: Fragments appear only in social posts.
+  expected_behaviour: Classify fragments as register-specific.
+  example_output:
+    schema_version: '1.0'
+    artefact_type: voice_profile
+    assignment_id: ASSIGN-001
+    artefact_version: '1.0'
+    status: complete
+    input_versions:
+      sample_set: '1.0'
+      permission_record: '1.0'
+    unresolved_issues: []
+    human_action_required: false
+    profile_id: VOICE-001
+    owner: Author
+    permission_status: confirmed
+    sample_inventory:
+    - sample_id: S1
+      form: report
+      date: '2026-01-15'
+      authorship_confidence: high
+      editing_history: none_known
+      inclusion_status: included
+      limitation: null
+    - sample_id: S2
+      form: social
+      date: '2026-02-15'
+      authorship_confidence: high
+      editing_history: none_known
+      inclusion_status: included
+      limitation: null
+    - sample_id: S3
+      form: report
+      date: '2026-03-15'
+      authorship_confidence: high
+      editing_history: light
+      inclusion_status: included
+      limitation: null
+    - sample_id: S4
+      form: social
+      date: '2026-04-15'
+      authorship_confidence: high
+      editing_history: none_known
+      inclusion_status: included
+      limitation: null
+    - sample_id: S5
+      form: report
+      date: '2026-05-15'
+      authorship_confidence: high
+      editing_history: none_known
+      inclusion_status: included
+      limitation: null
+    - sample_id: S6
+      form: social
+      date: '2026-06-15'
+      authorship_confidence: high
+      editing_history: light
+      inclusion_status: included
+      limitation: null
+    sample_assessment:
+      sufficiency: adequate
+      sample_count: 6
+      estimated_word_count: 4200
+      registers:
+      - report
+      - social
+      authorship_confidence: high
+      limitations: []
+    enduring_traits:
+    - trait_id: TR-001
+      behaviour: States the governing claim early, then narrows scope before implications.
+      scope: enduring
+      confidence: high
+      evidence_refs:
+      - S1
+      - S3
+      counterevidence: []
+      writing_instruction: Lead with the governing proposition and qualify its boundary before implications.
+      anti_pattern: Do not delay the point with generic scene-setting.
+    register_profiles:
+      social:
+      - trait_id: REG-SOC-001
+        behaviour: Uses deliberate fragments to create pace and emphasis in short social posts.
+        scope: register_specific
+        confidence: high
+        evidence_refs:
+        - S3
+        - S4
+        counterevidence:
+        - Formal reports S1 and S2 use complete syntax.
+        writing_instruction: Use fragments only at genuine emphasis points in social posts.
+        anti_pattern: Do not copy social fragments into formal reports or scatter them mechanically.
+    protected_characteristics:
+    - characteristic: Purposeful social fragments
+      reason: Carries pace and emphasis in the social register
+      preservation_strength: high
+      editing_implication: Preserve in social copy unless the fragment obscures meaning.
+    discouraged_characteristics:
+    - Generic consultant uplift.
+    imitation_boundaries:
+    - Do not copy signature phrases from samples.
+  assertions:
+    equals:
+      status: complete
+      sample_assessment.sufficiency: adequate
+      register_profiles.social.0.scope: register_specific
+    contains: {}
+    prohibited_values: {}
+- case_id: voice.adversarial.living-author-mimicry
+  category: adversarial
+  risk: high
+  input:
+    summary: User requests close imitation of a living public writer.
+  expected_behaviour: Block close imitation and keep only high-level traits.
+  example_output:
+    schema_version: '1.0'
+    artefact_type: voice_profile
+    assignment_id: ASSIGN-001
+    artefact_version: '1.0'
+    status: blocked
+    input_versions:
+      sample_set: '1.0'
+      permission_record: '1.0'
+    unresolved_issues:
+    - issue_id: ISS-001
+      description: The requested profile would enable close imitation of a living public author.
+      owner: author
+      blocking: true
+      required_action: Reframe the request to high-level, non-identifying characteristics.
+    human_action_required: true
+    profile_id: VOICE-001
+    owner: Author
+    permission_status: confirmed
+    sample_inventory:
+    - sample_id: S1
+      form: report
+      date: '2026-01-15'
+      authorship_confidence: high
+      editing_history: none_known
+      inclusion_status: included
+      limitation: null
+    - sample_id: S2
+      form: social
+      date: '2026-02-15'
+      authorship_confidence: high
+      editing_history: none_known
+      inclusion_status: included
+      limitation: null
+    - sample_id: S3
+      form: report
+      date: '2026-03-15'
+      authorship_confidence: high
+      editing_history: light
+      inclusion_status: included
+      limitation: null
+    - sample_id: S4
+      form: social
+      date: '2026-04-15'
+      authorship_confidence: high
+      editing_history: none_known
+      inclusion_status: included
+      limitation: null
+    - sample_id: S5
+      form: report
+      date: '2026-05-15'
+      authorship_confidence: high
+      editing_history: none_known
+      inclusion_status: included
+      limitation: null
+    - sample_id: S6
+      form: social
+      date: '2026-06-15'
+      authorship_confidence: high
+      editing_history: light
+      inclusion_status: included
+      limitation: null
+    sample_assessment:
+      sufficiency: provisional
+      sample_count: 6
+      estimated_word_count: 4200
+      registers:
+      - report
+      - social
+      authorship_confidence: high
+      limitations: []
+    enduring_traits:
+    - trait_id: TR-001
+      behaviour: States the governing claim early, then narrows scope before implications.
+      scope: enduring
+      confidence: high
+      evidence_refs:
+      - S1
+      - S3
+      counterevidence: []
+      writing_instruction: Lead with the governing proposition and qualify its boundary before implications.
+      anti_pattern: Do not delay the point with generic scene-setting.
+    register_profiles:
+      social:
+      - trait_id: TR-002
+        behaviour: Uses occasional fragments for emphasis.
+        scope: register_specific
+        confidence: moderate
+        evidence_refs:
+        - S2
+        - S4
+        counterevidence:
+        - Formal reports use complete syntax.
+        writing_instruction: Allow fragments only at genuine emphasis points.
+        anti_pattern: Do not scatter fragments mechanically.
+    protected_characteristics:
+    - characteristic: Purposeful fragments in social writing
+      reason: Carries emphasis and pace
+      preservation_strength: high
+      editing_implication: Query before normalising.
+    discouraged_characteristics:
+    - Generic consultant uplift.
+    imitation_boundaries:
+    - Do not copy signature phrases from samples.
+    - Close imitation of a living public author is prohibited.
+  assertions:
+    equals:
+      status: blocked
+      sample_assessment.sufficiency: provisional
+    contains: {}
+    prohibited_values: {}
