@@ -20,16 +20,32 @@ jobs:
           ref: full-capability-audit
           fetch-depth: 0
 
-      - name: Verify and apply audited repository tree
+      - name: Verify transfer inventory
         run: |
           set -euo pipefail
           test -f remediation.ready
-          test "$(find remediation-parts -maxdepth 1 -type f -name 'part-*' | wc -l | tr -d ' ')" = "17"
+          count="$(find remediation-parts -maxdepth 1 -type f -name 'part-*' | wc -l | tr -d ' ')"
+          echo "parts=$count"
+          test "$count" = "17"
+
+      - name: Decode and verify archive
+        run: |
+          set -euo pipefail
           cat remediation-parts/part-* | base64 -d > /tmp/remediation.tar.xz
+          ls -l /tmp/remediation.tar.xz
           echo "75c6e5af99d4ffa4ac378fe1d7af7cf063762c79f6c225fc5c3cc366c5456b13  /tmp/remediation.tar.xz" | sha256sum -c -
-          tar -xJf /tmp/remediation.tar.xz
+
+      - name: Extract audited repository tree
+        run: |
+          set -euo pipefail
+          tar -xJvf /tmp/remediation.tar.xz
           rm -rf remediation-parts remediation.ready
+
+      - name: Retain temporary importer workflow
+        run: |
+          set -euo pipefail
           git checkout HEAD -- .github/workflows/validate.yml
+          git status --short
 
       - name: Commit audited remediation
         run: |
