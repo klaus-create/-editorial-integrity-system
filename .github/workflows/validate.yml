@@ -4,13 +4,15 @@ on:
   push:
     branches:
       - full-capability-audit
+  pull_request:
+    branches:
+      - main
 
 permissions:
   contents: write
 
 jobs:
   apply:
-    if: ${{ hashFiles('remediation.ready') != '' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -20,6 +22,7 @@ jobs:
       - name: Verify and apply audited repository tree
         run: |
           set -euo pipefail
+          test -f remediation.ready
           test "$(find remediation-parts -maxdepth 1 -type f -name 'part-*' | wc -l | tr -d ' ')" = "17"
           cat remediation-parts/part-* | base64 -d > /tmp/remediation.tar.xz
           echo "75c6e5af99d4ffa4ac378fe1d7af7cf063762c79f6c225fc5c3cc366c5456b13  /tmp/remediation.tar.xz" | sha256sum -c -
