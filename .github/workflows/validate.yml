@@ -103,3 +103,16 @@ jobs:
             python scripts/package_skill.py "$skill" dist
             test -s dist/skill.zip
           done
+
+      - name: Build private audit bundle
+        run: |
+          tar -czf audit-bundle.tar.gz \
+            README.md ROADMAP.md constitution docs governance projects schemas scripts skills tests .github
+
+      - name: Upload private audit bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: editorial-integrity-audit-bundle
+          path: audit-bundle.tar.gz
+          retention-days: 1
+          if-no-files-found: error
