@@ -9,6 +9,7 @@ from validate_packages import validate_packages
 
 ROOT = Path(__file__).resolve().parents[1]
 REPORT = ROOT / 'governance' / 'AUDIT-ACCEPTANCE-0.1.4.yaml'
+RELEASE_VERSION = '0.1.4'
 EXPECTED_SKILLS = {
  'anti-slop-auditor','argument-structure-reviewer','authorship-capture',
  'editorial-brief-compiler','editorial-integrity-router','factual-verifier',
@@ -30,10 +31,17 @@ def build() -> dict[str,Any]:
     def add(check_id: str, passed: bool, evidence: str): checks.append({'check_id':check_id,'passed':bool(passed),'evidence':evidence})
     for script in ('validate_skill_suite.py','run_contract_tests.py','check_repository_links.py'):
         ok,evidence=run(script); add(script,ok,evidence)
-    manifests={}; manifests_ok=True
+    manifests={}; manifest_versions={}; manifests_ok=True
     for path in sorted((ROOT/'projects').glob('*/project-editorial-manifest.yaml')):
-        ok,evidence=run('validate_manifest.py',str(path)); manifests_ok &= ok; manifests[path.parent.name]=evidence
-    add('project-manifest-validation',manifests_ok and len(manifests)==3,json.dumps(manifests,sort_keys=True))
+        ok,evidence=run('validate_manifest.py',str(path))
+        document=yaml.safe_load(path.read_text(encoding='utf-8'))
+        editorial_system=document.get('editorial_system') if isinstance(document,dict) else None
+        version=editorial_system.get('required_version') if isinstance(editorial_system,dict) else None
+        manifests_ok &= ok and str(version)==RELEASE_VERSION
+        manifests[path.parent.name]=evidence
+        manifest_versions[path.parent.name]=version
+    manifest_evidence={'validation':manifests,'required_versions':manifest_versions,'expected_version':RELEASE_VERSION}
+    add('project-manifest-validation',manifests_ok and len(manifests)==3,json.dumps(manifest_evidence,sort_keys=True))
     try:
         package_evidence=validate_packages(prevalidated=True); packages_ok=True
     except BaseException as exc:
@@ -51,7 +59,7 @@ def build() -> dict[str,Any]:
     skills={p.name for p in (ROOT/'skills').iterdir() if p.is_dir()}
     add('skill-inventory',skills==EXPECTED_SKILLS,f'skills={sorted(skills)}')
     failed=[c for c in checks if not c['passed']]
-    return {'audit_version':'1.4','release':'0.1.4','checks':checks,'summary':{'passed':len(checks)-len(failed),'failed':len(failed)},'deterministic_result':'pass' if not failed else 'fail','performance_evidence':'not_assessed_by_this_audit'}
+    return {'audit_version':'1.4','release':RELEASE_VERSION,'checks':checks,'summary':{'passed':len(checks)-len(failed),'failed':len(failed)},'deterministic_result':'pass' if not failed else 'fail','performance_evidence':'not_assessed_by_this_audit'}
 
 def render(report): return yaml.safe_dump(report,sort_keys=False,allow_unicode=True)
 
