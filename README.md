@@ -16,11 +16,11 @@ It supports emails, messages, social and marketing copy, reports, proposals, pre
 
 ## Current status
 
-**Release candidate:** `v0.1.3-audit-remediation`
+**Current release:** `v0.1.4-post-merge-hardening`
 
-Release 0.1.2 was merged prematurely and its “method-complete” claim has been retracted. The 0.1.3 corrective release candidate contains ten reviewed Skills, mandatory domain-specific playbooks, eleven enforceable Draft 2020-12 contracts, sixty distinct executable fixtures, canonical hand-offs, 220 schema rejection checks, 40 semantic contradiction checks, strengthened validation and pre-package checks.
+Release 0.1.3 completed the corrective capability remediation. Release 0.1.4 closes the post-merge lifecycle state and strengthens reproducible validation and extracted-package integrity.
 
-The candidate is **method-ready for controlled pilots only after the corrective pull request passes and is merged**. It is not yet pilot-tested, measured or production-ready. Live performance, human preference, semantic-drift, false-positive and cross-platform evidence remain required.
+The system is **contract-valid and method-ready for controlled pilots**. It is not yet pilot-tested, measured or production-ready. Live performance, human preference, semantic-drift, false-positive and cross-platform evidence remain required.
 
 ## Start here
 
@@ -34,7 +34,7 @@ The candidate is **method-ready for controlled pilots only after the corrective 
 | Review delivery priorities | [`ROADMAP.md`](ROADMAP.md) |
 | Understand governing rules | [`constitution/editorial-constitution.md`](constitution/editorial-constitution.md) |
 | Review capability acceptance | [`governance/CAPABILITY-DEPTH-STANDARD.md`](governance/CAPABILITY-DEPTH-STANDARD.md) |
-| Review the corrective release boundary | [`governance/RELEASE-0.1.3.md`](governance/RELEASE-0.1.3.md) |
+| Review the current release boundary | [`governance/RELEASE-0.1.4.md`](governance/RELEASE-0.1.4.md) |
 | Review the full audit | [`governance/AUDIT-2026-07-26.md`](governance/AUDIT-2026-07-26.md) |
 
 ## Who interacts with the system

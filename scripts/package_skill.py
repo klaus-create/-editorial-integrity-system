@@ -31,17 +31,16 @@ def run_check(script: str, root: Path) -> None:
         fail(f"validation failed before packaging: {script}")
 
 
-def main() -> None:
-    if len(sys.argv) not in (2, 3):
-        fail("usage: package_skill.py <skill-folder> [output-dir]")
-
-    root = Path(sys.argv[1]).resolve()
-    out_dir = Path(sys.argv[2]).resolve() if len(sys.argv) == 3 else Path.cwd()
+def package(root: Path, out_dir: Path, *, validate_first: bool = True) -> Path:
+    """Build one validated Skill archive and return its path."""
+    root = root.resolve()
+    out_dir = out_dir.resolve()
     if not root.is_dir():
         fail(f"skill folder does not exist: {root}")
 
-    run_check("validate_skill_suite.py", root)
-    run_check("run_contract_tests.py", root)
+    if validate_first:
+        run_check("validate_skill_suite.py", root)
+        run_check("run_contract_tests.py", root)
 
     out_dir.mkdir(parents=True, exist_ok=True)
     out = out_dir / "skill.zip"
@@ -61,7 +60,16 @@ def main() -> None:
             out.unlink()
             fail(f"package is missing {expected}")
 
-    print(out)
+    return out
+
+
+def main() -> None:
+    if len(sys.argv) not in (2, 3):
+        fail("usage: package_skill.py <skill-folder> [output-dir]")
+
+    root = Path(sys.argv[1])
+    out_dir = Path(sys.argv[2]) if len(sys.argv) == 3 else Path.cwd()
+    print(package(root, out_dir))
 
 
 if __name__ == "__main__":

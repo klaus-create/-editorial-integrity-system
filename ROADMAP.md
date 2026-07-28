@@ -6,9 +6,9 @@ It is organised by outcomes, not merely by files or features. Each stage states 
 
 ## Current position
 
-**Current release candidate:** `v0.1.3-audit-remediation`
+**Current release:** `v0.1.4-post-merge-hardening`
 
-The corrective candidate now includes:
+The current released foundation includes:
 
 - a shared editorial constitution;
 - ten reviewed modular Skills with explicit authority boundaries and domain-specific professional playbooks;
@@ -19,7 +19,7 @@ The corrective candidate now includes:
 - suite, contract, manifest and packaging validation;
 - documented user, agent, artefact, stale-work and human-decision paths.
 
-Release 0.1.2 was merged before its maturity claim survived a full audit. Release 0.1.3 is eligible for controlled pilot evaluation only after corrective validation and review. It is not yet pilot-tested, measured or production-ready.
+Release 0.1.2 was superseded after its maturity claim failed a full audit. Release 0.1.3 completed the corrective remediation, and 0.1.4 closes post-merge governance and package assurance. The system is not yet pilot-tested, measured or production-ready.
 
 ## Delivery principles
 
@@ -70,7 +70,7 @@ Release 0.1.2 was merged before its maturity claim survived a full audit. Releas
 
 **Primary users:** System owner, Skill maintainer, integration developer, pilot reviewer.
 
-### Delivered in the corrective candidate
+### Delivered
 
 - Full audit record and retraction of the 0.1.2 maturity claim.
 - Expanded capability-depth acceptance standard.
@@ -93,6 +93,29 @@ Release 0.1.2 was merged before its maturity claim survived a full audit. Releas
 - All ten Skills pass entrypoint validation and package successfully.
 - Temporary audit-export mechanisms are removed.
 - Release wording remains limited to method-ready and contract-valid.
+
+---
+
+## Stage 0.6: Post-merge hardening
+
+**Target release:** `v0.1.4`
+
+**Outcome:** Released-state documentation, dependency reproducibility and package integrity are enforced after merge.
+
+### Delivered
+
+- Closed stale pre-merge lifecycle wording.
+- Pinned validation dependencies.
+- Least-privilege and concurrency-controlled CI.
+- Safe archive topology, byte-parity, extraction and direct package revalidation.
+- One maintained acceptance orchestrator and tracked release report.
+
+### Exit criteria
+
+- Active release documentation identifies 0.1.4.
+- All source validators pass.
+- All ten extracted packages match their validated source Skills.
+- GitHub Actions passes before and after merge.
 
 ---
 

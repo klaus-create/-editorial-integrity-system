@@ -3,6 +3,14 @@ name: Validate editorial integrity system
 on:
   push:
   pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: editorial-integrity-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   validate:
@@ -13,46 +21,11 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+          cache: pip
+          cache-dependency-path: requirements-validation.txt
 
       - name: Install validation dependencies
-        run: pip install pyyaml jsonschema
+        run: pip install --requirement requirements-validation.txt
 
-      - name: Validate Skill suite
-        run: python scripts/validate_skill_suite.py
-
-      - name: Run contract fixture tests
-        run: python scripts/run_contract_tests.py
-
-      - name: Validate repository links and Skill resources
-        run: python scripts/check_repository_links.py
-
-      - name: Validate project manifests
-        run: |
-          set -e
-          for manifest in projects/*/project-editorial-manifest.yaml; do
-            python scripts/validate_manifest.py "$manifest"
-          done
-
-      - name: Run repository acceptance audit
+      - name: Run release acceptance audit
         run: python scripts/audit_repository.py
-
-      - name: Validate packaging
-        run: |
-          set -e
-          rm -rf dist
-          for skill in skills/*; do
-            name="$(basename "$skill")"
-            mkdir -p "dist/$name"
-            python scripts/package_skill.py "$skill" "dist/$name"
-            test -s "dist/$name/skill.zip"
-            python - "$name" "dist/$name/skill.zip" <<'PY'
-          import sys
-          import zipfile
-          skill, archive_path = sys.argv[1:]
-          with zipfile.ZipFile(archive_path) as archive:
-              required = {f"{skill}/SKILL.md", f"{skill}/agents/openai.yaml"}
-              missing = required - set(archive.namelist())
-              if missing:
-                  raise SystemExit(f"missing packaged files: {sorted(missing)}")
-          PY
-          done

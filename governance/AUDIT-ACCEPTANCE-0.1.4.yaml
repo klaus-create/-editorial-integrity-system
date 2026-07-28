@@ -1,0 +1,65 @@
+audit_version: '1.4'
+release: 0.1.4
+checks:
+- check_id: validate_skill_suite.py
+  passed: true
+  evidence: 'PASS: 10 Skill(s) satisfy the capability-depth structure and contract
+    rules.'
+- check_id: run_contract_tests.py
+  passed: true
+  evidence: 'PASS: 60 contract fixtures, 220 schema rejection checks and 40 semantic
+    rejection checks validated across 10 Skill(s), with unique scenario outputs.'
+- check_id: check_repository_links.py
+  passed: true
+  evidence: 'PASS: 93 local documentation and Skill resource references resolve.'
+- check_id: project-manifest-validation
+  passed: true
+  evidence: '{"book-manuscript": "VALID: Long-Form Book Manuscript (manifest 1.0)",
+    "onesource": "VALID: OneSource (manifest 1.0)", "social-marketer": "VALID: Social
+    Marketer (manifest 1.0)"}'
+- check_id: extracted-package-validation
+  passed: true
+  evidence: '[1/10] validated package anti-slop-auditor
+
+    [2/10] validated package argument-structure-reviewer
+
+    [3/10] validated package authorship-capture
+
+    [4/10] validated package editorial-brief-compiler
+
+    [5/10] validated package editorial-integrity-router
+
+    [6/10] validated package factual-verifier
+
+    [7/10] validated package final-editorial-gate
+
+    [8/10] validated package source-grounded-drafter
+
+    [9/10] validated package voice-preserving-editor
+
+    [10/10] validated package voice-profile-builder
+
+    PASS: 10 Skill package(s) built, byte-compared, safely extracted and directly
+    revalidated across 77 packaged files.'
+- check_id: released-state-language
+  passed: true
+  evidence: Active release documentation identifies 0.1.4 without stale pre-merge
+    language.
+- check_id: validation-dependency-pins
+  passed: true
+  evidence: requirements=['PyYAML==6.0.3', 'jsonschema==4.26.0']
+- check_id: ci-hardening
+  passed: true
+  evidence: CI uses pinned dependencies, least privilege, concurrency control and
+    one acceptance orchestrator.
+- check_id: skill-inventory
+  passed: true
+  evidence: skills=['anti-slop-auditor', 'argument-structure-reviewer', 'authorship-capture',
+    'editorial-brief-compiler', 'editorial-integrity-router', 'factual-verifier',
+    'final-editorial-gate', 'source-grounded-drafter', 'voice-preserving-editor',
+    'voice-profile-builder']
+summary:
+  passed: 9
+  failed: 0
+deterministic_result: pass
+performance_evidence: not_assessed_by_this_audit
