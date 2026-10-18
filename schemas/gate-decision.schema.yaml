@@ -488,3 +488,111 @@ allOf:
         minItems: 1
     required:
     - blocking_issues
+- if:
+    properties:
+      approval:
+        properties:
+          required:
+            const: true
+        required:
+        - required
+    required:
+    - approval
+  then:
+    properties:
+      approval:
+        properties:
+          status:
+            enum:
+            - approved
+            - pending
+            - unknown
+- if:
+    properties:
+      approval:
+        properties:
+          status:
+            const: approved
+        required:
+        - status
+    required:
+    - approval
+  then:
+    properties:
+      approval:
+        properties:
+          approver:
+            type: string
+            minLength: 1
+            pattern: \S
+- if:
+    properties:
+      outcome:
+        enum:
+        - ready
+        - conditional
+    required:
+    - outcome
+  then:
+    properties:
+      blocking_issues:
+        maxItems: 0
+      artefacts_reviewed:
+        minItems: 1
+      verification_status:
+        enum:
+        - complete
+        - not_required
+      check_results:
+        properties:
+          authority:
+            properties:
+              result:
+                not:
+                  const: fail
+          factual_integrity:
+            properties:
+              result:
+                not:
+                  const: fail
+          human_meaning:
+            properties:
+              result:
+                not:
+                  const: fail
+          privacy_and_disclosure:
+            properties:
+              result:
+                not:
+                  const: fail
+          argument_and_structure:
+            properties:
+              result:
+                not:
+                  const: fail
+          voice_and_form:
+            properties:
+              result:
+                not:
+                  const: fail
+          surface_quality:
+            properties:
+              result:
+                not:
+                  const: fail
+          approval:
+            properties:
+              result:
+                not:
+                  const: fail
+      approval:
+        if:
+          properties:
+            required:
+              const: true
+          required:
+          - required
+        then:
+          properties:
+            status:
+              const: approved

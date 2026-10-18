@@ -8,6 +8,8 @@ It is organised by outcomes, not merely by files or features. Each stage states 
 
 **Current release:** `v0.1.4-post-merge-hardening`
 
+**Patch candidate:** `v0.1.5-corrective-controls`, pending review and release-owner approval. The candidate repairs release and verification invariants, adds live-record validation, prevents archive replacement and clarifies source trust. It adds no pilot evidence. See [candidate scope](governance/RELEASE-0.1.5.md).
+
 The current released foundation includes:
 
 - a shared editorial constitution;

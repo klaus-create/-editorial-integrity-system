@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0",
+  "artefact_type": "claim_registry",
+  "assignment_id": "SYNTHETIC-SOCIAL-001",
+  "artefact_version": "1.0",
+  "status": "complete",
+  "input_versions": {
+    "source": "1.0"
+  },
+  "unresolved_issues": [],
+  "human_action_required": false,
+  "claims": [
+    {
+      "claim_id": "CLM-001",
+      "claim_text": "In this fictional campaign, the team published three posts.",
+      "claim_class": "factual",
+      "source_status": "supplied_source",
+      "confidence": 0.9,
+      "supporting_sources": [
+        "SOURCE-1"
+      ],
+      "verification_required": true,
+      "publication_status": "query",
+      "final_locations": [
+        "First paragraph"
+      ]
+    }
+  ]
+}

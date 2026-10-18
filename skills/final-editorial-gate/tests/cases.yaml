@@ -18,6 +18,8 @@ cases:
       draft_output: '4.0'
       editorial_brief: '2.0'
       verification_record: '1.0'
+      route_declaration: '1.0'
+      approval_record: '1.0'
     unresolved_issues: []
     human_action_required: false
     draft_version: '4.0'
@@ -36,6 +38,24 @@ cases:
       status: present
       stale: false
       reason: Covers draft 4.0.
+    - artefact_type: route_declaration
+      version: '1.0'
+      required: true
+      status: present
+      stale: false
+      reason: Recorded for the final release candidate.
+    - artefact_type: draft_output
+      version: '4.0'
+      required: true
+      status: present
+      stale: false
+      reason: Recorded for the final release candidate.
+    - artefact_type: approval_record
+      version: '1.0'
+      required: true
+      status: present
+      stale: false
+      reason: Recorded for the final release candidate.
     check_results:
       authority:
         result: pass
@@ -96,6 +116,8 @@ cases:
       draft_output: '4.0'
       editorial_brief: '2.0'
       verification_record: '1.0'
+      route_declaration: '1.0'
+      approval_record: '1.0'
     unresolved_issues: []
     human_action_required: false
     draft_version: '4.0'
@@ -114,6 +136,24 @@ cases:
       status: present
       stale: false
       reason: Covers draft 4.0.
+    - artefact_type: route_declaration
+      version: '1.0'
+      required: true
+      status: present
+      stale: false
+      reason: Recorded for the final release candidate.
+    - artefact_type: draft_output
+      version: '4.0'
+      required: true
+      status: present
+      stale: false
+      reason: Recorded for the final release candidate.
+    - artefact_type: approval_record
+      version: '1.0'
+      required: true
+      status: present
+      stale: false
+      reason: Recorded for the final release candidate.
     check_results:
       authority:
         result: conditional
@@ -178,6 +218,8 @@ cases:
       draft_output: '4.0'
       editorial_brief: '2.0'
       verification_record: '1.0'
+      route_declaration: '1.0'
+      approval_record: '1.0'
     unresolved_issues: []
     human_action_required: true
     draft_version: '4.0'
@@ -196,6 +238,24 @@ cases:
       status: present
       stale: false
       reason: Covers draft 4.0.
+    - artefact_type: route_declaration
+      version: '1.0'
+      required: true
+      status: present
+      stale: false
+      reason: Recorded for the final release candidate.
+    - artefact_type: draft_output
+      version: '4.0'
+      required: true
+      status: present
+      stale: false
+      reason: Recorded for the final release candidate.
+    - artefact_type: approval_record
+      version: '1.0'
+      required: true
+      status: present
+      stale: false
+      reason: Recorded for the final release candidate.
     check_results:
       authority:
         result: conditional
@@ -219,8 +279,8 @@ cases:
         result: conditional
         evidence: Required evidence was reviewed.
       approval:
-        result: conditional
-        evidence: Required evidence was reviewed.
+        result: pass
+        evidence: Human approval covers draft 4.0; only the authorised disclosure insertion remains.
     outcome: conditional
     material_reasons:
     - Mandatory checks completed.
@@ -233,7 +293,7 @@ cases:
     approval:
       required: true
       approver: Project owner
-      status: pending
+      status: approved
       waivers: []
     verification_status: complete
     disclosure_status: pending
@@ -260,6 +320,8 @@ cases:
       draft_output: '4.0'
       editorial_brief: '2.0'
       verification_record: '1.0'
+      route_declaration: '1.0'
+      approval_record: '1.0'
     unresolved_issues: []
     human_action_required: true
     draft_version: '4.0'
@@ -278,6 +340,24 @@ cases:
       status: present
       stale: false
       reason: Covers draft 4.0.
+    - artefact_type: route_declaration
+      version: '1.0'
+      required: true
+      status: present
+      stale: false
+      reason: Recorded for the final release candidate.
+    - artefact_type: draft_output
+      version: '4.0'
+      required: true
+      status: present
+      stale: false
+      reason: Recorded for the final release candidate.
+    - artefact_type: approval_record
+      version: '1.0'
+      required: true
+      status: present
+      stale: false
+      reason: Recorded for the final release candidate.
     check_results:
       authority:
         result: conditional
@@ -342,6 +422,8 @@ cases:
       draft_output: '4.0'
       editorial_brief: '2.0'
       verification_record: '1.0'
+      route_declaration: '1.0'
+      approval_record: '1.0'
     unresolved_issues: []
     human_action_required: false
     draft_version: '4.0'
@@ -360,6 +442,24 @@ cases:
       status: present
       stale: true
       reason: Covers draft 4.0.
+    - artefact_type: route_declaration
+      version: '1.0'
+      required: true
+      status: present
+      stale: false
+      reason: Recorded for the final release candidate.
+    - artefact_type: draft_output
+      version: '4.0'
+      required: true
+      status: present
+      stale: false
+      reason: Recorded for the final release candidate.
+    - artefact_type: approval_record
+      version: '1.0'
+      required: true
+      status: present
+      stale: false
+      reason: Recorded for the final release candidate.
     check_results:
       authority:
         result: conditional
@@ -428,6 +528,8 @@ cases:
       draft_output: '4.0'
       editorial_brief: '2.0'
       verification_record: '1.0'
+      route_declaration: '1.0'
+      approval_record: '1.0'
     unresolved_issues: []
     human_action_required: false
     draft_version: '4.0'
@@ -446,6 +548,24 @@ cases:
       status: present
       stale: false
       reason: Covers draft 4.0.
+    - artefact_type: route_declaration
+      version: '1.0'
+      required: true
+      status: present
+      stale: false
+      reason: Recorded for the final release candidate.
+    - artefact_type: draft_output
+      version: '4.0'
+      required: true
+      status: present
+      stale: false
+      reason: Recorded for the final release candidate.
+    - artefact_type: approval_record
+      version: '1.0'
+      required: true
+      status: present
+      stale: false
+      reason: Recorded for the final release candidate.
     check_results:
       authority:
         result: pass

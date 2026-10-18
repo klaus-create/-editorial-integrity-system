@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0",
+  "artefact_type": "verification_record",
+  "assignment_id": "SYNTHETIC-SOCIAL-001",
+  "artefact_version": "1.0",
+  "status": "complete",
+  "input_versions": {
+    "draft_output": "4.0",
+    "claim_registry": "1.0"
+  },
+  "unresolved_issues": [],
+  "human_action_required": false,
+  "draft_version": "4.0",
+  "claims": [
+    {
+      "claim_id": "CLM-001",
+      "claim_text": "In this fictional campaign, the team published three posts.",
+      "claim_class": "simple_fact",
+      "materiality": "high",
+      "sources": [
+        {
+          "source_id": "SOURCE-1",
+          "reference": "source.md: SOURCE-1 (synthetic fixture)",
+          "authority": "strong",
+          "proximity": "primary",
+          "independence": "independent",
+          "freshness": "current",
+          "accessed_on": "2026-10-18"
+        }
+      ],
+      "checks_performed": [
+        "Matched the statement to the fictional source supplied with this example."
+      ],
+      "status": "verified",
+      "action": "Submit for human review.",
+      "correction": null,
+      "current_as_of": "2026-10-18"
+    }
+  ],
+  "overall_release_risk": "low",
+  "scope_limitations": [
+    "Synthetic record, not a real-world fact check or model evaluation."
+  ]
+}

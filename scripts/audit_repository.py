@@ -8,8 +8,8 @@ import yaml
 from validate_packages import validate_packages
 
 ROOT = Path(__file__).resolve().parents[1]
-REPORT = ROOT / 'governance' / 'AUDIT-ACCEPTANCE-0.1.4.yaml'
-RELEASE_VERSION = '0.1.4'
+REPORT = ROOT / 'governance' / 'AUDIT-ACCEPTANCE-0.1.5.yaml'
+RELEASE_VERSION = '0.1.5'
 EXPECTED_SKILLS = {
  'anti-slop-auditor','argument-structure-reviewer','authorship-capture',
  'editorial-brief-compiler','editorial-integrity-router','factual-verifier',
@@ -29,7 +29,7 @@ def run(script: str, *args: str) -> tuple[bool,str]:
 def build() -> dict[str,Any]:
     checks=[]
     def add(check_id: str, passed: bool, evidence: str): checks.append({'check_id':check_id,'passed':bool(passed),'evidence':evidence})
-    for script in ('validate_skill_suite.py','run_contract_tests.py','check_repository_links.py'):
+    for script in ('validate_skill_suite.py','run_contract_tests.py','test_corrective_controls.py','check_repository_links.py'):
         ok,evidence=run(script); add(script,ok,evidence)
     manifests={}; manifest_versions={}; manifests_ok=True
     for path in sorted((ROOT/'projects').glob('*/project-editorial-manifest.yaml')):
@@ -49,9 +49,8 @@ def build() -> dict[str,Any]:
     add('extracted-package-validation',packages_ok,package_evidence)
     readme=(ROOT/'README.md').read_text(encoding='utf-8')
     roadmap=(ROOT/'ROADMAP.md').read_text(encoding='utf-8')
-    release=(ROOT/'governance'/'RELEASE-0.1.4.md').read_text(encoding='utf-8')
-    active='\n'.join((readme,roadmap,release))
-    add('released-state-language','v0.1.4-post-merge-hardening' in readme and 'v0.1.4-post-merge-hardening' in roadmap and not any(p in active for p in ('Current release candidate','Release candidate:','only after the corrective pull request passes and is merged')),'Active release documentation identifies 0.1.4 without stale pre-merge language.')
+    release=(ROOT/'governance'/'RELEASE-0.1.5.md').read_text(encoding='utf-8')
+    add('candidate-state-language',all('v0.1.5-corrective-controls' in doc and 'pending review and release-owner approval' in doc for doc in (readme,roadmap,release)), 'Active candidate documentation identifies 0.1.5 and its outstanding approval boundary.')
     requirements={line.strip() for line in (ROOT/'requirements-validation.txt').read_text().splitlines() if line.strip() and not line.startswith('#')}
     add('validation-dependency-pins',requirements=={'PyYAML==6.0.3','jsonschema==4.26.0'},f'requirements={sorted(requirements)}')
     workflow=(ROOT/'.github/workflows/validate.yml').read_text(encoding='utf-8')
@@ -59,7 +58,7 @@ def build() -> dict[str,Any]:
     skills={p.name for p in (ROOT/'skills').iterdir() if p.is_dir()}
     add('skill-inventory',skills==EXPECTED_SKILLS,f'skills={sorted(skills)}')
     failed=[c for c in checks if not c['passed']]
-    return {'audit_version':'1.4','release':RELEASE_VERSION,'checks':checks,'summary':{'passed':len(checks)-len(failed),'failed':len(failed)},'deterministic_result':'pass' if not failed else 'fail','performance_evidence':'not_assessed_by_this_audit'}
+    return {'audit_version':'1.5','release':RELEASE_VERSION,'checks':checks,'summary':{'passed':len(checks)-len(failed),'failed':len(failed)},'deterministic_result':'pass' if not failed else 'fail','performance_evidence':'not_assessed_by_this_audit'}
 
 def render(report): return yaml.safe_dump(report,sort_keys=False,allow_unicode=True)
 

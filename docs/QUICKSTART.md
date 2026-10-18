@@ -2,6 +2,8 @@
 
 This guide shows the shortest reliable path from a writing need to a governed output.
 
+Before first use, follow [runtime setup](RUNTIME-VALIDATION.md). Python 3.12 or newer and the pinned validation dependencies are required.
+
 ## 1. Choose the operating mode
 
 ### Ad hoc task

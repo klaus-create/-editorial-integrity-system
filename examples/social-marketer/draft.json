@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.0",
+  "artefact_type": "draft_output",
+  "assignment_id": "SYNTHETIC-SOCIAL-001",
+  "artefact_version": "4.0",
+  "status": "complete",
+  "input_versions": {
+    "editorial_brief": "1.0",
+    "authorship_source_pack": "1.0"
+  },
+  "unresolved_issues": [],
+  "human_action_required": false,
+  "form": "report",
+  "draft": "In this fictional campaign, the team published three posts.\n\nWhich topic would you like us to cover next?",
+  "source_trace": [
+    {
+      "location": "First paragraph",
+      "claim_ids": [
+        "CLM-001"
+      ],
+      "source_refs": [
+        "SOURCE-1"
+      ],
+      "evidence_move": "direct_evidence"
+    }
+  ],
+  "gap_markers": [],
+  "integrity_summary": {
+    "invented_material_detected": false,
+    "claim_trace_complete": true,
+    "conclusion_within_scope": true
+  }
+}

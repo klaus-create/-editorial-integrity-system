@@ -1,0 +1,126 @@
+{
+  "schema_version": "1.0",
+  "artefact_type": "gate_decision",
+  "assignment_id": "SYNTHETIC-SOCIAL-001",
+  "artefact_version": "1.0",
+  "status": "complete",
+  "input_versions": {
+    "draft_output": "4.0",
+    "editorial_brief": "2.0",
+    "verification_record": "1.0",
+    "route_declaration": "1.0",
+    "approval_record": "1.0",
+    "claim_registry": "1.0"
+  },
+  "unresolved_issues": [],
+  "human_action_required": true,
+  "draft_version": "4.0",
+  "release_surface": "Client PDF",
+  "workflow_level": "full",
+  "artefacts_reviewed": [
+    {
+      "artefact_type": "editorial_brief",
+      "version": "2.0",
+      "required": true,
+      "status": "present",
+      "stale": false,
+      "reason": "Covers the final assignment."
+    },
+    {
+      "artefact_type": "verification_record",
+      "version": "1.0",
+      "required": true,
+      "status": "present",
+      "stale": false,
+      "reason": "Covers draft 4.0."
+    },
+    {
+      "artefact_type": "route_declaration",
+      "version": "1.0",
+      "required": true,
+      "status": "present",
+      "stale": false,
+      "reason": "Recorded for the final release candidate."
+    },
+    {
+      "artefact_type": "draft_output",
+      "version": "4.0",
+      "required": true,
+      "status": "present",
+      "stale": false,
+      "reason": "Recorded for the final release candidate."
+    },
+    {
+      "artefact_type": "approval_record",
+      "version": "1.0",
+      "required": true,
+      "status": "present",
+      "stale": false,
+      "reason": "Recorded for the final release candidate."
+    },
+    {
+      "artefact_type": "claim_registry",
+      "version": "1.0",
+      "required": true,
+      "status": "present",
+      "stale": false,
+      "reason": "Required by the trusted context."
+    }
+  ],
+  "check_results": {
+    "authority": {
+      "result": "pass",
+      "evidence": "Required evidence was reviewed."
+    },
+    "factual_integrity": {
+      "result": "pass",
+      "evidence": "Required evidence was reviewed."
+    },
+    "human_meaning": {
+      "result": "pass",
+      "evidence": "Required evidence was reviewed."
+    },
+    "privacy_and_disclosure": {
+      "result": "pass",
+      "evidence": "Required evidence was reviewed."
+    },
+    "argument_and_structure": {
+      "result": "pass",
+      "evidence": "Required evidence was reviewed."
+    },
+    "voice_and_form": {
+      "result": "pass",
+      "evidence": "Required evidence was reviewed."
+    },
+    "surface_quality": {
+      "result": "pass",
+      "evidence": "Required evidence was reviewed."
+    },
+    "approval": {
+      "result": "pass",
+      "evidence": "Required evidence was reviewed."
+    }
+  },
+  "outcome": "human_decision_required",
+  "material_reasons": [
+    "Mandatory checks completed."
+  ],
+  "blocking_issues": [],
+  "conditions_for_release": [
+    {
+      "issue_id": "APPROVAL-1",
+      "description": "Synthetic example awaits human review.",
+      "owner": "approver",
+      "required_action": "Review the exact candidate and record approval in the host."
+    }
+  ],
+  "approval": {
+    "required": true,
+    "approver": "Example project owner",
+    "status": "pending",
+    "waivers": []
+  },
+  "verification_status": "complete",
+  "disclosure_status": "not_required",
+  "return_paths": []
+}

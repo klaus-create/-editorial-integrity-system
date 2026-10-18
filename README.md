@@ -18,6 +18,8 @@ It supports emails, messages, social and marketing copy, reports, proposals, pre
 
 **Current release:** `v0.1.4-post-merge-hardening`
 
+**Patch candidate:** `v0.1.5-corrective-controls`, pending review and release-owner approval. See [candidate scope and migration](governance/RELEASE-0.1.5.md).
+
 Release 0.1.3 completed the corrective capability remediation. Release 0.1.4 closes the post-merge lifecycle state and strengthens reproducible validation and extracted-package integrity.
 
 The system is **contract-valid and method-ready for controlled pilots**. It is not yet pilot-tested, measured or production-ready. Live performance, human preference, semantic-drift, false-positive and cross-platform evidence remain required.
@@ -228,9 +230,9 @@ Skills are packaged individually because each Skill has its own `SKILL.md` entry
 python scripts/package_skill.py skills/editorial-integrity-router dist
 ```
 
-The resulting archive is `dist/skill.zip`. Repeat for each Skill required by the target environment.
+The resulting archive is `dist/editorial-integrity-router/skill.zip`. Repeat for each required Skill into the same `dist` directory; each receives its own subdirectory. Existing archives are not overwritten. Choose a new distribution directory for a rebuilt set.
 
-For first use, install the Router and the specialist Skills required by the project. Then place the project's validated manifest and approved sources in the active project workspace.
+For first use, install the Router and the specialist Skills required by the project. Keep the matching repository checkout available as the shared runtime dependency, including its constitution, handoff rules, schemas and validation scripts. Place the project's validated manifest and approved sources in the active workspace. Follow [runtime setup and validation](docs/RUNTIME-VALIDATION.md); a Skill archive alone is not a complete governed installation.
 
 ## Governing principles
 
@@ -251,6 +253,6 @@ The roadmap now separates deterministic contract readiness from live pilot evide
 
 ## Repository visibility and naming
 
-This repository is private while the system, tests, product position and licensing model are developed.
+This repository is public. Its system, tests, product position and licensing model remain under development. No licence has been selected in this patch. Treat project manifests as public examples and keep private client sources in their authorised project workspaces.
 
 The repository currently has a leading hyphen in its name. Renaming it to `editorial-integrity-system` is recommended. GitHub should preserve redirects, but canonical repository references should be updated after the rename.

@@ -312,3 +312,24 @@ allOf:
         minContains: 1
     required:
     - unresolved_issues
+- if:
+    properties:
+      claims:
+        contains:
+          properties:
+            materiality:
+              const: critical
+            status:
+              enum:
+              - unsupported
+              - contradicted
+              - unverifiable
+          required:
+          - materiality
+          - status
+    required:
+    - claims
+  then:
+    properties:
+      overall_release_risk:
+        const: blocked
