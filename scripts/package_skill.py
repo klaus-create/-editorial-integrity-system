@@ -42,9 +42,12 @@ def package(root: Path, out_dir: Path, *, validate_first: bool = True) -> Path:
         run_check("validate_skill_suite.py", root)
         run_check("run_contract_tests.py", root)
 
-    out_dir.mkdir(parents=True, exist_ok=True)
-    out = out_dir / "skill.zip"
-    with zipfile.ZipFile(out, "w", zipfile.ZIP_DEFLATED) as archive:
+    package_dir = out_dir / root.name
+    package_dir.mkdir(parents=True, exist_ok=True)
+    out = package_dir / "skill.zip"
+    if out.exists():
+        fail(f"archive already exists; choose a new output directory: {out}")
+    with zipfile.ZipFile(out, "x", zipfile.ZIP_DEFLATED) as archive:
         for path in sorted(root.rglob("*")):
             if path.is_file() and "__pycache__" not in path.parts:
                 archive.write(path, root.name / path.relative_to(root))

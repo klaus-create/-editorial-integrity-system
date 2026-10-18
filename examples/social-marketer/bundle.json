@@ -1,0 +1,33 @@
+{
+  "bundle_version": "1.0",
+  "files": {
+    "gate": {
+      "path": "gate.json",
+      "sha256": "849230b2f65d3d78a7fe8511314a4aabbaa2a79df3f50a8390d9234592c6cd98"
+    },
+    "route": {
+      "path": "route.json",
+      "sha256": "76e913e62f3a0f9c30bb3846aede893281afba193cc523a603d03d43641672fb"
+    },
+    "verification": {
+      "path": "verification.json",
+      "sha256": "d778fe89f64b5d292f5446eccdfae1cb10898504593cdef7de25eb7d81f70a15"
+    },
+    "draft": {
+      "path": "draft.json",
+      "sha256": "428973cf7115df081da99a423ce4de0d617a27b2ecb8be9be94bb83b15b9a92c"
+    },
+    "registry": {
+      "path": "registry.json",
+      "sha256": "ef01efa159dfbc98384360322fe6ed0abc68d6360fd38adb600f468ce603c774"
+    },
+    "source": {
+      "path": "source.md",
+      "sha256": "cae9e9d3de21a0335bd618ee2a2cd38145f2bef1f427368fdbb5997da91d4cbc"
+    },
+    "brief": {
+      "path": "brief.md",
+      "sha256": "e2194e82d8b7f1e7fabaefc307a52e5feb5d5f70dc2c42acbddf4429fdc02c28"
+    }
+  }
+}

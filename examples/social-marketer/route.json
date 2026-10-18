@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0",
+  "artefact_type": "route_declaration",
+  "assignment_id": "SYNTHETIC-SOCIAL-001",
+  "artefact_version": "1.0",
+  "status": "complete",
+  "input_versions": {
+    "assignment": "1.0"
+  },
+  "unresolved_issues": [],
+  "human_action_required": false,
+  "task_type": "create",
+  "form": "report",
+  "workflow_level": "full",
+  "risk_dimensions": {
+    "consequence": "high",
+    "factual": "high",
+    "privacy": "low",
+    "voice": "moderate",
+    "continuity": "low"
+  },
+  "modules": [
+    {
+      "name": "source-grounded-drafter",
+      "reason": "New substantive writing is required.",
+      "may_retrieve": false,
+      "may_edit": true,
+      "may_release": false,
+      "expected_artefact": "draft_output",
+      "stop_conditions": [
+        "Stop if the thesis is unauthorised."
+      ],
+      "downstream_consumers": [
+        "argument-structure-reviewer",
+        "factual-verifier"
+      ]
+    },
+    {
+      "name": "factual-verifier",
+      "reason": "Material current claims require verification.",
+      "may_retrieve": true,
+      "may_edit": false,
+      "may_release": false,
+      "expected_artefact": "verification_record",
+      "stop_conditions": [
+        "Stop if source authority is inadequate."
+      ],
+      "downstream_consumers": [
+        "final-editorial-gate"
+      ]
+    },
+    {
+      "name": "final-editorial-gate",
+      "reason": "External consequential release requires a gate decision.",
+      "may_retrieve": false,
+      "may_edit": false,
+      "may_release": true,
+      "expected_artefact": "gate_decision",
+      "stop_conditions": [
+        "Stop if mandatory approval is missing."
+      ],
+      "downstream_consumers": [
+        "human_approver",
+        "calling_agent"
+      ]
+    }
+  ],
+  "required_inputs": [
+    "authorised brief",
+    "approved sources"
+  ],
+  "stale_artefacts": [],
+  "approval": {
+    "required": true,
+    "approver": "Example project owner"
+  }
+}
